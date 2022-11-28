@@ -1,0 +1,228 @@
+.bus-seats,
+.bus-seats .row,
+.end {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 8rem;
+}
+.end {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.9rem;
+  margin-top: 2rem;
+}
+.bus-seats .row {
+  gap: 2rem !important;
+}
+.bus-body .front {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem 0;
+}
+.driver,
+.conducter {
+  width: 5rem;
+}
+.conducter {
+  width: 3.5rem;
+}
+.seat {
+  position: relative;
+  cursor: pointer;
+}
+.space {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 2px solid var(--black);
+  padding: 1rem;
+  background: var(--lite-gray);
+  font-size: 2rem;
+  font-weight: 600;
+}
+.seat span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -60%);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.seat.unavailable {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.seat.available::before {
+  content: "";
+  position: absolute;
+  width: 85%;
+  height: 0.8rem;
+  border-radius: 5rem;
+  background: var(--secoundary);
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid black;
+}
+.seat.senior::before {
+  content: "";
+  position: absolute;
+  width: 85%;
+  height: 0.8rem;
+  border-radius: 5rem;
+  background: #ffd500;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid black;
+}
+.seat.booked::before {
+  content: "";
+  position: absolute;
+  width: 85%;
+  height: 0.8rem;
+  border-radius: 5rem;
+  background: var(--red);
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid var(--black);
+}
+.seat.booked::after {
+  content: "X";
+  position: absolute;
+  font-size: 3rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -55%);
+  color: var(--red);
+}
+.seat.unavailable::after {
+  content: "X";
+  position: absolute;
+  font-size: 3rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -55%);
+  color: var(--black);
+}
+.seat.booked {
+  cursor: not-allowed;
+}
+.btn.add {
+  height: 5rem;
+  aspect-ratio: 1/1;
+  padding: 0 1rem;
+  background: var(--secoundary);
+}
+.btn.add i {
+  color: white !important;
+}
+.booking-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #0000004d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  z-index: 9999;
+}
+.booking-modal.active {
+  display: flex;
+}
+.booking-modal .wraper-item {
+  background: white;
+  width: 60rem;
+  padding: 5rem;
+  border-radius: 2rem;
+}
+.wraper-item table {
+  width: 100%;
+}
+table {
+  border-collapse: collapse;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+table tr {
+  text-align: left;
+  font-size: 1.6rem;
+  color: var(--black);
+  font-weight: 500;
+}
+th,
+td {
+  padding: 1rem 2rem;
+}
+th {
+  background: var(--green);
+  color: white;
+  font-weight: 400;
+}
+td {
+  background: var(--lite-gray);
+}
+.wraper-item select {
+  width: 100%;
+  height: 5rem;
+  background: white;
+  padding: 1rem;
+  font-size: 1.6rem;
+  color: var(--black);
+  margin: 2rem 0;
+  border-radius: 1rem;
+  font-weight: 500;
+  border: 1px solid var(--secoundary);
+}
+.btns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.btns button:nth-child(2) {
+  background: var(--red);
+}
+.bus-seat-select {
+  display: none;
+}
+.bus-seat-select.active {
+  display: block;
+}
+.passenger-s {
+  padding: 1rem !important;
+}
+.passenger-s {
+  display: none;
+}
+.passenger-s.active {
+  display: block;
+}
+
+@media (max-width: 660px) {
+  .booking-modal .wraper-item {
+    width: 100%;
+    padding: 3rem 2rem;
+    margin: 0 1rem;
+  }
+  .btns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .bus-seats,
+  .bus-seats .row,
+  .end {
+    gap: 5rem;
+  }
+  .end {
+    gap: 1rem !important;
+  }
+}

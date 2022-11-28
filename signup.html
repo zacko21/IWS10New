@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <!-- link css -->
+    <link href="assets/css/style.css" rel="stylesheet"/>
+    <link href="assets/css/form.css" rel="stylesheet"/>
+    <link href="assets/swal/sweetalert2.min.css" rel="stylesheet"/>
+
+    <!-- unicons -->
+    <link
+            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+            rel="stylesheet"
+    />
+    <title>Document</title>
+</head>
+<body>
+<header>
+    <div class="container-max">
+        <div class="logo" onclick="window.open('index.html', '_self')">
+            <img alt="" src="assets/images/logo-black.png"/>
+        </div>
+        <div class="links">
+            <a href="index.html" onclick="menu()">Home</a>
+            <a href="#" onclick="menu()">Reservations</a>
+            <a href="index.html#contact" onclick="menu()">Contact us</a>
+            <a href="signup.html" onclick="menu()">
+                <button class="btn-primary">Sign up</button>
+            </a>
+        </div>
+        <div class="menu" onclick="menu()">
+            <i class="uil uil-align-center-alt"></i>
+        </div>
+    </div>
+</header>
+<section class="form-main">
+    <div class="container">
+        <form action="#" onsubmit="submitForm(event)">
+            <center>
+                <div class="form-title">
+                    <h3>Sign Up</h3>
+                </div>
+            </center>
+
+            <div class="user-pic">
+                <label for="profile">
+                    <i class="uil uil-camera"></i>
+                </label>
+                <input id="profile" name="" type="file"/>
+            </div>
+            <div class="row">
+                <div class="fild">
+                    <i class="uil uil-user"></i>
+                    <input id="first_name" name="first_name" placeholder="First name" required type="text"/>
+                </div>
+                <div class="fild">
+                    <i class="uil uil-user"></i>
+                    <input id="last_name" name="last_name" placeholder="Last name" required type="text"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="fild">
+                    <i class="uil uil-phone"></i>
+                    <input id="contact_number" name="contact_number" placeholder="Phone number" required
+                           type="contact_number"/>
+                </div>
+                <div class="fild">
+                    <i class="uil uil-envelope-alt"></i>
+                    <input id="email" placeholder="Email" required type="email"/>
+                </div>
+            </div>
+            <label class="bt" for="birthday">Birthday</label>
+            <div class="fild" id="birth">
+                <i class="uil uil-calendar-alt"></i>
+                <input id="birthday" name="birthday"
+                       onchange="this.className=(this.value!=''?'has-value':'')"
+                       placeholder="mm/dd/yyyy"
+                       type="date"
+                />
+            </div>
+            <div class="gender-main">
+                <label class="bt" for="gender">Gender</label>
+                <div class="gender" id="gender">
+                    <div class="gender-type">
+                        <input checked id="male" name="gender" type="radio" value="male"/>
+                        <label for="male">
+                            <i class="uil uil-mars"></i>
+                            <p>male</p>
+                        </label>
+                    </div>
+                    <div class="gender-type">
+                        <input id="female" name="gender" type="radio"/>
+                        <label for="female">
+                            <i class="uil uil-venus"></i>
+                            <p>Female</p>
+                        </label>
+                    </div>
+                    <div class="gender-type">
+                        <input id="mix" name="gender" type="radio" value="mix"/>
+                        <label for="mix">
+                            <i class="uil uil-user"></i>
+                            <p>3rd gender</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fild">
+                <i class="uil uil-key-skeleton-alt"></i>
+                <input id="password" placeholder="Password" type="password"/>
+                <i class="uil uil-dizzy-meh"></i>
+            </div>
+            <button class="btn signup" id="btn_sign_up">Signup</button>
+
+            <div class="ask">
+                <p>Already have an account? <a href="login.html">Login</a></p>
+            </div>
+            <div class="social-login-main">
+                <center>
+                    <h1>Or, signup with</h1>
+                </center>
+                <div class="social-login">
+                    <button class="s-btn">
+                        <img alt="" src="assets/images/google.svg"/>
+                        Google
+                    </button>
+                    <button class="s-btn">
+                        <img alt="" src="assets/images/fb.svg"/>
+                        Facebook
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <center>
+            <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+            <div class="privacy">
+                <a href="#">Terms and Conditions</a>
+                <a href="#">Privacy policy</a>
+            </div>
+        </center>
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/swal/sweetalert2.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let token = sessionStorage.getItem('TOKEN');
+        if (token) {
+            window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/index.html';
+        }
+    });
+    submitForm = (e) => {
+        e.preventDefault();
+        var account = {
+            email: document.querySelector('#email').value,
+            password: document.querySelector('#password').value,
+            firstName: document.querySelector('#first_name').value,
+            middleName: '',
+            lastName: document.querySelector('#last_name').value,
+            gender: document.querySelector("input[name='gender']:checked").value,
+            birthDate: document.querySelector('#birthday').value,
+            contactNo: document.querySelector('#contact_number').value
+        };
+        let baseURL = 'https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/register_online_user';
+        fetch(baseURL, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(account)
+        }).then(resp => resp.json()).then(data => {
+            // console.log(data);
+            if (data['RESULT'] === 'SAVED') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Please check your registered email to activate your account. ',
+                    footer: 'Click <a href="#">here</a> to login'
+                })
+                //sessionStorage.setItem('TOKEN', data['TOKEN']);
+                //window.location.href = document.URL.substring(0,document.URL.lastIndexOf('/')) + '/login.html';
+            } else if (data['RESULT'].contains('used')) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email is already used.',
+                })
+            }
+        });
+
+    };
+
+</script>
+</body>
+</html>

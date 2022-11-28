@@ -1,0 +1,104 @@
+.data-table,
+.data-table-active {
+  overflow-x: scroll;
+  background: white;
+  transition: 0.3s;
+  padding-bottom: 1rem;
+}
+.data-table-active {
+  padding: 0;
+  box-shadow: unset;
+  padding-bottom: 1rem;
+}
+.active-booking,
+.booking-history {
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--soft-shadow);
+  margin-bottom: 2rem;
+}
+.active-booking h1,
+.booking-history h1 {
+  font-size: 2rem;
+  color: var(--secoundary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.booking-history {
+  display: none;
+}
+.booking-history.active {
+  display: block;
+}
+.data-table::-webkit-scrollbar,
+.data-table-active::-webkit-scrollbar {
+  height: 5px;
+}
+.data-table::-webkit-scrollbar-thumb,
+.data-table-active::-webkit-scrollbar-thumb {
+  height: 5px;
+  border-radius: 5rem;
+  background: var(--green);
+}
+table {
+  border-collapse: collapse;
+  width: 180rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--black);
+  text-align: center;
+  text-transform: capitalize;
+}
+th {
+  background: var(--black);
+  color: white;
+  padding: 2rem 1rem;
+  text-transform: uppercase;
+}
+td {
+  border-bottom: 1px solid var(--lite-gray);
+}
+td p {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  justify-content: center;
+}
+td p i {
+  font-size: 2rem;
+  color: var(--secoundary);
+}
+.s-ac {
+  background: var(--secoundary);
+}
+.s-ac td {
+  background: var(--secoundary);
+  color: white;
+}
+.s-ac td p {
+  color: white;
+}
+.s-ac td i {
+  color: white;
+}
+.s-f {
+  background: var(--red);
+}
+.s-f td {
+  background: var(--red);
+  color: white;
+}
+.s-f td p {
+  color: white;
+}
+.s-f td i {
+  color: white;
+}

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- link css -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/admin.css" />
+    <link rel="stylesheet" href="assets/css/table.css" />
+
+    <!-- unicons -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="container-max">
+        <div class="logo" onclick="window.open('index.html', '_self')">
+          <img src="assets/images/logo-black.png" alt="" />
+        </div>
+        <div class="links">
+          <a href="index.html" onclick="menu()">Home</a>
+          <a href="#" onclick="menu()">Reservations</a>
+          <a href="index.html#contact" onclick="menu()">Contact us</a>
+          <a href="signup.html" onclick="menu()">
+            <button class="btn-primary">Sign up</button>
+          </a>
+        </div>
+        <div class="menu" onclick="menu()">
+          <i class="uil uil-align-center-alt"></i>
+        </div>
+      </div>
+    </header>
+    <section class="sp">
+      <div class="container">
+        <div class="edit-profile-modal">
+          <form>
+            <center>
+              <div class="user-profile">
+                <input type="file" id="profile" />
+                <label for="profile">
+                  <i class="uil uil-camera-plus"></i>
+                  <img src="assets/images/avatar.svg" alt="" />
+                </label>
+              </div>
+              <input type="text" placeholder="Change Name" />
+              <input type="email" placeholder="Change Email" />
+              <input type="tel" placeholder="Change Phone" />
+              <div class="btns">
+                <button class="btn btn-primary">Save changes</button>
+                <div class="btn cancel-btn" onclick="edit()">Cancel</div>
+              </div>
+            </center>
+          </form>
+        </div>
+        <div class="user-profile-main">
+          <div class="user-account">
+            <div class="profile-pic">
+              <img src="assets/images/avatar.svg" alt="" />
+            </div>
+            <div class="details">
+              <h3 class="name">Mehidi hasan</h3>
+              <p><i class="uil uil-envelope"></i> mehidi@gmail.com</p>
+              <p><i class="uil uil-phone"></i> +880 1706505115</p>
+              <a href="#"> Change password </a>
+            </div>
+            <div class="edit-profile" onclick="edit()">
+              <i class="uil uil-pen"></i>
+            </div>
+          </div>
+          <div class="other-info">
+            <div class="item">
+              <p>Loyality points:</p>
+              <h3>100</h3>
+            </div>
+            <button class="btn data-table-btn btn-primary" onclick="data()">
+              View Booking History
+            </button>
+          </div>
+        </div>
+        <div class="active-booking">
+          <h1>Active booking</h1>
+          <div class="data-table-active">
+            <table>
+              <tr>
+                <th>Oparator</th>
+                <th>Route</th>
+                <th>Departure</th>
+                <th>Reservation no.</th>
+                <th>Total amount</th>
+                <th>Payment status</th>
+                <th>Reservation status</th>
+                <th>Booking expiration</th>
+              </tr>
+
+              <tr class="s-ac">
+                <td>YBL</td>
+                <td>Gensan airport - marbel(koronadal)</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+                <td>4110735-111377-8</td>
+                <td>230</td>
+                <td>Unpaid</td>
+                <td>Active</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="booking-history">
+          <h1>Booking history</h1>
+          <div class="data-table">
+            <table>
+              <tr>
+                <th>Oparator</th>
+                <th>Route</th>
+                <th>Departure</th>
+                <th>Reservation no.</th>
+                <th>Total amount</th>
+                <th>Payment status</th>
+                <th>Reservation status</th>
+                <th>Booking expiration</th>
+              </tr>
+              <tr>
+                <td>YBL</td>
+                <td>Gensan airport - marbel(koronadal)</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+                <td>4110735-111377-8</td>
+                <td>230</td>
+                <td>Unpaid</td>
+                <td>Active</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+              </tr>
+
+              <tr class="s-f">
+                <td>YBL</td>
+                <td>Gensan airport - marbel(koronadal)</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+                <td>4110735-111377-8</td>
+                <td>230</td>
+                <td>Unpaid</td>
+                <td>Active</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+              </tr>
+              <tr>
+                <td>YBL</td>
+                <td>Gensan airport - marbel(koronadal)</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+                <td>4110735-111377-8</td>
+                <td>230</td>
+                <td>Unpaid</td>
+                <td>Active</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+              </tr>
+              <tr>
+                <td>YBL</td>
+                <td>Gensan airport - marbel(koronadal)</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+                <td>4110735-111377-8</td>
+                <td>230</td>
+                <td>Unpaid</td>
+                <td>Active</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+              </tr>
+              <tr>
+                <td>YBL</td>
+                <td>Gensan airport - marbel(koronadal)</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+                <td>4110735-111377-8</td>
+                <td>230</td>
+                <td>Unpaid</td>
+                <td>Active</td>
+                <td>
+                  <p>
+                    <i class="uil uil-calender"></i> <span>2022-10-25</span>
+                  </p>
+                  <p><i class="uil uil-clock"></i><span>07:55</span></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="container">
+        <center>
+          <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+          <div class="privacy">
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Privacy policy</a>
+          </div>
+        </center>
+      </div>
+    </footer>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/table.js"></script>
+  </body>
+</html>

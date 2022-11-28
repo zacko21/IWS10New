@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- link css -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/oparator.css" />
+    <link rel="stylesheet" href="assets/css/table.css" />
+
+    <!-- unicons -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="container-max">
+        <div class="logo" onclick="window.open('index.html', '_self')">
+          <img src="assets/images/logo-black.png" alt="" />
+        </div>
+        <div class="links">
+          <a href="index.html" onclick="menu()">Home</a>
+          <a href="#" onclick="menu()">Reservations</a>
+          <a href="index.html#contact" onclick="menu()">Contact us</a>
+          <a href="signup.html" onclick="menu()">
+            <button class="btn-primary">Sign up</button>
+          </a>
+        </div>
+        <div class="menu" onclick="menu()">
+          <i class="uil uil-align-center-alt"></i>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="hero">
+        <div class="typo">
+          <h1>Genesis Transport Inc.</h1>
+          <p>with Joybus Executive Coach</p>
+          <br /><br />
+        </div>
+      </div>
+      <div class="container">
+        <form class="search-bar-main" method="POST">
+          <center>
+            <h3 class="sub-title">
+              Book tickets to your next destination and get fast confirmation.
+            </h3>
+          </center>
+          <div class="search-bar">
+            <div class="search-fild drop-box">
+              <label for="from">From</label>
+              <div class="input">
+                <i class="uil uil-search search-ic"></i>
+                <input class="from-value" placeholder="Your location" />
+                <i class="uil uil-map-marker"></i>
+              </div>
+              <div class="dropdown">
+                <div class="item from-locations">
+                  <a><i class="uil uil-crosshair"></i> Item1</a>
+                  <a><i class="uil uil-crosshair"></i> Item2</a>
+                  <a><i class="uil uil-crosshair"></i> Item3</a>
+                  <a><i class="uil uil-crosshair"></i> Item4</a>
+                  <a><i class="uil uil-crosshair"></i> Item5</a>
+                  <a><i class="uil uil-crosshair"></i> Item6</a>
+                </div>
+              </div>
+            </div>
+            <div class="search-fild drop-box">
+              <label for="from">To</label>
+              <div class="input">
+                <i class="uil uil-search search-ic"></i>
+                <input class="to-value" placeholder="Travel location" />
+                <i class="uil uil-location-arrow"></i>
+              </div>
+              <div class="dropdown">
+                <div class="item to-locations">
+                  <a><i class="uil uil-crosshair"></i> Item</a>
+                  <a><i class="uil uil-crosshair"></i> Item</a>
+                  <a><i class="uil uil-crosshair"></i> Item</a>
+                  <a><i class="uil uil-crosshair"></i> Item</a>
+                  <a><i class="uil uil-crosshair"></i> Item</a>
+                  <a><i class="uil uil-crosshair"></i> Item</a>
+                </div>
+              </div>
+            </div>
+            <div class="search-fild">
+              <label for="from">Passengers</label>
+              <div class="input">
+                <input type="number" value="1" />
+                <i class="uil uil-users-alt"></i>
+              </div>
+            </div>
+            <div class="search-fild">
+              <label for="from">Travel Date</label>
+              <div class="input">
+                <input
+                  type="date"
+                  placeholder="mm/dd/yyyy"
+                  onchange="this.className=(this.value!=''?'has-value':'')"
+                />
+                <i class="uil uil-calendar-alt"></i>
+              </div>
+            </div>
+            <div class="search-fild">
+              <div class="flex">
+                <label for="from">Return Date</label>
+                <input type="checkbox" />
+              </div>
+              <div class="input">
+                <input
+                  type="date"
+                  placeholder="mm/dd/yyyy"
+                  onchange="this.className=(this.value!=''?'has-value':'')"
+                />
+
+                <i class="uil uil-calendar-alt"></i>
+              </div>
+            </div>
+            <button class="btn-primary search-btn">
+              <i class="uil uil-search"></i> Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <section class="sp">
+      <div class="container">
+        <div class="grid-2">
+          <div class="img">
+            <img src="assets/images/GenesisTransportBusBooking.jpeg" alt="" />
+          </div>
+          <div class="content">
+            <div class="logo">
+              <img src="assets/images/logogenesistransport.png" alt="" />
+            </div>
+            <h1>Genesis Executive Coach</h1>
+            <p>
+              Genesis Transport Inc. is one of the known and reliable bus
+              operators serving North Luzon. They provide regular and premium
+              bus trips travel from Manila to Baguio and Manila to Baler,
+              Aurora.
+            </p>
+            <button
+              class="btn btn-primary"
+              onclick="window.open('booking.html', '_self')"
+            >
+              Book genesis tickets
+            </button>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="content c2">
+            <h1>The Joy in Bus Travel</h1>
+            <p>
+              Those who wish to travel from Manila to Baguio / Baguio to Manila
+              and Manila to Baler / Baler to Manila can enjoy a comfortable ride
+              with the Joybus coaches. <br /><br />
+
+              Most of the Joybus units come with on-board entertainment screens.
+              This is a 28-seater bus configuration serving point-to-point and
+              non-stop. Passengers are served by an on-board stewardess with
+              snacks and drinks. You can also request for a blanket if you get
+              cold!
+            </p>
+          </div>
+          <div class="img-grid fix">
+            <div class="img">
+              <img src="assets/images/1.jpg" alt="" />
+            </div>
+            <div class="img">
+              <img src="assets/images/2.jpg" alt="" />
+            </div>
+            <div class="img">
+              <img src="assets/images/3.jpg" alt="" />
+            </div>
+            <div class="img">
+              <img src="assets/images/4.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sp">
+      <div class="container">
+        <div class="book bg">
+          <center>
+            <h1>Book Bus Tickets Online</h1>
+            <p>
+              Genesis Transport is also the first in the Philippines to
+              implement real-time online booking of bus tickets that has since
+              contributed to making interprovincial travel easier. Through its
+              partnership with iWantSeats, passengers can buy their bus tickets
+              ahead to Baguio and Baler conveniently especially during peak
+              seasons and weekends.
+            </p>
+            <button
+              class="btn btn-primary"
+              onclick="window.open('booking.html', '_self')"
+            >
+              Book tickets now
+            </button>
+          </center>
+        </div>
+      </div>
+    </section>
+    <section class="sp">
+      <div class="container">
+        <div class="typo2">
+          <h1 class="title">Genesis and Joybus Schedules and Fares</h1>
+          <p>
+            * SCHEDULES AND FARES SUBJECT TO CHANGE. Up-to-date trips and fares
+            can be viewed and booked at www.iwantseats.com.or contact Genesis
+            directly.
+          </p>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <h3>AVENIDA to BAGUIO</h3>
+            <p>
+              - 8:00 AM - Genesis 2x2 w/ CR <br /><br />
+              - 11:00 AM - Genesis 2x2 w/ CR<br /><br />
+              - 2:00 PM - Genesis 2x2 w/ CR<br /><br />
+              - 5:00 PM - Joybus Premiere
+            </p>
+          </div>
+          <div class="card">
+            <h3>CUBAO to BAGUIO</h3>
+            <p>
+              - 3:00 AM - Joybus Premiere<br /><br />
+              - 5:00 AM - joybus Premiere<br /><br />
+              - 9:00 AM - Genesis 2x2 w/ CR<br /><br />
+              - 3:00 PM - Genesis 2x2 w/ CR<br /><br />
+              - 6:30 PM - Genesis 2x2 w/ CR
+            </p>
+          </div>
+          <div class="card">
+            <h3>CUBAO to BALER</h3>
+            <p>
+              - 2:00 AM - Joybus<br /><br />
+              - 4:30 AM - Joybus<br /><br />
+              - 6:00 AM - Genesis w/o CR
+            </p>
+          </div>
+          <div class="card">
+            <h3>BAGUIO to AVENIDA</h3>
+            <p>
+              - 2:00 AM - Genesis 2x2 w/ CR<br /><br />
+              - 4:00 AM - Genesis 2x2 w/ CR<br /><br />
+              - 10:00 AM - Genesis 2x2 w/ CR<br /><br />
+              - 12:30 PM - Joybus Premiere<br /><br />
+              - 4:00 PM - Genesis 2x2 w/ CR
+            </p>
+          </div>
+          <div class="card">
+            <h3>BAGUIO to CUBAO</h3>
+            <p>
+              - 1:00 AM - ​Genesis 2x2 w/ CR<br /><br />
+              - 3:00 AM - ​Genesis 2x2 w/ CR<br /><br />
+              - 7:30 AM - Joybus Premiere<br /><br />
+              - 3:00 PM - Genesis 2x2 w/ CR<br /><br />
+              - 11:00 PM - Joybus Premiere
+            </p>
+          </div>
+          <div class="card">
+            <h3>BALER to CUBAO</h3>
+            <p>
+              - 5:00 AM - Joybus<br /><br />
+              - 9:00 AM - Genesis w/o CR<br /><br />
+              - 1:00 PM - Joybus
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <center>
+          <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+          <div class="privacy">
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Privacy policy</a>
+          </div>
+        </center>
+      </div>
+    </footer>
+
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

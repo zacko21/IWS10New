@@ -1,0 +1,92 @@
+.hero {
+  background: linear-gradient(#0000004f, #000000), url(../images/joybus.png);
+  height: 70rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  clip-path: polygon(0% 0%, 100% 0, 100% 85%, 50% 100%, 0 85%);
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content .logo {
+  cursor: auto;
+}
+.img-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.img-grid .img {
+  aspect-ratio: 1/1;
+  transition: 0.3s;
+}
+.img-grid .img:hover {
+  transform: translateY(-1rem);
+}
+.bg {
+  background: var(--lite-gray);
+}
+.book {
+  padding: 5rem;
+  border-radius: 2rem;
+}
+.book h1 {
+  color: var(--black);
+  font-size: 5rem;
+  text-transform: capitalize;
+}
+.book p {
+  margin: 2rem 0;
+}
+.book .btn {
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 1.5rem 3rem;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.cards .card {
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: var(--soft-shadow);
+  transition: 0.3s;
+}
+.cards .card h3 {
+  font-size: 2rem;
+  color: var(--black);
+  margin-bottom: 1rem;
+  transition: 0.3s;
+}
+.cards .card p {
+  transition: 0.3s;
+  font-weight: 600;
+}
+.cards .card:hover {
+  background: var(--secoundary);
+}
+.cards .card:hover h3 {
+  color: white;
+}
+.cards .card:hover p {
+  color: white;
+}
+.typo2 {
+  width: 60%;
+  margin: auto;
+  margin-bottom: 5rem;
+}
+.typo2 h1 {
+  margin-bottom: 1rem;
+}
+.typo2 p {
+  text-align: center;
+  font-weight: 600;
+  opacity: 0.8;
+}
