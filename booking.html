@@ -328,18 +328,20 @@
                 </div>
                 <div class="payment-block bank">
                   <center>
-                    <div class="document-up">
-                      <label for="payment-ss">
-                        <img src="assets/images/upload.svg" alt="" />
-                      </label>
-                      <input type="file" id="payment-ss" />
-                    </div>
-                    <p>
-                      Upload payment screenshot (For bank transfer, online
-                      banking)
-                    </p>
-                    <br /><br />
-                    <button class="btn btn-primary">Submit</button>
+                    <form id="payForm" onsubmit="UploadFile(event)" method="post">
+                      <div class="document-up">
+                        <label for="paymentFile">
+                          <img id="iproof" src="assets/images/upload.svg" alt="" />
+                        </label>
+                        <input  required name="paymentFile" accept="image/*" type="file" id="paymentFile" onchange="loadFile(event)" />
+                      </div>
+                      <p>
+                        Upload payment screenshot (For bank transfer, online
+                        banking)
+                      </p>
+                      <br /><br />
+                      <button class="btn btn-primary">Submit</button>
+                    </form>
                   </center>
                 </div>
               </div>
@@ -468,12 +470,12 @@
               <div class="row">
                 <div class="fild">
                   <i class="uil uil-phone"></i>
-                  <input id="contact_number" name="contact_number" placeholder="Phone number" required
+                  <input id="contact_number" name="contact_number" placeholder="Phone number"
                          type="contact_number"/>
                 </div>
                 <div class="fild">
                   <i class="uil uil-envelope-alt"></i>
-                  <input id="email" placeholder="Email" required type="email"/>
+                  <input id="email" placeholder="Email" type="email"/>
                 </div>
               </div>
               <label class="bt" for="birthday">Birthday</label>
@@ -538,31 +540,6 @@
         getSchedules();
       });
 
-      $('input[type=submit]').click(function () {
-        var token = sessionStorage.getItem("TOKEN");
-        //alert(newpaxlist[0].ReservationNo);
-        // Before the request starts, show the 'Loading message...'
-        $('.result').text('File is being uploaded...');
-        //event.preventDefault();
-        // On the click even,
-        var formData = new FormData($('#form')[0]);
-        $.ajax({
-          type: 'POST',
-          url: apiURL + "/savefile/" + token + "/" + newpaxlist[0].ReservationNo + "/PAYMENT",
-          processData: false,
-          contentType: false,
-          data: formData,
-          success: function (data) {
-            // The file was uploaded successfully...
-            $('.result').text('File was uploaded.');
-            // $('#alert_message span').text('File was uploaded.');
-          },
-          error: function (data) {
-            // there was an error.
-            // $('#alert_message span').text('Whoops! There was an error in the request.');
-          }
-        });
-      });
     </script>
   </body>
 </html>

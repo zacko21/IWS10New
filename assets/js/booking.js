@@ -59,7 +59,7 @@ function continuePayment() {
 function confirmBooking(e) {
   fetchPassengerSeat(document.getElementById('passenger_assign').value, e.dataset.seat).then(res => {
     if (res.result === 'OK') {
-      getReserve()
+      getReserve();
       bookingModal.classList.toggle("active");
       seatSelect.classList.remove("active");
       cancelBtn.classList.add("active");

@@ -109,7 +109,7 @@ async function fetchPassengerSeat(refNo, seatNo) {
 }
 
 async function fetchManifest() {
-    // $('.bus-seat-select').LoadingOverlay('show');
+    $('.bus-seat-select').LoadingOverlay('show');
     let token = sessionStorage.getItem('TOKEN');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifesttest/${token}`;
     let data = {
@@ -118,7 +118,7 @@ async function fetchManifest() {
         "routeid": sessionStorage.getItem('RouteId'),
         "BusType": sessionStorage.getItem('BusType')
     };
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
     let response = await fetch(input, {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -126,8 +126,8 @@ async function fetchManifest() {
         method: 'post',
         body: JSON.stringify(data)
     });
-    // $('.bus-seat-select').LoadingOverlay('hide');
-    $('.modal-content').LoadingOverlay('hide');
+    $('.bus-seat-select').LoadingOverlay('hide');
+    // $('.modal-content').LoadingOverlay('hide');
     return await response.json();
 }
 
@@ -671,13 +671,21 @@ $('input[type=radio][name=gcash]').click(function() {
     };
     console.log(data);
     fetchReservationInfo(data).then(result =>{
-        console.log(result);
-        if(result.length >0 ){
-            result.forEach(d => {
-                refNo = d.ReferenceNo;
-                fee += parseInt(d.AccommodationFee);
-            })
-        }
+        sessionStorage.setItem('reserve_list', JSON.stringify(result));
+        // let f = 0;
+        // console.log(result);
+        // if(result.length >0 ){
+        //     result.forEach(d => {
+        //         refNo = d.ReferenceNo;
+        //         f += parseInt(d.AccommodationFee);
+        //     })
+        // }
+        // fee = f;
+    })
+    let reslist = JSON.parse(sessionStorage.getItem('reserve_list'));
+    refNo = reslist[0].ReferenceNo;
+    reslist.forEach(row =>{
+        fee += row.AccommodationFee;
     })
     paygcash(fee, refNo);
 
@@ -730,6 +738,45 @@ width=0,height=0,left=-1000,top=-1000`;
 
 }
 
+var loadFile = function(event) {
+    var output = document.getElementById('iproof');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        alert('asdfas');
+        URL.revokeObjectURL(output.src) // free memory
+    }
+};
+
+UploadFile = evt =>{
+    evt.preventDefault();
+    var token = sessionStorage.getItem("TOKEN");
+    //alert(newpaxlist[0].ReservationNo);
+    // Before the request starts, show the 'Loading message...'
+    // $('.result').text('File is being uploaded...');
+    //event.preventDefault();
+    // On the click even,
+    var formData = new FormData($('#payForm')[0]);
+    let apiURL = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine`;
+    let reslist = JSON.parse(sessionStorage.getItem('reserve_list'));
+    $.ajax({
+        type: 'POST',
+        url: apiURL + "/savefile/" + token + "/" + reslist[0].ReservationNo + "/PAYMENT",
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (data) {
+            // The file was uploaded successfully...
+            alert('File was uploaded.');
+            window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/user-admin.html';
+        },
+        error: function (data) {
+            alert('error');
+            // there was an error.
+            // $('#alert_message span').text('Whoops! There was an error in the request.');
+        }
+    });
+
+}
 
 
 
