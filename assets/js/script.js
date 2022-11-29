@@ -255,11 +255,12 @@ getReserve = () => {
             let header = document.getElementById("header-booking");
             // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
             let html = '', htmList = '';
+            sessionStorage.setItem('refNo', data[0].ReferenceNo);
             sessionStorage.setItem('reservation', JSON.stringify(data));
             data.forEach((res, index) => {
                 let name = `${res.LastName}, ${res.FirstName} ${res.MiddleName}`;
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
-                htmList += ` <div class="block">
+                htmList += `<div class="block">
                                 <div class="item">
                                     <div>
                                         <p>Seat no:</p>
@@ -469,6 +470,7 @@ getSchedules = () => {
                                     <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
                                 </div>`;
                             document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + 50).toFixed(2);
+                            document.getElementById('res_fee').textContent = 'PHP ' + (50 * paxCount).toFixed(2);
                             getReserve();
                             body.classList.toggle("modal-open");
                             cancelBtn.classList.add("active");

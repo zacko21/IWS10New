@@ -394,13 +394,13 @@
               </div>
               <div class="item">
                 <p>Reservation Fee</p>
-                <h3><span>PHP 50</span></h3>
+                <h3><span id="res_fee">PHP 0</span></h3>
               </div>
             </div>
             <div class="block">
               <div class="item">
                 <p>Total</p>
-                <h2><span id="gran_total">PHP 50.00</span></h2>
+                <h2><span id="gran_total">PHP 0.00</span></h2>
               </div>
             </div>
 
@@ -535,60 +535,61 @@
         getSchedules();
 
       });
-      $('input[type=radio][name=gcash]').change(function() {
-        paygcash();
-        // let reservation = sessionStorage.getItem('reservation');
-        // let cinfo = JSON.parse(reservation)[id];
-        // let data = {
-        //   "clientid": cinfo.clientID,
-        //   "token": sessionStorage.getItem('TOKEN'),
-        //   "tripID": cinfo.TripDate + '.' + cinfo.RouteId,
-        //   "referenceNo": cinfo.ReferenceNo
-        // };
-        //
-        // fetchReservationInfo(data).then(res =>{
-        //
-        // })
+      $('input[type=radio][name=gcash]').click(function() {
+        let fee = 0 ;
+        let refNo = '';
+        let data = {
+          "clientid": sessionStorage.getItem('clientId'),
+          "token": sessionStorage.getItem('TOKEN'),
+          "tripID": sessionStorage.getItem('departure') + '.' + sessionStorage.getItem('RouteId'),
+          "referenceNo": sessionStorage.getItem('refNo')
+        };
+        console.log(data);
+        fetchReservationInfo(data).then(result =>{
+          console.log(result);
+          if(result.length >0 ){
+            result.forEach(d => {
+              refNo = d.ReferenceNo;
+              fee += parseInt(d.AccommodationFee);
+            })
+          }
+        })
+        paygcash(fee, refNo);
 
       });
 
-      function paygcash() {
-        var refno = sessionStorage.getItem("rese");
+      function paygcash(amount, refNo) {
+        alert(amount + '=' + refNo)
         var pax_data = {
           module: "IWANTSEATS",
-          amount: 1600,
+          amount: parseInt(amount),
           //amount: "100",
           email: "",
-          refno: "1568585~4162200-1527186-10",
+          refno: refNo,
           mobile: "",
           token:  sessionStorage.getItem("TOKEN")
         }
 
         try {
           $.ajax({
-            //async: false,
-            //url: "https://iwsenterprise.com/iwsticketing_v3/enterprise/paymongocreatesoure1.aspx",
             url: "https://iwsenterprise.com/iwsticketing_v3/enterprise/paymongocreatesource_augmata.aspx",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             beforeSend: function () {
-              // $("#waitspinnergcash").show();
-              //alert("beforesend");
+              $.LoadingOverlay('show');
             },
             complete: function () {
-              // $("#waitspinnergcash").hide();
+              $.LoadingOverlay('hide');
             },
-            //headers: { "Authorization": tokenID },
             data: JSON.stringify(pax_data),
             success: function (data) {
               var data1 = JSON.stringify(data);
               var data11 = JSON.parse(data1);
               if (data11.RESULT === "SAVED") {
-                //$("#gcashdiv").html('<object style="width:100%;height:400px;" data ="' + data11.URL + '"/>');
-                //$("#gcashdiv").hide();
-                //$("#gcashframe").show();
-                //$('#gcashframe').attr('src', data11.URL);
-                top.window.location.href = data11.URL;
+                let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=0,height=0,left=-1000,top=-1000`;
+
+                open(data11.URL, 'GCASH', params);
               }
               else {
                 alert("Oops. It appears we cannot process your GCash payment for now.")
