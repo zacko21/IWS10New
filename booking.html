@@ -536,9 +536,74 @@
 
       });
       $('input[type=radio][name=gcash]').change(function() {
-        alert(this)
+        paygcash();
+        // let reservation = sessionStorage.getItem('reservation');
+        // let cinfo = JSON.parse(reservation)[id];
+        // let data = {
+        //   "clientid": cinfo.clientID,
+        //   "token": sessionStorage.getItem('TOKEN'),
+        //   "tripID": cinfo.TripDate + '.' + cinfo.RouteId,
+        //   "referenceNo": cinfo.ReferenceNo
+        // };
+        //
+        // fetchReservationInfo(data).then(res =>{
+        //
+        // })
+
       });
 
+      function paygcash() {
+        var refno = sessionStorage.getItem("rese");
+        var pax_data = {
+          module: "IWANTSEATS",
+          amount: 1600,
+          //amount: "100",
+          email: "",
+          refno: "1568585~4162200-1527186-10",
+          mobile: "",
+          token:  sessionStorage.getItem("TOKEN")
+        }
+
+        try {
+          $.ajax({
+            //async: false,
+            //url: "https://iwsenterprise.com/iwsticketing_v3/enterprise/paymongocreatesoure1.aspx",
+            url: "https://iwsenterprise.com/iwsticketing_v3/enterprise/paymongocreatesource_augmata.aspx",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+              // $("#waitspinnergcash").show();
+              //alert("beforesend");
+            },
+            complete: function () {
+              // $("#waitspinnergcash").hide();
+            },
+            //headers: { "Authorization": tokenID },
+            data: JSON.stringify(pax_data),
+            success: function (data) {
+              var data1 = JSON.stringify(data);
+              var data11 = JSON.parse(data1);
+              if (data11.RESULT === "SAVED") {
+                //$("#gcashdiv").html('<object style="width:100%;height:400px;" data ="' + data11.URL + '"/>');
+                //$("#gcashdiv").hide();
+                //$("#gcashframe").show();
+                //$('#gcashframe').attr('src', data11.URL);
+                top.window.location.href = data11.URL;
+              }
+              else {
+                alert("Oops. It appears we cannot process your GCash payment for now.")
+              }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              alert("a:" + textStatus);
+            } //End for ajax error
+          }); //End for ajax /api/reservations/passenger/
+        }
+        catch (ex) {
+          alert(ex.message);
+        }
+
+      }
     </script>
   </body>
 </html>
