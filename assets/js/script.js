@@ -194,8 +194,8 @@ cancelBookings = () => {
     }
     fetchCancelBooking(data).then(res => {
         if (res.result === 'OK') {
-            modal.classList.remove('active');
-            Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
+            // modal.classList.remove('active');
+            // Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
         }
     })
 }
@@ -221,7 +221,9 @@ EditInfo = (e) => {
             editBookedInfo.classList.remove("active");
             getReserve();
         }
-    })
+    }).catch(error => {
+        console.error('There was an error!', error);
+    });
 
 };
 
@@ -259,12 +261,18 @@ getReserve = () => {
             passList.innerHTML = html;
             passLists.innerHTML = htmList;
             getManifest();
-            modal.classList.add("active");
+            //modal.classList.add("active");
 
             //seatSelect.classList.add("active");
         }
+    }).catch(error => {
+        console.error('There was an error!', error);
     });
 
+}
+
+function closeModalInfo() {
+    editBookedInfo.classList.remove('active');
 }
 
 function confirmBookTrip() {
@@ -375,7 +383,9 @@ getManifest = () => {
             });
         }
 
-    })
+    }).catch(error => {
+        console.error('There was an error!', error);
+    });
 
 }
 
@@ -426,7 +436,7 @@ getSchedules = () => {
                         e.removeAttribute("disabled");
                     })
                     e.classList.add("active");
-                    e.setAttribute("disabled", true);
+                    // e.setAttribute("disabled", true);
                     fetchResults(true, {}, '.booking-details').then((data) => {
                         if (data.length > 0) {
                             let dest = data[e.dataset.id];
@@ -441,6 +451,7 @@ getSchedules = () => {
                                     <p>Sub Total <span>(${paxCount} pax)</span></p>
                                     <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
                                 </div>`;
+                            document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + 50).toFixed(2);
                             getReserve();
                             body.classList.toggle("modal-open");
                             cancelBtn.classList.add("active");
@@ -471,6 +482,8 @@ getSchedules = () => {
                 });
             });
 
+        }).catch(error => {
+            console.error('There was an error!', error);
         });
     } else {
         window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
@@ -508,8 +521,8 @@ fetchLocation().then(data => {
             getDestination(e.textContent);
         });
     });
-
-
+}).catch(error => {
+    console.error('There was an error!', error);
 });
 
 getDestination = (origin) => {
@@ -547,6 +560,8 @@ getDestination = (origin) => {
                 toValue.value = e.textContent;
             });
         });
+    }).catch(error => {
+        console.error('There was an error!', error);
     });
 
 
@@ -602,6 +617,8 @@ SearchForm = (e) => {
             } else {
                 window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/booking.html';
             }
+        }).catch(error => {
+            console.error('There was an error!', error);
         });
     }
 

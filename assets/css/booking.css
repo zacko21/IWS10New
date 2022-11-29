@@ -611,3 +611,8 @@ input[type="file"] {
     z-index: 9999;
   }
 }
+
+
+.btn.book.active{
+  background: gray;
+}

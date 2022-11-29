@@ -156,78 +156,78 @@
               </div>
               <!-- card and gcash pay -->
               <div data-content="card-gcash" class="payment-module active">
-                <div class="payment-block">
-                  <div>
-                    <input type="radio" name="payment" checked />
-                    <div class="content">
-                      <h3>Cradit Card</h3>
-                      <p>
-                        Safe money transfer using your bank account. Visa,
-                        Mastro, Discover, American Express, etc.
-                      </p>
-                    </div>
-                    <div class="card-icon">
-                      <img src="assets/images/cards.png" alt="" />
-                    </div>
-                  </div>
+<!--                <div class="payment-block">-->
+<!--                  <div>-->
+<!--                    <input type="radio" name="payment" checked />-->
+<!--                    <div class="content">-->
+<!--                      <h3>Credit Card</h3>-->
+<!--                      <p>-->
+<!--                        Safe money transfer using your bank account. Visa,-->
+<!--                        Mastro, Discover, American Express, etc.-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                    <div class="card-icon">-->
+<!--                      <img src="assets/images/cards.png" alt="" />-->
+<!--                    </div>-->
+<!--                  </div>-->
 
-                  <form class="card-form" action="#">
-                    <div class="row">
-                      <div class="input">
-                        <label for="fname">First name</label>
-                        <input
-                          type="text"
-                          id="fname"
-                          placeholder="First name"
-                        />
-                      </div>
-                      <div class="input">
-                        <label for="lname">Last name</label>
-                        <input
-                          type="text"
-                          id="lname"
-                          placeholder="First name"
-                        />
-                      </div>
-                    </div>
-                    <div class="flex">
-                      <div class="input">
-                        <label for="card">Card number</label>
-                        <input
-                          type="text"
-                          id="card"
-                          placeholder="0000 0000 0000 0000"
-                        />
-                      </div>
-                      <div class="input">
-                        <label for="e-date">Expiry Date</label>
-                        <input type="text" id="e-date" placeholder="MM/YY" />
-                      </div>
-                      <div class="input">
-                        <label for="cvv">CVV</label>
-                        <input type="text" id="cvv" placeholder="000" />
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input">
-                        <label for="country">Country</label>
-                        <input type="text" id="country" placeholder="Country" />
-                      </div>
-                      <div class="input">
-                        <label for="postal">Postal/Zip</label>
-                        <input
-                          type="text"
-                          id="postal"
-                          placeholder="Postal/Zip"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
+<!--                  <form class="card-form" action="#">-->
+<!--                    <div class="row">-->
+<!--                      <div class="input">-->
+<!--                        <label for="fname">First name</label>-->
+<!--                        <input-->
+<!--                          type="text"-->
+<!--                          id="fname"-->
+<!--                          placeholder="First name"-->
+<!--                        />-->
+<!--                      </div>-->
+<!--                      <div class="input">-->
+<!--                        <label for="lname">Last name</label>-->
+<!--                        <input-->
+<!--                          type="text"-->
+<!--                          id="lname"-->
+<!--                          placeholder="First name"-->
+<!--                        />-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="flex">-->
+<!--                      <div class="input">-->
+<!--                        <label for="card">Card number</label>-->
+<!--                        <input-->
+<!--                          type="text"-->
+<!--                          id="card"-->
+<!--                          placeholder="0000 0000 0000 0000"-->
+<!--                        />-->
+<!--                      </div>-->
+<!--                      <div class="input">-->
+<!--                        <label for="e-date">Expiry Date</label>-->
+<!--                        <input type="text" id="e-date" placeholder="MM/YY" />-->
+<!--                      </div>-->
+<!--                      <div class="input">-->
+<!--                        <label for="cvv">CVV</label>-->
+<!--                        <input type="text" id="cvv" placeholder="000" />-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                      <div class="input">-->
+<!--                        <label for="country">Country</label>-->
+<!--                        <input type="text" id="country" placeholder="Country" />-->
+<!--                      </div>-->
+<!--                      <div class="input">-->
+<!--                        <label for="postal">Postal/Zip</label>-->
+<!--                        <input-->
+<!--                          type="text"-->
+<!--                          id="postal"-->
+<!--                          placeholder="Postal/Zip"-->
+<!--                        />-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </form>-->
+<!--                </div>-->
 
                 <div class="payment-block gcash">
                   <div>
-                    <input type="radio" name="payment" />
+                    <input type="radio" name="gcash" />
                     <div class="content">
                       <h3>Pay with GCash</h3>
                       <p>
@@ -438,10 +438,10 @@
                 <option value="#">User name here</option>
               </select>
               <div class="btns">
-                <button class="btn btn-primary" id="btn_reserve_passenger" onclick="confirmBooking1(this)">
+                <button class="btn btn-primary" id="btn_reserve_passenger" onclick="confirmBooking(this)">
                   Confirm
                 </button>
-                <button class="btn btn-primary" onclick="cancelBooking1()">
+                <button class="btn btn-primary" onclick="cancelBooking()">
                   Cancel
                 </button>
               </div>
@@ -535,6 +535,10 @@
         getSchedules();
 
       });
+      $('input[type=radio][name=gcash]').change(function() {
+        alert(this)
+      });
+
     </script>
   </body>
 </html>

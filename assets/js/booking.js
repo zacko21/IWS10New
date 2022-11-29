@@ -24,6 +24,7 @@ bookBtn.forEach((e) => {
   });
 });
 function closeModal() {
+  cancelBookings();
   body.classList.toggle("modal-open");
   cancelBtn.classList.remove("active");
   continueBtn.classList.remove("active");
@@ -55,15 +56,22 @@ function continuePayment() {
   bookingDetails.style = "position:relative;transform:unset";
   body.classList.remove("modal-open");
 }
-function confirmBooking() {
-  bookingModal.classList.toggle("active");
-  seatSelect.classList.remove("active");
-  cancelBtn.classList.add("active");
-  continueBtn.classList.add("active");
-  passengersInfo.classList.add("active");
-  payCon.removeAttribute("disabled", false);
+function confirmBooking(e) {
+  fetchPassengerSeat(document.getElementById('passenger_assign').value, e.dataset.seat).then(res => {
+    if (res.result === 'OK') {
+      getReserve()
+      bookingModal.classList.toggle("active");
+      seatSelect.classList.remove("active");
+      cancelBtn.classList.add("active");
+      continueBtn.classList.add("active");
+      passengersInfo.classList.add("active");
+      payCon.removeAttribute("disabled", false);
+    }
+  });
+
 }
-function editBookingUser() {
+function editBookingUser(e) {
+  getPassengerInfo(e.dataset.id);
   editBookedInfo.classList.toggle("active");
 }
 
