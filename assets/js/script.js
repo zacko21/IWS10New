@@ -660,6 +660,75 @@ SearchForm = (e) => {
 }
 
 
+$('input[type=radio][name=gcash]').click(function() {
+    let fee = 0 ;
+    let refNo = '';
+    let data = {
+        "clientid": sessionStorage.getItem('clientId'),
+        "token": sessionStorage.getItem('TOKEN'),
+        "tripID": sessionStorage.getItem('departure') + '.' + sessionStorage.getItem('RouteId'),
+        "referenceNo": sessionStorage.getItem('refNo')
+    };
+    console.log(data);
+    fetchReservationInfo(data).then(result =>{
+        console.log(result);
+        if(result.length >0 ){
+            result.forEach(d => {
+                refNo = d.ReferenceNo;
+                fee += parseInt(d.AccommodationFee);
+            })
+        }
+    })
+    paygcash(fee, refNo);
+
+});
+function paygcash(amount, refNo) {
+    alert(amount + '=' + refNo)
+    var pax_data = {
+        module: "IWANTSEATS",
+        amount: parseInt(amount),
+        //amount: "100",
+        email: "",
+        refno: refNo,
+        mobile: "",
+        token:  sessionStorage.getItem("TOKEN")
+    }
+
+    try {
+        $.ajax({
+            url: "https://iwsenterprise.com/iwsticketing_v3/enterprise/paymongocreatesource_augmata.aspx",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $.LoadingOverlay('show');
+            },
+            complete: function () {
+                $.LoadingOverlay('hide');
+            },
+            data: JSON.stringify(pax_data),
+            success: function (data) {
+                var data1 = JSON.stringify(data);
+                var data11 = JSON.parse(data1);
+                if (data11.RESULT === "SAVED") {
+                    let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=0,height=0,left=-1000,top=-1000`;
+
+                    open(data11.URL, 'GCASH', params);
+                }
+                else {
+                    alert("Oops. It appears we cannot process your GCash payment for now.")
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("a:" + textStatus);
+            } //End for ajax error
+        }); //End for ajax /api/reservations/passenger/
+    }
+    catch (ex) {
+        alert(ex.message);
+    }
+
+}
 
 
 
