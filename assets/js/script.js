@@ -1,6 +1,22 @@
 let confirmModal = document.querySelector(".booking-confirm");
 
+async function fetchBookingHistory() {
+    let token = sessionStorage.getItem('TOKEN');
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
+    let data = {
+        "token": token,
+    }
+    console.log(input)
+    let response = await fetch(input, {
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        method: 'post',
+        body: JSON.stringify(data)
+    });
 
+    return await response.json();
+}
 
 async function fetchResults(show = false, options = {}, target = 'body') {
     let clientId, date, origin, destination, paxCount;
