@@ -18,9 +18,17 @@ question.forEach((e) => {
 
 drop.forEach((e) => {
   e.addEventListener("click", () => {
+    let el ;
     e.childNodes[5].classList.toggle("active");
     let searchIc = e.childNodes[3].childNodes[1];
-
+    el = e.nextElementSibling;
+    if(el!== null && el.children[0].textContent === 'To'){
+      el.childNodes[5].classList.remove('active');
+    }else{
+     el=e.previousElementSibling;
+      el.childNodes[5].classList.remove('active');
+    }
+    console.log(el);
     if (e.childNodes[5].classList.contains("active")) {
       searchIc.style.display = "block";
     } else {

@@ -24,6 +24,7 @@ bookBtn.forEach((e) => {
   });
 });
 function closeModal() {
+  sessionStorage.removeItem('reservation');
   cancelBookings();
   body.classList.toggle("modal-open");
   cancelBtn.classList.remove("active");
@@ -125,10 +126,12 @@ copyItem.forEach((e) => {
 });
 
 function openSearchbar() {
+  window.scrollTo(0, 0);
+  document.querySelector('.to-input').nextElementSibling.classList.remove('active')
+  document.querySelector('.from-input').nextElementSibling.classList.remove('active')
   $('#from').val(sessionStorage.getItem('originName'));
   getLocation();
   getDestination($('#from').val());
-  $('#to').val(sessionStorage.getItem('destinationName'));
   $('#date_of_departure').val(sessionStorage.getItem('departure'));
   searchBarMain.classList.toggle("active");
   floatingSearched.classList.toggle("uil-multiply");

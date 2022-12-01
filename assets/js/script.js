@@ -263,22 +263,22 @@ EditInfo = (e) => {
 getReserve = () => {
     if (sessionStorage.getItem('TOKEN')) {
 
-    let modal = document.querySelector('.modal');
-    fetchReserve().then(data => {
-        //console.log('RESERVE RESULT');
-        //console.log(data);
-        if (data.length > 0) {
-            let passList = document.getElementById('passenger_assign');
-            let passLists = document.getElementById('passenger-list');
-            let header = document.getElementById("header-booking");
-            // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
-            let html = '', htmList = '';
-            sessionStorage.setItem('refNo', data[0].ReferenceNo);
-            sessionStorage.setItem('reservation', JSON.stringify(data));
-            data.forEach((res, index) => {
-                let name = `${res.LastName}, ${res.FirstName} ${res.MiddleName}`;
-                html += `<option value="${res.ReferenceNo}">${name}</option>`;
-                htmList += `<div class="block">
+        let modal = document.querySelector('.modal');
+        fetchReserve().then(data => {
+            //console.log('RESERVE RESULT');
+            //console.log(data);
+            if (data.length > 0) {
+                let passList = document.getElementById('passenger_assign');
+                let passLists = document.getElementById('passenger-list');
+                let header = document.getElementById("header-booking");
+                // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
+                let html = '', htmList = '';
+                sessionStorage.setItem('refNo', data[0].ReferenceNo);
+                sessionStorage.setItem('reservation', JSON.stringify(data));
+                data.forEach((res, index) => {
+                    let name = `${res.LastName}, ${res.FirstName} ${res.MiddleName}`;
+                    html += `<option value="${res.ReferenceNo}">${name}</option>`;
+                    htmList += `<div class="block">
                                 <div class="item">
                                     <div>
                                         <p>Seat no:</p>
@@ -293,16 +293,16 @@ getReserve = () => {
                                     <i class="uil uil-pen" data-id ="${index}" onclick="editBookingUser(this)"></i>
                                 </div>
                             </div>`;
-            })
-            passList.innerHTML = html;
-            passLists.innerHTML = htmList;
-            getManifest();
-            //modal.classList.add("active");
+                })
+                passList.innerHTML = html;
+                passLists.innerHTML = htmList;
+                getManifest();
+                //modal.classList.add("active");
 
-            //seatSelect.classList.add("active");
-        }
-    }).catch(error => {
-        console.error('There was an error!', error);
+                //seatSelect.classList.add("active");
+            }
+        }).catch(error => {
+            console.error('There was an error!', error);
         });
     } else {
         window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
@@ -332,6 +332,7 @@ function continueBooking() {
 getManifest = () => {
     fetchManifest().then(data => {
         // console.log(data);
+        bookingDetails.scrollTop = 0;
         if (data.RESULT === 'SEATPLAN NOT FOUND') {
             Swal.fire(data.RESULT);
         } else {
@@ -422,7 +423,6 @@ getManifest = () => {
                 });
             });
         }
-
     }).catch(error => {
         console.error('There was an error!', error);
     });
@@ -431,17 +431,17 @@ getManifest = () => {
 
 getSchedules = () => {
 
-        fetchResults().then((data) => {
-            if (data.length > 0) {
-                let html = '';
-                //console.log(data);
-                let placeholder = document.querySelector(" .search-result-main");
-                let header = document.getElementById("header_travel");
-                let header1 = document.getElementById("side_header");
-                header.innerHTML = `<p><span>${data[0].originname}</span> TO <span>${data[0].destinationname}</span></p>`
-                header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].destinationname}</span></p>`
-                data.forEach((results, index) => {
-                    html += `<div class="search-result">
+    fetchResults().then((data) => {
+        if (data.length > 0) {
+            let html = '';
+            //console.log(data);
+            let placeholder = document.querySelector(" .search-result-main");
+            let header = document.getElementById("header_travel");
+            let header1 = document.getElementById("side_header");
+            header.innerHTML = `<p><span>${data[0].originname}</span> TO <span>${data[0].destinationname}</span></p>`
+            header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].destinationname}</span></p>`
+            data.forEach((results, index) => {
+                html += `<div class="search-result">
             <div class="highlight">
                 <p id="fare">php <span>${results['fare']}</span></p>
                 <p id="etd">Departure: <span>${formatTime(results['etd'])}</span></p>
@@ -463,14 +463,28 @@ getSchedules = () => {
                   </div>
                </div>
             </div>
-            <button data-id="${index}" class="btn book">Book seats</button></div>`;
-                })
-                placeholder.innerHTML = html;
-            }
+            <button data-id="${index}" data-routeId="${results.tkey}" class="btn book">Book seats</button></div>`;
+            })
+            placeholder.innerHTML = html;
+        }
 
-            let bookBtn = document.querySelectorAll(".btn.book");
-            bookBtn.forEach((e) => {
-                e.addEventListener("click", attr => {
+        let bookBtn = document.querySelectorAll(".btn.book");
+        bookBtn.forEach((e) => {
+            e.addEventListener("click", attr => {
+                let ok = true;
+                let resv = JSON.parse(sessionStorage.getItem('reservation'));
+                console.log(e.dataset.routeid);
+                if (resv !== null && resv[0].RouteId !== e.dataset.routeid) {
+                    let text = "Choosing another trip will cancel your seat selection for this trip. \nContinue?";
+                    if (confirm(text) == true) {
+                        ok = true;
+                    } else {
+                        ok = false;
+                    }
+                }
+                if (ok) {
+
+
                     bookBtn.forEach(e => {
                         e.classList.remove('active');
                         e.removeAttribute("disabled");
@@ -516,54 +530,57 @@ getSchedules = () => {
 
                         }
                     });
+                }
 
-                    // body.classList.toggle("modal-open");
-                    // cancelBtn.classList.add("active");
-                    // continueBtn.classList.add("active");
-                    // seatSelect.classList.add("active");
-                });
+                // body.classList.toggle("modal-open");
+                // cancelBtn.classList.add("active");
+                // continueBtn.classList.add("active");
+                // seatSelect.classList.add("active");
             });
-
-        }).catch(error => {
-            console.error('There was an error!', error);
         });
+
+    }).catch(error => {
+        console.error('There was an error!', error);
+    });
 
 
 }
 
-getLocation = () =>{
-    fetchLocation().then(data => {
-        console.log(data);
-        if (data.length > 0) {
-            let html = '';
-            let placeholder = document.querySelector(".item.from-locations");
+getLocation = () => {
+    return new Promise(function (resolve, reject) {
+        fetchLocation().then(data => {
+            // console.log(data);
+            if (data.length > 0) {
+                let html = '';
+                let placeholder = document.querySelector(".item.from-locations");
 
-            let dg = groupBy(data, locs => locs.area);
+                let dg = groupBy(data, locs => locs.area);
 
-            dg.forEach(function (item, area) {
-                html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
-                item.forEach(loc => {
-                    html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.originName} </a>`;
+                dg.forEach(function (item, area) {
+                    html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
+                    item.forEach(loc => {
+                        html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.originName} </a>`;
+                    })
+                    html += '</div>'
                 })
-                html += '</div>'
-            })
-            placeholder.innerHTML = html;
-        }
+                placeholder.innerHTML = html;
+            }
 
-        let fromLocation, fromValue;
-        fromLocation = document.querySelectorAll(".item.from-locations a");
-        fromValue = document.querySelector(".from-value");
-        fromLocation.forEach((e) => {
-            e.addEventListener("click", () => {
-                fromValue.setAttribute("value", e.textContent);
-                fromValue.setAttribute("data-id", e.dataset.id);
-                fromValue.setAttribute("data-clientid", e.dataset.clientid);
-                fromValue.value = e.textContent;
-                getDestination(e.textContent);
+            let fromLocation, fromValue;
+            fromLocation = document.querySelectorAll(".item.from-locations a");
+            fromValue = document.querySelector(".from-value");
+            fromLocation.forEach((e) => {
+                e.addEventListener("click", () => {
+                    fromValue.setAttribute("value", e.textContent);
+                    fromValue.setAttribute("data-id", e.dataset.id);
+                    fromValue.setAttribute("data-clientid", e.dataset.clientid);
+                    fromValue.value = e.textContent;
+                    getDestination(e.textContent);
+                });
             });
+        }).catch(error => {
+            console.error('There was an error!', error);
         });
-    }).catch(error => {
-        console.error('There was an error!', error);
     });
 }
 
@@ -572,20 +589,22 @@ getDestination = (origin) => {
     // alert(origin);
     let toLocation, toValue;
     toLocation = document.querySelectorAll(".item.to-locations a");
-    toValue = document.querySelector(".to-value");
-    toValue.setAttribute("value", '')
-    fetchToLocation(origin.trim()).then(data => {
+    fetchToLocation(origin).then(data => {
         if (data.length > 0) {
+            let destination = sessionStorage.getItem('destinationName');
             let html = '';
             let placeholder = document.querySelector(".item.to-locations");
             let dg = groupBy(data, locs => locs.area);
+            toValue = document.querySelector(".to-value");
+            toValue.value = '';
             //console.log(dg);
             dg.forEach((item, area) => {
                 html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
-                item.forEach((loc, index) => {
-                    //console.info(loc.destinationname);
-                    // $('#to').val(loc.destinationname);
-                    if (index === 0) {
+                toValue.value = item[0].destinationname;
+                toValue.setAttribute("data-id", item[0].destinationid);
+                item.forEach((loc) => {
+                    if (destination === loc.destinationname) {
+                        console.log(destination);
                         toValue.value = loc.destinationname;
                         toValue.setAttribute("data-id", loc.destinationid);
                     }
@@ -668,8 +687,8 @@ SearchForm = (e) => {
 }
 
 
-$('input[type=radio][name=gcash]').click(function() {
-    let fee = 0 ;
+$('input[type=radio][name=gcash]').click(function () {
+    let fee = 0;
     let refNo = '';
     let data = {
         "clientid": sessionStorage.getItem('clientId'),
@@ -678,7 +697,7 @@ $('input[type=radio][name=gcash]').click(function() {
         "referenceNo": sessionStorage.getItem('refNo')
     };
     // console.log(data);
-    fetchReservationInfo(data).then(result =>{
+    fetchReservationInfo(data).then(result => {
         sessionStorage.setItem('reserve_list', JSON.stringify(result));
         // let f = 0;
         // console.log(result);
@@ -692,12 +711,13 @@ $('input[type=radio][name=gcash]').click(function() {
     })
     let reslist = JSON.parse(sessionStorage.getItem('reserve_list'));
     refNo = reslist[0].ReferenceNo;
-    reslist.forEach(row =>{
+    reslist.forEach(row => {
         fee += row.AccommodationFee;
     })
     paygcash(fee, refNo);
 
 });
+
 function paygcash(amount, refNo) {
     // alert(amount + '=' + refNo)
     var pax_data = {
@@ -707,7 +727,7 @@ function paygcash(amount, refNo) {
         email: "",
         refno: refNo,
         mobile: "",
-        token:  sessionStorage.getItem("TOKEN")
+        token: sessionStorage.getItem("TOKEN")
     }
 
     try {
@@ -730,8 +750,7 @@ function paygcash(amount, refNo) {
 width=0,height=0,left=-1000,top=-1000`;
 
                     open(data11.URL, 'GCASH', params);
-                }
-                else {
+                } else {
                     alert("Oops. It appears we cannot process your GCash payment for now.")
                 }
             },
@@ -739,23 +758,21 @@ width=0,height=0,left=-1000,top=-1000`;
                 alert("a:" + textStatus);
             } //End for ajax error
         }); //End for ajax /api/reservations/passenger/
-    }
-    catch (ex) {
+    } catch (ex) {
         alert(ex.message);
     }
 
 }
 
-var loadFile = function(event) {
+var loadFile = function (event) {
     var output = document.getElementById('iproof');
     output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function() {
-        alert('asdfas');
+    output.onload = function () {
         URL.revokeObjectURL(output.src) // free memory
     }
 };
 
-UploadFile = evt =>{
+UploadFile = evt => {
     evt.preventDefault();
     var token = sessionStorage.getItem("TOKEN");
     //alert(newpaxlist[0].ReservationNo);
