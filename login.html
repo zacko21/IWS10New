@@ -120,7 +120,11 @@
             } else if (data['RESULT'] === 'OK') {
                 sessionStorage.setItem('USERNAME', data['USERNAME']);
                 sessionStorage.setItem('TOKEN', data['TOKEN']);
-                window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/index.html';
+                if(sessionStorage.getItem('originName')){
+                    window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/booking.html';
+                }else{
+                    window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/index.html';
+                }
             } else {
                 Swal.fire('INVALID EMAIL/PASSWORD');
                 document.getElementById('login').reset();

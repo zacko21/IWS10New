@@ -46,8 +46,8 @@ seats.forEach((e) => {
 });
 function cancelBooking() {
   bookingModal.classList.toggle("active");
-  payCon.setAttribute("disabled", true);
-  closeModal();
+  //payCon.setAttribute("disabled", true);
+  //closeModal();
 }
 
 function continuePayment() {
@@ -125,6 +125,11 @@ copyItem.forEach((e) => {
 });
 
 function openSearchbar() {
+  $('#from').val(sessionStorage.getItem('originName'));
+  getLocation();
+  getDestination($('#from').val());
+  $('#to').val(sessionStorage.getItem('destinationName'));
+  $('#date_of_departure').val(sessionStorage.getItem('departure'));
   searchBarMain.classList.toggle("active");
   floatingSearched.classList.toggle("uil-multiply");
 }

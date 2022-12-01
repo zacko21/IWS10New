@@ -6,7 +6,7 @@ async function fetchBookingHistory() {
     let data = {
         "token": token,
     }
-    console.log(input)
+    //console.log(input)
     let response = await fetch(input, {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -20,7 +20,7 @@ async function fetchBookingHistory() {
 
 async function fetchResults(show = false, options = {}, target = 'body') {
     let clientId, date, origin, destination, paxCount;
-    console.log(target);
+    //console.log(target);
     if (show) $(target).LoadingOverlay("show", options)
     origin = sessionStorage.getItem('originName');
     destination = sessionStorage.getItem('destinationName');
@@ -37,7 +37,7 @@ async function fetchResults(show = false, options = {}, target = 'body') {
 async function fetchReservationInfo(data) {
     let token = sessionStorage.getItem('TOKEN');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getreservationinfotest/${token}`;
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     let response = await fetch(input, {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -54,7 +54,7 @@ async function fetchUpdatePassenger(data) {
     let token = sessionStorage.getItem('TOKEN');
     let refNo = sessionStorage.getItem('refNo');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/passenger/${token}/${refNo}`;
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     let response = await fetch(input, {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -70,7 +70,7 @@ async function fetchCancelBooking(data) {
     $('.modal-content').LoadingOverlay('show');
     let token = sessionStorage.getItem('TOKEN');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/cancelbooking/${token}`;
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     let response = await fetch(input, {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -95,8 +95,8 @@ async function fetchPassengerSeat(refNo, seatNo) {
         "ReferenceNo": refNo,
         "SeatNo": seatNo
     };
-    console.log('PASSENGER SEAT');
-    console.log(JSON.stringify(data));
+    //console.log('PASSENGER SEAT');
+    //console.log(JSON.stringify(data));
     let response = await fetch(input, {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -157,8 +157,8 @@ async function fetchReserve() {
         "pickUp": sessionStorage.getItem('RouteId').split('.')[1],
         "dropOff": sessionStorage.getItem('RouteId').split('.')[2]
     };
-    console.log('RESERVE POST');
-    console.log(JSON.stringify(data));
+    //console.log('RESERVE POST');
+    //console.log(JSON.stringify(data));
     let response = await fetch(input, {
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -261,10 +261,12 @@ EditInfo = (e) => {
 };
 
 getReserve = () => {
+    if (sessionStorage.getItem('TOKEN')) {
+
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
-        console.log('RESERVE RESULT');
-        console.log(data);
+        //console.log('RESERVE RESULT');
+        //console.log(data);
         if (data.length > 0) {
             let passList = document.getElementById('passenger_assign');
             let passLists = document.getElementById('passenger-list');
@@ -301,7 +303,11 @@ getReserve = () => {
         }
     }).catch(error => {
         console.error('There was an error!', error);
-    });
+        });
+    } else {
+        window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
+    }
+
 
 }
 
@@ -424,11 +430,11 @@ getManifest = () => {
 }
 
 getSchedules = () => {
-    if (sessionStorage.getItem('TOKEN')) {
+
         fetchResults().then((data) => {
             if (data.length > 0) {
                 let html = '';
-                console.log(data);
+                //console.log(data);
                 let placeholder = document.querySelector(" .search-result-main");
                 let header = document.getElementById("header_travel");
                 let header1 = document.getElementById("side_header");
@@ -449,7 +455,7 @@ getSchedules = () => {
                   </div>
                   <div class="item">
                     <i class="uil uil-clock"></i>
-                    <p>Time: <span>1</span> hours</p>
+                    <p>Time: <span>-</span> hours</p>
                   </div>
                   <div class="item">
                     <i class="uil uil-user-location"></i>
@@ -487,6 +493,9 @@ getSchedules = () => {
                                 </div>`;
                             document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + 50).toFixed(2);
                             document.getElementById('res_fee').textContent = 'PHP ' + (50 * paxCount).toFixed(2);
+                            sessionStorage.setItem('RouteId', dest.tkey);
+                            sessionStorage.setItem('BusType', dest.bustype);
+                            sessionStorage.setItem('clientId', dest.clientid);
                             getReserve();
                             body.classList.toggle("modal-open");
                             cancelBtn.classList.add("active");
@@ -504,9 +513,7 @@ getSchedules = () => {
                             //         <tr> <td>Departure Accommodation:</td> <td id="busType">${dest.bustype}</td> </tr>
                             //         <tr style="border-top: 2px dashed rgba(0,0,0,0.55) ;"> <td>Total Payment:</td> <td>PHP ${(sub_total + 50).toFixed(2)}</td> </tr> `;
                             // cBooking.innerHTML = html;
-                            sessionStorage.setItem('RouteId', dest.tkey);
-                            sessionStorage.setItem('BusType', dest.bustype);
-                            sessionStorage.setItem('clientId', dest.clientid);
+
                         }
                     });
 
@@ -520,45 +527,46 @@ getSchedules = () => {
         }).catch(error => {
             console.error('There was an error!', error);
         });
-    } else {
-        window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
-    }
 
 
 }
 
-fetchLocation().then(data => {
-    if (data.length > 0) {
-        let html = '';
-        let placeholder = document.querySelector(".item.from-locations");
+getLocation = () =>{
+    fetchLocation().then(data => {
+        console.log(data);
+        if (data.length > 0) {
+            let html = '';
+            let placeholder = document.querySelector(".item.from-locations");
 
-        let dg = groupBy(data, locs => locs.area);
+            let dg = groupBy(data, locs => locs.area);
 
-        dg.forEach(function (item, area) {
-            html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
-            item.forEach(loc => {
-                html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.originName} </a>`;
+            dg.forEach(function (item, area) {
+                html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
+                item.forEach(loc => {
+                    html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.originName} </a>`;
+                })
+                html += '</div>'
             })
-            html += '</div>'
-        })
-        placeholder.innerHTML = html;
-    }
+            placeholder.innerHTML = html;
+        }
 
-    let fromLocation, fromValue;
-    fromLocation = document.querySelectorAll(".item.from-locations a");
-    fromValue = document.querySelector(".from-value");
-    fromLocation.forEach((e) => {
-        e.addEventListener("click", () => {
-            fromValue.setAttribute("value", e.textContent);
-            fromValue.setAttribute("data-id", e.dataset.id);
-            fromValue.setAttribute("data-clientid", e.dataset.clientid);
-            fromValue.value = e.textContent;
-            getDestination(e.textContent);
+        let fromLocation, fromValue;
+        fromLocation = document.querySelectorAll(".item.from-locations a");
+        fromValue = document.querySelector(".from-value");
+        fromLocation.forEach((e) => {
+            e.addEventListener("click", () => {
+                fromValue.setAttribute("value", e.textContent);
+                fromValue.setAttribute("data-id", e.dataset.id);
+                fromValue.setAttribute("data-clientid", e.dataset.clientid);
+                fromValue.value = e.textContent;
+                getDestination(e.textContent);
+            });
         });
+    }).catch(error => {
+        console.error('There was an error!', error);
     });
-}).catch(error => {
-    console.error('There was an error!', error);
-});
+}
+
 
 getDestination = (origin) => {
     // alert(origin);
@@ -571,7 +579,7 @@ getDestination = (origin) => {
             let html = '';
             let placeholder = document.querySelector(".item.to-locations");
             let dg = groupBy(data, locs => locs.area);
-            console.log(dg);
+            //console.log(dg);
             dg.forEach((item, area) => {
                 html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
                 item.forEach((loc, index) => {
@@ -590,7 +598,7 @@ getDestination = (origin) => {
         toLocation = document.querySelectorAll(".item.to-locations a");
         toLocation.forEach((e) => {
             e.addEventListener("click", () => {
-                console.log(e);
+                //console.log(e);
                 toValue.setAttribute("value", e.textContent);
                 toValue.value = e.textContent;
             });
@@ -669,7 +677,7 @@ $('input[type=radio][name=gcash]').click(function() {
         "tripID": sessionStorage.getItem('departure') + '.' + sessionStorage.getItem('RouteId'),
         "referenceNo": sessionStorage.getItem('refNo')
     };
-    console.log(data);
+    // console.log(data);
     fetchReservationInfo(data).then(result =>{
         sessionStorage.setItem('reserve_list', JSON.stringify(result));
         // let f = 0;
@@ -691,7 +699,7 @@ $('input[type=radio][name=gcash]').click(function() {
 
 });
 function paygcash(amount, refNo) {
-    alert(amount + '=' + refNo)
+    // alert(amount + '=' + refNo)
     var pax_data = {
         module: "IWANTSEATS",
         amount: parseInt(amount),

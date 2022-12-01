@@ -51,35 +51,23 @@
                 <label for="from">From</label>
                 <div class="input">
                   <i class="uil uil-search search-ic"></i>
-                  <input class="from-value" placeholder="Your location" />
+                  <input class="from-value" id="from" name="from" placeholder="Your location" required readonly autocomplete="off"/>
                   <i class="uil uil-map-marker"></i>
                 </div>
                 <div class="dropdown">
                   <div class="item from-locations">
-                    <a><i class="uil uil-crosshair"></i> Item1</a>
-                    <a><i class="uil uil-crosshair"></i> Item2</a>
-                    <a><i class="uil uil-crosshair"></i> Item3</a>
-                    <a><i class="uil uil-crosshair"></i> Item4</a>
-                    <a><i class="uil uil-crosshair"></i> Item5</a>
-                    <a><i class="uil uil-crosshair"></i> Item6</a>
                   </div>
                 </div>
               </div>
               <div class="search-fild drop-box">
-                <label for="from">To</label>
+                <label for="to">To</label>
                 <div class="input">
                   <i class="uil uil-search search-ic"></i>
-                  <input class="to-value" placeholder="Travel location" />
+                  <input class="to-value" id="to" placeholder="Travel location" required autocomplete="off" readonly/>
                   <i class="uil uil-location-arrow"></i>
                 </div>
                 <div class="dropdown">
                   <div class="item to-locations">
-                    <a><i class="uil uil-crosshair"></i> Item</a>
-                    <a><i class="uil uil-crosshair"></i> Item</a>
-                    <a><i class="uil uil-crosshair"></i> Item</a>
-                    <a><i class="uil uil-crosshair"></i> Item</a>
-                    <a><i class="uil uil-crosshair"></i> Item</a>
-                    <a><i class="uil uil-crosshair"></i> Item</a>
                   </div>
                 </div>
               </div>
@@ -88,37 +76,34 @@
               <div class="search-fild">
                 <label for="from">Passengers</label>
                 <div class="input">
-                  <input type="number" value="1" />
+                  <input id="passenger" required type="number" value="1"/>
                   <i class="uil uil-users-alt"></i>
                 </div>
               </div>
               <div class="search-fild">
-                <label for="from">Travel Date</label>
+                <label for="date_of_departure">Travel Date</label>
                 <div class="input">
-                  <input
-                    type="date"
-                    placeholder="mm/dd/yyyy"
-                    onchange="this.className=(this.value!=''?'has-value':'')"
+                  <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
+                         required type="date"
                   />
                   <i class="uil uil-calendar-alt"></i>
                 </div>
               </div>
               <div class="search-fild">
                 <div class="flex">
-                  <label for="from">Return Date</label>
-                  <input type="checkbox" />
+                  <label for="date_of_return">Return Date</label>
+                  <input type="checkbox"/>
                 </div>
                 <div class="input">
-                  <input
-                    type="date"
-                    placeholder="mm/dd/yyyy"
-                    onchange="this.className=(this.value!=''?'has-value':'')"
+                  <input disabled id="date_of_return" name="date_of_return"
+                         onchange="this.className=(this.value!=''?'has-value':'')"
+                         type="date"
                   />
 
                   <i class="uil uil-calendar-alt"></i>
                 </div>
               </div>
-              <button class="btn-primary search-btn">
+              <button onclick="SearchForm(event)" class="btn-primary search-btn">
                 <i class="uil uil-search"></i> Search
               </button>
             </div>
@@ -133,14 +118,14 @@
             <div class="step-block search-res step-active">
               <div class="choosen-location">
                 <p id="header_travel"></p>
-                <div class="time">
-                  <input
-                    type="datetime-local"
-                    placeholder="Date and time"
-                    onchange="this.className=(this.value!=''?'has-value':'')"
-                    placeholder="date"
-                  />
-                </div>
+<!--                <div class="time">-->
+<!--                  <input -->
+<!--                    type="datetime-local"-->
+<!--                    placeholder="Date and time"-->
+<!--                    onchange="this.className=(this.value!=''?'has-value':'')"-->
+<!--                    placeholder="date"-->
+<!--                  />-->
+<!--                </div>-->
               </div>
               <div class="search-result-main">
               </div>

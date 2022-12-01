@@ -66,7 +66,7 @@
                 </div>
                 <div class="search-fild drop-box">
                     <label for="to">To</label>
-                    <div class="input">
+                    <div class="input to-input">
                         <i class="uil uil-search search-ic"></i>
                         <input class="to-value" id="to" placeholder="Travel location" required autocomplete="off" readonly/>
                         <i class="uil uil-location-arrow"></i>
@@ -87,7 +87,6 @@
                     <label for="date_of_departure">Travel Date</label>
                     <div class="input">
                         <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
-                               placeholder="mm/dd/yyyy"
                                required type="date"
                         />
                         <i class="uil uil-calendar-alt"></i>
@@ -101,10 +100,8 @@
                     <div class="input">
                         <input disabled id="date_of_return" name="date_of_return"
                                onchange="this.className=(this.value!=''?'has-value':'')"
-                               placeholder="mm/dd/yyyy"
                                type="date"
                         />
-
                         <i class="uil uil-calendar-alt"></i>
                     </div>
                 </div>
@@ -441,7 +438,15 @@
 <script src="assets/js/loadingoverlay.min.js"></script>
 <script src="assets/js/script.min.js"></script>
 <script src="assets/js/app.js"></script>
-
+<script>
+    $(document).ready(()=>{
+        getLocation();
+    })
+    $('#from').click(()=>{
+        let dropA = document.querySelector('.to-input').nextElementSibling;
+        dropA.classList.remove('active');
+    })
+</script>
 
 </body>
 </html>
