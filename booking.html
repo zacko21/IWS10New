@@ -51,7 +51,8 @@
                         <label for="from">From</label>
                         <div class="input from-input">
                             <i class="uil uil-search search-ic"></i>
-                            <input autocomplete="off" class="from-value" id="from" name="from" placeholder="Your location"
+                            <input autocomplete="off" class="from-value" id="from" name="from"
+                                   placeholder="Your location"
                                    readonly required/>
                             <i class="uil uil-map-marker"></i>
                         </div>
@@ -320,7 +321,8 @@
                                         <label for="paymentFile">
                                             <img alt="" id="iproof" src="assets/images/upload.svg"/>
                                         </label>
-                                        <input accept="image/*" id="paymentFile" name="paymentFile" onchange="loadFile(event)" required
+                                        <input accept="image/*" id="paymentFile" name="paymentFile"
+                                               onchange="loadFile(event)" required
                                                type="file"/>
                                     </div>
                                     <p>
@@ -521,11 +523,12 @@
 <script src="assets/js/jquery.min.js"></script>
 <link href="assets/fileupload/jquery.fileuploader.min.css" media="all" rel="stylesheet">
 <script src="assets/js/loadingoverlay.min.js"></script>
+<script src="assets/js/lodash.min.js"></script>
 <script src="assets/swal/sweetalert2.all.js"></script>
 <script src="assets/js/script.js"></script>
 <script>
     $(document).ready(() => {
-        sessionStorage.removeItem('reservation');
+        sessionStorage.removeItem('selected-sched');
         getSchedules();
     });
 

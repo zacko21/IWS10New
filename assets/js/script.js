@@ -227,6 +227,7 @@ cancelBookings = () => {
     }
     fetchCancelBooking(data).then(res => {
         if (res.result === 'OK') {
+            sessionStorage.removeItem('reservation');
             // modal.classList.remove('active');
             // Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
         }
@@ -433,6 +434,7 @@ getSchedules = () => {
 
     fetchResults().then((data) => {
         if (data.length > 0) {
+            sessionStorage.setItem('schedules', JSON.stringify(data));
             let html = '';
             //console.log(data);
             let placeholder = document.querySelector(" .search-result-main");
@@ -463,18 +465,18 @@ getSchedules = () => {
                   </div>
                </div>
             </div>
-            <button data-id="${index}" data-routeId="${results.tkey}" class="btn book">Book seats</button></div>`;
+            <button data-id="${index}" class="btn book">Book seats</button></div>`;
             })
             placeholder.innerHTML = html;
         }
 
         let bookBtn = document.querySelectorAll(".btn.book");
+        let schedules = JSON.parse(sessionStorage.getItem('schedules'));
         bookBtn.forEach((e) => {
             e.addEventListener("click", attr => {
                 let ok = true;
-                let resv = JSON.parse(sessionStorage.getItem('reservation'));
-                console.log(e.dataset.routeid);
-                if (resv !== null && resv[0].RouteId !== e.dataset.routeid) {
+                let current_sched = JSON.parse(sessionStorage.getItem('selected-sched'));
+                if (_.isEqual(current_sched, schedules[e.dataset.id]) === false && current_sched !== null) {
                     let text = "Choosing another trip will cancel your seat selection for this trip. \nContinue?";
                     if (confirm(text) == true) {
                         ok = true;
@@ -483,53 +485,38 @@ getSchedules = () => {
                     }
                 }
                 if (ok) {
-
-
                     bookBtn.forEach(e => {
                         e.classList.remove('active');
                         e.removeAttribute("disabled");
                     })
                     e.classList.add("active");
                     // e.setAttribute("disabled", true);
-                    fetchResults(true, {}, '.booking-details').then((data) => {
-                        if (data.length > 0) {
-                            let dest = data[e.dataset.id];
-                            let fare = dest.fare;
-                            let paxCount = sessionStorage.getItem('passenger_count');
-                            let sub_total = fare * paxCount;
-                            document.getElementById('side_departure').textContent = `${formatDate(dest.tripdate)} ${formatTime(dest.etd)}`;
-                            document.getElementById('s_fare').textContent = 'PHP ' + fare.toFixed(2);
-                            document.getElementById('sub_total').innerHTML =
-                                `<p>Departure <span>(${paxCount} pax)</span></p>
-                                <div class="item">
-                                    <p>Sub Total <span>(${paxCount} pax)</span></p>
-                                    <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
-                                </div>`;
-                            document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + 50).toFixed(2);
-                            document.getElementById('res_fee').textContent = 'PHP ' + (50 * paxCount).toFixed(2);
-                            sessionStorage.setItem('RouteId', dest.tkey);
-                            sessionStorage.setItem('BusType', dest.bustype);
-                            sessionStorage.setItem('clientId', dest.clientid);
-                            getReserve();
-                            body.classList.toggle("modal-open");
-                            cancelBtn.classList.add("active");
-                            continueBtn.classList.add("active");
-                            seatSelect.classList.add("active");
 
-                            // continueBtn.classList.add("active");
+                    let dest = schedules[e.dataset.id];
+                    sessionStorage.setItem('selected-sched', JSON.stringify(dest))
+                    console.log(dest);
+                    let fare = dest.fare;
+                    let paxCount = sessionStorage.getItem('passenger_count');
+                    let sub_total = fare * paxCount;
+                    document.getElementById('side_departure').textContent = `${formatDate(dest.tripdate)} ${formatTime(dest.etd)}`;
+                    document.getElementById('s_fare').textContent = 'PHP ' + fare.toFixed(2);
+                    document.getElementById('sub_total').innerHTML =
+                        `<p>Departure <span>(${paxCount} pax)</span></p>
+                            <div class="item">
+                            <p>Sub Total <span>(${paxCount} pax)</span></p>
+                            <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
+                        </div>`;
+                    document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + 50).toFixed(2);
+                    document.getElementById('res_fee').textContent = 'PHP ' + (50 * paxCount).toFixed(2);
+                    sessionStorage.setItem('RouteId', dest.tkey);
+                    sessionStorage.setItem('BusType', dest.bustype);
+                    sessionStorage.setItem('clientId', dest.clientid);
+                    getReserve();
+                    body.classList.toggle("modal-open");
+                    cancelBtn.classList.add("active");
+                    continueBtn.classList.add("active");
+                    seatSelect.classList.add("active");
 
-                            // let btnBook = document.querySelector('.booking-confirm > .wraper-item > div > button');
-                            // let cBooking = document.querySelector('.booking-confirm > .wraper-item > table > tbody');
-                            // let html = `<tr> <td>Operator</td> <td>${dest.busoperator}</td> </tr>
-                            //         <tr> <td>Route:</td><td>${dest.originname} - ${dest.destinationname}</td> </tr>
-                            //         <tr style="border-top: 2px dashed rgba(0,0,0,0.55) ;"> <td>Departure Date:</td> <td>${formatDateL(dest.tripdate)}</td> </tr>
-                            //         <tr> <td>Departure Time:</td> <td>${formatTime(dest.etd)}</td> </tr>
-                            //         <tr> <td>Departure Accommodation:</td> <td id="busType">${dest.bustype}</td> </tr>
-                            //         <tr style="border-top: 2px dashed rgba(0,0,0,0.55) ;"> <td>Total Payment:</td> <td>PHP ${(sub_total + 50).toFixed(2)}</td> </tr> `;
-                            // cBooking.innerHTML = html;
-
-                        }
-                    });
                 }
 
                 // body.classList.toggle("modal-open");

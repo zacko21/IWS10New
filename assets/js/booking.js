@@ -24,7 +24,6 @@ bookBtn.forEach((e) => {
   });
 });
 function closeModal() {
-  sessionStorage.removeItem('reservation');
   cancelBookings();
   body.classList.toggle("modal-open");
   cancelBtn.classList.remove("active");
