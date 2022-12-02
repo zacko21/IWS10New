@@ -130,7 +130,7 @@ function openSearchbar() {
   document.querySelector('.from-input').nextElementSibling.classList.remove('active')
   $('#from').val(sessionStorage.getItem('originName'));
   getLocation();
-  getDestination($('#from').val());
+  getDestination();
   $('#date_of_departure').val(sessionStorage.getItem('departure'));
   searchBarMain.classList.toggle("active");
   floatingSearched.classList.toggle("uil-multiply");

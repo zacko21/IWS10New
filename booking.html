@@ -17,7 +17,8 @@
             href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
             rel="stylesheet"
     />
-    <title>Document</title>
+    <title>IWantSeats</title>
+    <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
 </head>
 <body>
 <header>
@@ -27,11 +28,13 @@
         </div>
         <div class="links">
             <a href="index.html" onclick="menu()">Home</a>
-            <a href="#" onclick="menu()">Reservations</a>
-            <a href="user-admin.html" onclick="menu()">Contact us</a>
-            <a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
-            </a>
+            <a href="#" onclick="menu()">About</a>
+            <a href="index.html#contact" onclick="menu()">Contact us</a>
+            <div class="status">
+                <a href="#" onclick="Logout()">
+                    <button class="btn-primary">Logout</button>
+                </a>
+            </div>
         </div>
         <div class="menu" onclick="menu()">
             <i class="uil uil-align-center-alt"></i>
@@ -250,17 +253,17 @@
                                 <div class="item">
                                     <p>Account name:</p>
                                     <span
-                                    >Bank account holder <i class="uil uil-copy"></i
+                                    >Augmata Inc <i class="uil uil-copy"></i
                                     ></span>
                                 </div>
                                 <div class="item">
                                     <p>Account number:</p>
-                                    <span>000000000000 <i class="uil uil-copy"></i></span>
+                                    <span>0069-3007-3406<i class="uil uil-copy"></i></span>
                                 </div>
                                 <div class="item">
-                                    <p>Bank account branch:</p>
+                                    <p>Account Type:</p>
                                     <span
-                                    >BDO Libertad Branch Mandaluyong
+                                    >Savings
                         <i class="uil uil-copy"></i
                         ></span>
                                 </div>
@@ -274,17 +277,17 @@
                                 <div class="item">
                                     <p>Account name:</p>
                                     <span
-                                    >Bank account holder <i class="uil uil-copy"></i
+                                    >Stephanie Kapunan<i class="uil uil-copy"></i
                                     ></span>
                                 </div>
                                 <div class="item">
                                     <p>Account number:</p>
-                                    <span>000000000000 <i class="uil uil-copy"></i></span>
+                                    <span>3919-1197-39<i class="uil uil-copy"></i></span>
                                 </div>
                                 <div class="item">
-                                    <p>Bank account branch:</p>
+                                    <p>Account Type:</p>
                                     <span
-                                    >BDO Libertad Branch Mandaluyong
+                                    >Savings
                         <i class="uil uil-copy"></i
                         ></span>
                                 </div>
@@ -293,7 +296,10 @@
                         <div class="payment-block bank">
                             <center>
                                 <h1 class="block-title">
-                                    Once paid Click on button bellow for the payment approval.
+                                    Once paid, PLEASE SEND YOUR PROOF OF PAYMENT WITHIN 24 HOURS TO
+                                    <span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span> or UPLOAD IT BELOW.
+                                    (Online Bank transfer and
+                                    over-the-counter payments must still be confirmed with proof of payment)
                                 </h1>
                                 <button
                                         class="btn btn-primary proof-btn"
@@ -326,8 +332,9 @@
                                                type="file"/>
                                     </div>
                                     <p>
-                                        Upload payment screenshot (For bank transfer, online
-                                        banking)
+                                        The Upload/Submit button will upload the submitted proof of payment to <span
+                                            style="color: blue">payments@iwantseats.com.ph</span> along with the
+                                        Reservation Number
                                     </p>
                                     <br/><br/>
                                     <button class="btn btn-primary">Submit</button>
@@ -529,6 +536,18 @@
 <script>
     $(document).ready(() => {
         sessionStorage.removeItem('selected-sched');
+        let div = document.querySelector('.status');
+        if (sessionStorage.getItem('TOKEN')) {
+            div.innerHTML = `
+                        <a href="user-admin.html" onclick="menu()">My Account</a>
+                    <a href="#" onclick="Logout()">
+                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
+                </a>`;
+        } else {
+            div.innerHTML = `<a href="signup.html" onclick="menu()">
+                <button class="btn-primary">Sign up</button>
+            </a> `;
+        }
         getSchedules();
     });
 

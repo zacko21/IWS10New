@@ -7,13 +7,14 @@
     <!-- link css -->
     <link href="assets/css/style.css" rel="stylesheet"/>
     <link href="assets/css/form.css" rel="stylesheet"/>
+    <title>IWantSeats</title>
+    <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
 
     <!-- unicons -->
     <link
             href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
             rel="stylesheet"
     />
-    <title>Document</title>
 </head>
 <body>
 <header>
@@ -23,11 +24,10 @@
         </div>
         <div class="links">
             <a href="index.html" onclick="menu()">Home</a>
-            <a href="#" onclick="menu()">Reservations</a>
-            <a href="#contact" onclick="menu()">Contact us</a>
-            <a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
-            </a>
+            <a href="#" onclick="menu()">About</a>
+            <a href="index.html#contact" onclick="menu()">Contact us</a>
+            <div class="status">
+            </div>
         </div>
         <div class="menu" onclick="menu()">
             <i class="uil uil-align-center-alt"></i>
@@ -56,7 +56,9 @@
                     <label for="from">From</label>
                     <div class="input">
                         <i class="uil uil-search search-ic"></i>
-                        <input class="from-value" id="from" name="from" placeholder="Your location" required readonly autocomplete="off"/>
+                        <input autocomplete="off" class="from-value" id="from" name="from"
+                               oninput="getLocation(this.value)" placeholder="Your location"
+                               required/>
                         <i class="uil uil-map-marker"></i>
                     </div>
                     <div class="dropdown">
@@ -68,7 +70,9 @@
                     <label for="to">To</label>
                     <div class="input to-input">
                         <i class="uil uil-search search-ic"></i>
-                        <input class="to-value" id="to" placeholder="Travel location" required autocomplete="off" readonly/>
+                        <input autocomplete="off" class="to-value" id="to" oninput="getDestination(this.value)"
+                               placeholder="Travel location"
+                               required/>
                         <i class="uil uil-location-arrow"></i>
                     </div>
                     <div class="dropdown">
@@ -95,7 +99,7 @@
                 <div class="search-fild">
                     <div class="flex">
                         <label for="date_of_return">Return Date</label>
-                        <input type="checkbox"/>
+                        <input id="chkReturn" type="checkbox"/>
                     </div>
                     <div class="input">
                         <input disabled id="date_of_return" name="date_of_return"
@@ -436,12 +440,30 @@
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/swal/sweetalert2.all.js"></script>
 <script src="assets/js/loadingoverlay.min.js"></script>
+<script src="assets/js/lodash.min.js"></script>
 <script src="assets/js/script.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-    $(document).ready(()=>{
+    $(document).ready(() => {
         getLocation();
+        let div = document.querySelector('.status');
+        if (sessionStorage.getItem('TOKEN')) {
+            div.innerHTML = `
+                        <a href="user-admin.html" onclick="menu()">My Account</a>
+                    <a href="#" onclick="Logout()">
+                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
+                </a>`;
+        } else {
+            div.innerHTML = `<a href="signup.html" onclick="menu()">
+                <button class="btn-primary">Sign up</button>
+            </a> `;
+        }
     })
+    $("#chkReturn").change(function () {
+        if (this.checked) {
+            Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
+        }
+    });
 </script>
 
 </body>
