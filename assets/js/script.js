@@ -414,11 +414,11 @@ getManifest = () => {
         if (data.RESULT === 'SEATPLAN NOT FOUND') {
             Swal.fire(data.RESULT);
         } else {
-            let gp = groupBy(data, list => list.row);
+            let gp = _.groupBy(JSON.parse(JSON.stringify(data)), 'row');
             // console.log(gp);
             let placeholder = document.querySelector('.bus-body');
             let html = `<table class="table table-sm"><tbody>`;
-            gp.forEach((list, row) => {
+            _.forEach(gp,(list, row) => {
                 html += '<tr>';
                 list.forEach((row1) => {
                     if (row1.row === 0) {
@@ -781,7 +781,7 @@ SearchForm = (e) => {
 }
 
 
-$('input[type=radio][name=gcash]').click(function () {
+$('.gcashi').click(function () {
     let fee = 0;
     let refNo = '';
     let data = {
