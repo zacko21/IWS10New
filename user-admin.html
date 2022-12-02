@@ -1,162 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/admin.css" />
-    <link rel="stylesheet" href="assets/css/table.css" />
+    <link href="assets/css/style.css" rel="stylesheet"/>
+    <link href="assets/css/admin.css" rel="stylesheet"/>
+    <link href="assets/css/table.css" rel="stylesheet"/>
 
     <!-- unicons -->
     <link
-      rel="stylesheet"
-      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+            rel="stylesheet"
     />
 
-    <title>Document</title>
-  </head>
-  <body>
-    <header>
-      <div class="container-max">
+    <title>IWantSeats</title>
+    <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
+</head>
+<body>
+<header>
+    <div class="container-max">
         <div class="logo" onclick="window.open('index.html', '_self')">
-          <img src="assets/images/logo-black.png" alt="" />
+            <img alt="" src="assets/images/logo-black.png"/>
         </div>
         <div class="links">
-          <a href="index.html" onclick="menu()">Home</a>
-          <a href="#" onclick="menu()">Reservations</a>
-          <a href="index.html#contact" onclick="menu()">Contact us</a>
-          <a href="signup.html" onclick="menu()">
-            <button class="btn-primary">Sign up</button>
-          </a>
+            <a href="index.html" onclick="menu()">Home</a>
+            <a href="#" onclick="menu()">About</a>
+            <a href="index.html#contact" onclick="menu()">Contact us</a>
+            <div class="status">
+            </div>
         </div>
         <div class="menu" onclick="menu()">
-          <i class="uil uil-align-center-alt"></i>
+            <i class="uil uil-align-center-alt"></i>
         </div>
-      </div>
-    </header>
-    <section class="sp">
-      <div class="container">
+    </div>
+</header>
+<section class="sp">
+    <div class="container">
         <div class="edit-profile-modal">
-          <form>
-            <center>
-              <div class="user-profile">
-                <input type="file" id="profile" />
-                <label for="profile">
-                  <i class="uil uil-camera-plus"></i>
-                  <img src="assets/images/avatar.svg" alt="" />
-                </label>
-              </div>
-              <input type="text" placeholder="Change Name" />
-              <input type="email" placeholder="Change Email" />
-              <input type="tel" placeholder="Change Phone" />
-              <div class="btns">
-                <button class="btn btn-primary">Save changes</button>
-                <div class="btn cancel-btn" onclick="edit()">Cancel</div>
-              </div>
-            </center>
-          </form>
+            <form>
+                <center>
+                    <div class="user-profile">
+                        <input id="profile" type="file"/>
+                        <label for="profile">
+                            <i class="uil uil-camera-plus"></i>
+                            <img alt="" src="assets/images/avatar.svg"/>
+                        </label>
+                    </div>
+                    <input placeholder="Change Name" type="text"/>
+                    <input placeholder="Change Email" type="email"/>
+                    <input placeholder="Change Phone" type="tel"/>
+                    <div class="btns">
+                        <button class="btn btn-primary">Save changes</button>
+                        <div class="btn cancel-btn" onclick="edit()">Cancel</div>
+                    </div>
+                </center>
+            </form>
         </div>
         <div class="user-profile-main">
-          <div class="user-account">
-            <div class="profile-pic">
-              <img src="assets/images/avatar.svg" alt="" />
+            <div class="user-account">
+                <div class="profile-pic">
+                    <img alt="" src="assets/images/avatar.svg"/>
+                </div>
+                <div class="details">
+                    <h3 class="name">Mehidi hasan</h3>
+                    <p><i class="uil uil-envelope"></i> mehidi@gmail.com</p>
+                    <p><i class="uil uil-phone"></i> +880 1706505115</p>
+                    <a href="#"> Change password </a>
+                </div>
+                <div class="edit-profile" onclick="edit()">
+                    <i class="uil uil-pen"></i>
+                </div>
             </div>
-            <div class="details">
-              <h3 class="name">Mehidi hasan</h3>
-              <p><i class="uil uil-envelope"></i> mehidi@gmail.com</p>
-              <p><i class="uil uil-phone"></i> +880 1706505115</p>
-              <a href="#"> Change password </a>
+            <div class="other-info">
+                <div class="item">
+                    <p>Loyality points:</p>
+                    <h3>100</h3>
+                </div>
+                <button class="btn data-table-btn btn-primary" onclick="data()">
+                    View Booking History
+                </button>
             </div>
-            <div class="edit-profile" onclick="edit()">
-              <i class="uil uil-pen"></i>
-            </div>
-          </div>
-          <div class="other-info">
-            <div class="item">
-              <p>Loyality points:</p>
-              <h3>100</h3>
-            </div>
-            <button class="btn data-table-btn btn-primary" onclick="data()">
-              View Booking History
-            </button>
-          </div>
         </div>
         <div class="active-booking">
-          <h1>Active booking</h1>
-          <div class="data-table-active">
-            <table>
-              <thead>
-                <tr>
-                  <th>Oparator</th>
-                  <th>Route</th>
-                  <th>Departure</th>
-                  <th>Reservation no.</th>
-                  <th>Total amount</th>
-                  <th>Payment status</th>
-                  <th>Reservation status</th>
-                  <th>Booking expiration</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
+            <h1>Active booking</h1>
+            <div class="data-table-active">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Oparator</th>
+                        <th>Route</th>
+                        <th>Departure</th>
+                        <th>Reservation no.</th>
+                        <th>Total amount</th>
+                        <th>Payment status</th>
+                        <th>Reservation status</th>
+                        <th>Booking expiration</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
         <div class="booking-history">
-          <h1>Booking history</h1>
-          <div class="data-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Oparator</th>
-                  <th>Route</th>
-                  <th>Departure</th>
-                  <th>Reservation no.</th>
-                  <th>Total amount</th>
-                  <th>Payment status</th>
-                  <th>Reservation status</th>
-                  <th>Booking expiration</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
+            <h1>Booking history</h1>
+            <div class="data-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Oparator</th>
+                        <th>Route</th>
+                        <th>Departure</th>
+                        <th>Reservation no.</th>
+                        <th>Total amount</th>
+                        <th>Payment status</th>
+                        <th>Reservation status</th>
+                        <th>Booking expiration</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
 
-            </table>
-          </div>
+                </table>
+            </div>
         </div>
-      </div>
-    </section>
-    <footer>
-      <div class="container">
+    </div>
+</section>
+<footer>
+    <div class="container">
         <center>
-          <p>&copy; 2022 - 2023 - iWantSeats 10</p>
-          <div class="privacy">
-            <a href="#">Terms and Conditions</a>
-            <a href="#">Privacy policy</a>
-          </div>
+            <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+            <div class="privacy">
+                <a href="#">Terms and Conditions</a>
+                <a href="#">Privacy policy</a>
+            </div>
         </center>
-      </div>
-    </footer>
+    </div>
+</footer>
 
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/table.js"></script>
-    <script src="assets/js/script.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/table.js"></script>
+<script src="assets/js/script.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 
-    <script>
-      fetchBookingHistory().then(result => {
-        let options = {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        };
-        let placeholder = document.querySelector('.booking-history>div>table>tbody');
-        let placeholder1 = document.querySelector('.active-booking>div>table>tbody');
-        let html = '';
-        let html1 = '';
-        console.log(result);
-        result.forEach(row => {
-          if(row.reservationstatus ==='ACTIVE'){
-            html1 +=`<tr class="s-ac">
+<script>
+
+    $(document).ready(() => {
+        let div = document.querySelector('.status');
+        if (sessionStorage.getItem('TOKEN')) {
+            div.innerHTML = `
+                        <a href="user-admin.html" onclick="menu()">My Account</a>
+                    <a href="#" onclick="Logout()">
+                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
+                </a>`;
+        } else {
+            div.innerHTML = `<a href="signup.html" onclick="menu()">
+                <button class="btn-primary">Sign up</button>
+            </a> `;
+        }
+        fetchBookingHistory().then(result => {
+            let options = {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            };
+            let placeholder = document.querySelector('.booking-history>div>table>tbody');
+            let placeholder1 = document.querySelector('.active-booking>div>table>tbody');
+            let html = '';
+            let html1 = '';
+            console.log(result);
+            result.forEach(row => {
+                if (row.reservationstatus === 'ACTIVE') {
+                    html1 += `<tr class="s-ac">
                       <td>${row.bus_operator}</td>
                       <td>${row.origin} - ${row.destination}</td>
                       <td>
@@ -166,7 +181,7 @@
                         <p><i class="uil uil-clock"></i><span>${formatTime((row.etd).split(' ')[1])}</span></p>
                       </td>
                       <td>${row.reference_no}</td>
-                      <td>${ (row.total_amount_due).toLocaleString('en', options)}</td>
+                      <td>${(row.total_amount_due).toLocaleString('en', options)}</td>
                       <td>${row.paidstatus}</td>
                       <td>${row.reservationstatus}</td>
                       <td>
@@ -176,9 +191,8 @@
                         <p><i class="uil uil-clock"></i><span>${formatTime((row.expiration).split(' ')[1])}</span></p>
                       </td>
                     </tr>`;
-          }else
-          {
-            html +=`<tr>
+                } else {
+                    html += `<tr>
                       <td>${row.bus_operator}</td>
                       <td>${row.origin} - ${row.destination}</td>
                       <td>
@@ -188,7 +202,7 @@
                         <p><i class="uil uil-clock"></i><span>${formatTime((row.etd).split(' ')[1])}</span></p>
                       </td>
                       <td>${row.reference_no}</td>
-                      <td>${ (row.total_amount_due).toLocaleString('en', options)}</td>
+                      <td>${(row.total_amount_due).toLocaleString('en', options)}</td>
                       <td>${row.paidstatus}</td>
                       <td>${row.reservationstatus}</td>
                       <td>
@@ -198,15 +212,17 @@
                         <p><i class="uil uil-clock"></i><span>${formatTime((row.expiration).split(' ')[1])}</span></p>
                       </td>
                     </tr>`;
-          }
+                }
+            });
+
+            placeholder.innerHTML = html;
+            placeholder1.innerHTML = html1;
+        }).catch(error => {
+            console.error('There was an error!', error);
         });
+    })
 
-        placeholder.innerHTML = html;
-        placeholder1.innerHTML = html1;
-      }).catch(error => {
-        console.error('There was an error!', error);
-      });
-    </script>
+</script>
 
-  </body>
+</body>
 </html>

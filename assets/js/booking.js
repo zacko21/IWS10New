@@ -24,7 +24,6 @@ bookBtn.forEach((e) => {
   });
 });
 function closeModal() {
-  sessionStorage.removeItem('reservation');
   cancelBookings();
   body.classList.toggle("modal-open");
   cancelBtn.classList.remove("active");
@@ -131,7 +130,7 @@ function openSearchbar() {
   document.querySelector('.from-input').nextElementSibling.classList.remove('active')
   $('#from').val(sessionStorage.getItem('originName'));
   getLocation();
-  getDestination($('#from').val());
+  getDestination();
   $('#date_of_departure').val(sessionStorage.getItem('departure'));
   searchBarMain.classList.toggle("active");
   floatingSearched.classList.toggle("uil-multiply");
