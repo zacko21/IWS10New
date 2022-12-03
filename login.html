@@ -113,13 +113,14 @@
             },
             method: 'post',
             body: JSON.stringify(data)
-        }).then(resp => resp.json()).then(data => {
-            console.log(data);
-            if (data['RESULT'] === 'INACTIVE') {
+        }).then(resp => resp.json()).then(row => {
+            console.log(row);
+            if (row['RESULT'] === 'INACTIVE') {
                 Swal.fire('Your Account is INACTIVE. Please check your registered email to activate.');
-            } else if (data['RESULT'] === 'OK') {
-                localStorage.setItem('USERNAME', data['USERNAME']);
-                localStorage.setItem('TOKEN', data['TOKEN']);
+            } else if (row['RESULT'] === 'OK') {
+                localStorage.setItem('loginInfo', JSON.stringify(data));
+                localStorage.setItem('userInfo', JSON.stringify(row))
+                localStorage.setItem('TOKEN', row['TOKEN']);
                 if (localStorage.getItem('originName')) {
                     window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/booking.html';
                 } else {

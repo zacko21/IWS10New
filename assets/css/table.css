@@ -5,6 +5,7 @@
   transition: 0.3s;
   padding-bottom: 1rem;
 }
+
 .data-table-active {
   padding: 0;
   box-shadow: unset;

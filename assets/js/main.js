@@ -364,7 +364,7 @@ getReserve = () => {
     fetchReserve().then(data => {
         ////console.log('RESERVE RESULT');
         if (data.length > 0) {
-            if(data.length !==  parseInt(localStorage.getItem('passenger_count'))){
+            if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
                 console.log('bookings cancelled');
                 cancelBookings();
                 getReserve();
@@ -751,6 +751,13 @@ formatDate = (date) => {
         month: "short",
         day: "numeric",
     })
+}
+formatDate1 = (date) => {
+    let tDate = new Date(date);
+    let y = tDate.getFullYear();
+    let m = tDate.getMonth() < 10 ? '0' + tDate.getMonth() : tDate.getMonth();
+    let d = tDate.getDay() < 10 ? '0' + tDate.getDay() : tDate.getDay();
+    return (y + '-' + m + '-' + d);
 }
 
 formatDateL = (date) => {

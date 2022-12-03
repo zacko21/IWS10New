@@ -42,17 +42,39 @@
             <form>
                 <center>
                     <div class="user-profile">
-                        <input id="profile" type="file"/>
-                        <label for="profile">
-                            <i class="uil uil-camera-plus"></i>
-                            <img alt="" src="assets/images/avatar.svg"/>
-                        </label>
+                        <!--                        <input id="profile" type="file"/>-->
+                        <!--                        <label for="profile">-->
+                        <!--                            <i class="uil uil-camera-plus"></i>-->
+                        <img alt="" src="assets/images/avatar.svg"/>
+                        <!--                        </label>-->
                     </div>
-                    <input placeholder="Change Name" type="text"/>
-                    <input placeholder="Change Email" type="email"/>
-                    <input placeholder="Change Phone" type="tel"/>
+                    <div style="text-align: left; padding-top: 10px">
+                        <label for="firstname" style="font-size: 10pt;">Firstname</label>
+                        <input id="firstname" required style="margin-top: 0!important;"
+                               type="text"/>
+                    </div>
+                    <div style="text-align: left; padding-top: 10px">
+                        <label for="lastname" style="font-size: 10pt;">Lastname</label>
+                        <input id="lastname" required style="margin-top: 0!important;"
+                               type="text"/>
+                    </div>
+                    <div style="text-align: left; padding-top: 10px">
+                        <label for="birthday" style="font-size: 10pt;">Birthday</label>
+                        <input id="birthday" style="margin-top: 0!important;"
+                               type="date"/>
+                    </div>
+                    <div style="text-align: left; padding-top: 10px">
+                        <label for="contact" style="font-size: 10pt;">Contact No.</label>
+                        <input id="contact" style="margin-top: 0!important;"
+                               type="tel"/>
+                    </div>
+                    <div style="text-align: left; padding-top: 10px">
+                        <label for="password" style="font-size: 10pt;">Password</label>
+                        <input id="password" required style="margin-top: 0!important;"
+                               type="password"/>
+                    </div>
                     <div class="btns">
-                        <button class="btn btn-primary">Save changes</button>
+                        <button class="btn btn-primary submitbtn">Save changes</button>
                         <div class="btn cancel-btn" onclick="edit()">Cancel</div>
                     </div>
                 </center>
@@ -64,10 +86,7 @@
                     <img alt="" src="assets/images/avatar.svg"/>
                 </div>
                 <div class="details">
-                    <h3 class="name">Mehidi hasan</h3>
-                    <p><i class="uil uil-envelope"></i> mehidi@gmail.com</p>
-                    <p><i class="uil uil-phone"></i> +880 1706505115</p>
-                    <a href="#"> Change password </a>
+                    <!--                    <a href="#"> Change password </a>-->
                 </div>
                 <div class="edit-profile" onclick="edit()">
                     <i class="uil uil-pen"></i>
@@ -76,7 +95,7 @@
             <div class="other-info">
                 <div class="item">
                     <p>Loyality points:</p>
-                    <h3>100</h3>
+                    <h3>-</h3>
                 </div>
                 <button class="btn data-table-btn btn-primary" onclick="data()">
                     View Booking History
@@ -140,16 +159,56 @@
 </footer>
 
 <script src="assets/js/app.min.js"></script>
-<script src="assets/js/table.min.js"></script>
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/table.min.js"></script>
 <script src="assets/js/main.min.js"></script>
 
 <script>
 
     $(document).ready(() => {
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+        let pholder = $('.details');
+        pholder.html(`<h3 class="name">${userInfo.USERNAME}</h3>
+                   <p><i class="uil uil-envelope"></i>${loginInfo.email}</p>
+                   <p><i class="uil uil-phone"></i>${userInfo.CONTACT_NO}</p>`);
         getHistory();
     })
 
+    async function fetchUpdateProfile() {
+        let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updateonlineuser`;
+        let data = {
+            token: localStorage.getItem('TOKEN'),
+            password: $('#password').val(),
+            firstname: $('#firstname').val(),
+            middlename: "",
+            lastname: $('#lastname').val(),
+            birthDate: $('#birthday').val(),
+            contactNo: $('#contact').val(),
+            gender: "M"
+        }
+        console.log(JSON.stringify(data))
+        let response = await fetch(input, {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            method: 'post',
+            body: JSON.stringify(data)
+        });
+        return await response.json();
+    }
+
+
+    $('.submitbtn').click(() => {
+        fetchUpdateProfile()
+            .then(() => {
+                editProfile.classList.remove("active");
+            })
+            .catch(error => {
+                editProfile.classList.remove("active");
+                //console.log(error);
+            })
+    })
 </script>
 
 </body>
