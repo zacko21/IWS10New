@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
     <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/form.css" rel="stylesheet"/>
+    <link href="assets/css/form.min.css" rel="stylesheet"/>
     <title>IWantSeats</title>
     <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
 
@@ -54,7 +54,7 @@
             <div class="search-bar">
                 <div class="search-fild drop-box">
                     <label for="from">From</label>
-                    <div class="input">
+                    <div class="input from-input">
                         <i class="uil uil-search search-ic"></i>
                         <input autocomplete="off" class="from-value" id="from" name="from"
                                oninput="getLocation(this.value)" placeholder="Your location"
@@ -441,24 +441,13 @@
 <script src="assets/swal/sweetalert2.all.js"></script>
 <script src="assets/js/loadingoverlay.min.js"></script>
 <script src="assets/js/lodash.min.js"></script>
-<script src="assets/js/script.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/main.min.js"></script>
+<script src="assets/js/app.min.js"></script>
 <script>
     $(document).ready(() => {
         getLocation();
-        let div = document.querySelector('.status');
-        if (sessionStorage.getItem('TOKEN')) {
-            div.innerHTML = `
-                        <a href="user-admin.html" onclick="menu()">My Account</a>
-                    <a href="#" onclick="Logout()">
-                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
-                </a>`;
-        } else {
-            div.innerHTML = `<a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
-            </a> `;
-        }
     })
+
     $("#chkReturn").change(function () {
         if (this.checked) {
             Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')

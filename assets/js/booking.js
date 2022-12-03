@@ -128,10 +128,12 @@ function openSearchbar() {
   window.scrollTo(0, 0);
   document.querySelector('.to-input').nextElementSibling.classList.remove('active')
   document.querySelector('.from-input').nextElementSibling.classList.remove('active')
-  $('#from').val(sessionStorage.getItem('originName'));
+  $('#from').val(localStorage.getItem('originName'));
+  $('#to').val(localStorage.getItem('destinationName'));
+  $('#from').attr('data-clientid',localStorage.getItem('clientId'));
   getLocation();
   getDestination();
-  $('#date_of_departure').val(sessionStorage.getItem('departure'));
+  $('#date_of_departure').val(localStorage.getItem('departure'));
   searchBarMain.classList.toggle("active");
   floatingSearched.classList.toggle("uil-multiply");
 }

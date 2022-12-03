@@ -6,8 +6,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
     <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/admin.css" rel="stylesheet"/>
-    <link href="assets/css/table.css" rel="stylesheet"/>
+    <link href="assets/css/admin.min.css" rel="stylesheet"/>
+    <link href="assets/css/table.min.css" rel="stylesheet"/>
 
     <!-- unicons -->
     <link
@@ -139,87 +139,15 @@
     </div>
 </footer>
 
-<script src="assets/js/app.js"></script>
-<script src="assets/js/table.js"></script>
-<script src="assets/js/script.min.js"></script>
+<script src="assets/js/app.min.js"></script>
+<script src="assets/js/table.min.js"></script>
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/main.min.js"></script>
 
 <script>
 
     $(document).ready(() => {
-        let div = document.querySelector('.status');
-        if (sessionStorage.getItem('TOKEN')) {
-            div.innerHTML = `
-                        <a href="user-admin.html" onclick="menu()">My Account</a>
-                    <a href="#" onclick="Logout()">
-                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
-                </a>`;
-        } else {
-            div.innerHTML = `<a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
-            </a> `;
-        }
-        fetchBookingHistory().then(result => {
-            let options = {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            };
-            let placeholder = document.querySelector('.booking-history>div>table>tbody');
-            let placeholder1 = document.querySelector('.active-booking>div>table>tbody');
-            let html = '';
-            let html1 = '';
-            console.log(result);
-            result.forEach(row => {
-                if (row.reservationstatus === 'ACTIVE') {
-                    html1 += `<tr class="s-ac">
-                      <td>${row.bus_operator}</td>
-                      <td>${row.origin} - ${row.destination}</td>
-                      <td>
-                        <p>
-                          <i class="uil uil-calender"></i> <span>${(row.etd).split(' ')[0]}</span>
-                        </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime((row.etd).split(' ')[1])}</span></p>
-                      </td>
-                      <td>${row.reference_no}</td>
-                      <td>${(row.total_amount_due).toLocaleString('en', options)}</td>
-                      <td>${row.paidstatus}</td>
-                      <td>${row.reservationstatus}</td>
-                      <td>
-                        <p>
-                          <i class="uil uil-calender"></i> <span>${(row.expiration).split(' ')[0]}</span>
-                        </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime((row.expiration).split(' ')[1])}</span></p>
-                      </td>
-                    </tr>`;
-                } else {
-                    html += `<tr>
-                      <td>${row.bus_operator}</td>
-                      <td>${row.origin} - ${row.destination}</td>
-                      <td>
-                        <p>
-                          <i class="uil uil-calender"></i> <span>${(row.etd).split(' ')[0]}</span>
-                        </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime((row.etd).split(' ')[1])}</span></p>
-                      </td>
-                      <td>${row.reference_no}</td>
-                      <td>${(row.total_amount_due).toLocaleString('en', options)}</td>
-                      <td>${row.paidstatus}</td>
-                      <td>${row.reservationstatus}</td>
-                      <td>
-                        <p>
-                          <i class="uil uil-calender"></i> <span>${(row.expiration).split(' ')[0]}</span>
-                        </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime((row.expiration).split(' ')[1])}</span></p>
-                      </td>
-                    </tr>`;
-                }
-            });
-
-            placeholder.innerHTML = html;
-            placeholder1.innerHTML = html1;
-        }).catch(error => {
-            console.error('There was an error!', error);
-        });
+        getHistory();
     })
 
 </script>

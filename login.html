@@ -6,16 +6,14 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
     <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/form.css" rel="stylesheet"/>
+    <link href="assets/css/form.min.css" rel="stylesheet"/>
     <title>IWantSeats</title>
     <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
-
     <!-- unicons -->
     <link
             href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
             rel="stylesheet"
     />
-    <title>Document</title>
 </head>
 <body>
 <header>
@@ -88,12 +86,12 @@
         </center>
     </div>
 </footer>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app.min.js"></script>
 <script src="assets/swal/sweetalert2.all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        let token = sessionStorage.getItem('TOKEN');
+        let token = localStorage.getItem('TOKEN');
         if (token) {
             window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/index.html';
         }
@@ -120,9 +118,9 @@
             if (data['RESULT'] === 'INACTIVE') {
                 Swal.fire('Your Account is INACTIVE. Please check your registered email to activate.');
             } else if (data['RESULT'] === 'OK') {
-                sessionStorage.setItem('USERNAME', data['USERNAME']);
-                sessionStorage.setItem('TOKEN', data['TOKEN']);
-                if (sessionStorage.getItem('originName')) {
+                localStorage.setItem('USERNAME', data['USERNAME']);
+                localStorage.setItem('TOKEN', data['TOKEN']);
+                if (localStorage.getItem('originName')) {
                     window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/booking.html';
                 } else {
                     window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/index.html';

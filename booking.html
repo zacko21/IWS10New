@@ -6,9 +6,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
     <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/form.css" rel="stylesheet"/>
-    <link href="assets/css/booking.css" rel="stylesheet"/>
-    <link href="assets/css/buss.css" rel="stylesheet"/>
+    <link href="assets/css/form.min.css" rel="stylesheet"/>
+    <link href="assets/css/booking.min.css" rel="stylesheet"/>
+    <link href="assets/css/buss.min.css" rel="stylesheet"/>
     <link href="/assets/fileupload/font/font-fileuploader.css" rel="stylesheet">
     <link href="/assets/fileupload/jquery.fileuploader.min.css" media="all" rel="stylesheet">
 
@@ -55,8 +55,8 @@
                         <div class="input from-input">
                             <i class="uil uil-search search-ic"></i>
                             <input autocomplete="off" class="from-value" id="from" name="from"
-                                   placeholder="Your location"
-                                   readonly required/>
+                                   oninput="getLocation(this.value)" placeholder="Your location"
+                                   required/>
                             <i class="uil uil-map-marker"></i>
                         </div>
                         <div class="dropdown">
@@ -68,7 +68,8 @@
                         <label for="to">To</label>
                         <div class="input to-input">
                             <i class="uil uil-search search-ic"></i>
-                            <input autocomplete="off" class="to-value" id="to" placeholder="Travel location" readonly
+                            <input autocomplete="off" class="to-value" id="to" oninput="getDestination(this.value)"
+                                   placeholder="Travel location"
                                    required/>
                             <i class="uil uil-location-arrow"></i>
                         </div>
@@ -98,14 +99,13 @@
                     <div class="search-fild">
                         <div class="flex">
                             <label for="date_of_return">Return Date</label>
-                            <input type="checkbox"/>
+                            <input id="chkReturn" type="checkbox"/>
                         </div>
                         <div class="input">
                             <input disabled id="date_of_return" name="date_of_return"
                                    onchange="this.className=(this.value!=''?'has-value':'')"
                                    type="date"
                             />
-
                             <i class="uil uil-calendar-alt"></i>
                         </div>
                     </div>
@@ -524,30 +524,24 @@
     </div>
 </footer>
 
-<script src="assets/js/app.js"></script>
-<script src="assets/js/booking.js"></script>
+<script src="assets/js/app.min.js"></script>
+<script src="assets/js/booking.min.js"></script>
 <script src="assets/js/jquery.min.js"></script>
 <link href="assets/fileupload/jquery.fileuploader.min.css" media="all" rel="stylesheet">
 <script src="assets/js/loadingoverlay.min.js"></script>
 <script src="assets/js/lodash.min.js"></script>
 <script src="assets/swal/sweetalert2.all.js"></script>
-<script src="assets/js/script.js"></script>
+<script src="assets/js/main.min.js"></script>
 <script>
     $(document).ready(() => {
-        sessionStorage.removeItem('selected-sched');
-        let div = document.querySelector('.status');
-        if (sessionStorage.getItem('TOKEN')) {
-            div.innerHTML = `
-                        <a href="user-admin.html" onclick="menu()">My Account</a>
-                    <a href="#" onclick="Logout()">
-                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
-                </a>`;
-        } else {
-            div.innerHTML = `<a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
-            </a> `;
-        }
         getSchedules();
+        localStorage.removeItem('selected-sched');
+    });
+
+    $("#chkReturn").change(function () {
+        if (this.checked) {
+            Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
+        }
     });
 
 </script>

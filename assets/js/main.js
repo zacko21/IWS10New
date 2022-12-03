@@ -1,15 +1,30 @@
+$(document).ready(() => {
+    let div = document.querySelector('.status');
+    if (localStorage.getItem('TOKEN')) {
+        div.innerHTML = `
+                        <a href="user-admin.html" onclick="menu()">My Account</a>
+                    <a href="#" onclick="Logout()">
+                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
+                </a>`;
+    } else {
+        div.innerHTML = `<a href="signup.html" onclick="menu()">
+                <button class="btn-primary">Sign up</button>
+            </a> `;
+    }
+})
+
+
 let confirmModal = document.querySelector(".booking-confirm");
 
 async function fetchBookingHistory() {
-
-    let token = sessionStorage.getItem('TOKEN');
+    let token = localStorage.getItem('TOKEN');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
     if (token) {
-        console.log(input);
+        //console.log(input);
         let data = {
             "token": token,
         }
-        //console.log(input)
+        ////console.log(input)
         let response = await fetch(input, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -17,7 +32,7 @@ async function fetchBookingHistory() {
             method: 'post',
             body: JSON.stringify(data)
         });
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
         return await response.json();
     } else {
@@ -27,26 +42,26 @@ async function fetchBookingHistory() {
 
 async function fetchResults(show = false, options = {}, target = 'body') {
     let clientId, date, origin, destination, paxCount;
-    //console.log(target);
+    ////console.log(target);
     if (show) $(target).LoadingOverlay("show", options)
-    origin = sessionStorage.getItem('originName');
-    destination = sessionStorage.getItem('destinationName');
-    date = sessionStorage.getItem('departure');
-    clientId = sessionStorage.getItem('clientId');
-    paxCount = sessionStorage.getItem('passenger_count');
+    origin = localStorage.getItem('originName');
+    destination = localStorage.getItem('destinationName');
+    date = localStorage.getItem('departure');
+    clientId = localStorage.getItem('clientId');
+    paxCount = localStorage.getItem('passenger_count');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2test/2/${clientId}/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
-    console.log(input);
+    //console.log(input);
     let response = await fetch(input);
     $(target).LoadingOverlay("hide")
     return await response.json();
 }
 
 async function fetchReservationInfo(data) {
-    let token = sessionStorage.getItem('TOKEN');
+    let token = localStorage.getItem('TOKEN');
     if (token) {
 
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getreservationinfotest/${token}`;
-        console.log(input);
+        //console.log(input);
         let response = await fetch(input, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -54,7 +69,7 @@ async function fetchReservationInfo(data) {
             method: 'post',
             body: JSON.stringify(data)
         });
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
         return await response.json();
     } else {
@@ -64,11 +79,11 @@ async function fetchReservationInfo(data) {
 
 
 async function fetchUpdatePassenger(data) {
-    let token = sessionStorage.getItem('TOKEN');
+    let token = localStorage.getItem('TOKEN');
     if (token) {
-        let refNo = sessionStorage.getItem('refNo');
+        let refNo = localStorage.getItem('refNo');
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/passenger/${token}/${refNo}`;
-        console.log(input);
+        //console.log(input);
         let response = await fetch(input, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -76,7 +91,7 @@ async function fetchUpdatePassenger(data) {
             method: 'post',
             body: JSON.stringify(data)
         });
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
         return await response.json();
     } else {
@@ -86,11 +101,11 @@ async function fetchUpdatePassenger(data) {
 
 async function fetchCancelBooking(data) {
     $('.modal-content').LoadingOverlay('show');
-    let token = sessionStorage.getItem('TOKEN');
+    let token = localStorage.getItem('TOKEN');
     if (token) {
 
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/cancelbooking/${token}`;
-        console.log(input);
+        //console.log(input);
         let response = await fetch(input, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -98,7 +113,7 @@ async function fetchCancelBooking(data) {
             method: 'post',
             body: JSON.stringify(data)
         });
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         $('.modal-content').LoadingOverlay('hide');
         return await response.json();
     } else {
@@ -109,18 +124,18 @@ async function fetchCancelBooking(data) {
 
 async function fetchPassengerSeat(refNo, seatNo) {
     // $('.bus-seat-select').LoadingOverlay('show');
-    let token = sessionStorage.getItem('TOKEN');
+    let token = localStorage.getItem('TOKEN');
     if (token) {
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updatepassengerseattest/${token}`;
         let data = {
-            "ClientID": sessionStorage.getItem('clientId'),
-            "TripDate": sessionStorage.getItem('departure'),
-            "RouteID": sessionStorage.getItem('RouteId'),
-            "BusType": sessionStorage.getItem('BusType'),
+            "ClientID": localStorage.getItem('clientId'),
+            "TripDate": localStorage.getItem('departure'),
+            "RouteID": localStorage.getItem('RouteId'),
+            "BusType": localStorage.getItem('BusType'),
             "ReferenceNo": refNo,
             "SeatNo": seatNo
         };
-        console.log(input);
+        //console.log(input);
         let response = await fetch(input, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -128,7 +143,7 @@ async function fetchPassengerSeat(refNo, seatNo) {
             method: 'post',
             body: JSON.stringify(data)
         });
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         // $('.bus-seat-select').LoadingOverlay('hide');
         return await response.json();
     } else {
@@ -138,17 +153,17 @@ async function fetchPassengerSeat(refNo, seatNo) {
 
 async function fetchManifest() {
     $('.bus-seat-select').LoadingOverlay('show');
-    let token = sessionStorage.getItem('TOKEN');
+    let token = localStorage.getItem('TOKEN');
     if (token) {
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifesttest/${token}`;
-        console.log(input);
+        //console.log(input);
         let data = {
-            "clientid": sessionStorage.getItem('clientId'),
-            "tripdate": sessionStorage.getItem('departure'),
-            "routeid": sessionStorage.getItem('RouteId'),
-            "BusType": sessionStorage.getItem('BusType')
+            "clientid": localStorage.getItem('clientId'),
+            "tripdate": localStorage.getItem('departure'),
+            "routeid": localStorage.getItem('RouteId'),
+            "BusType": localStorage.getItem('BusType')
         };
-        // console.log(JSON.stringify(data));
+        // //console.log(JSON.stringify(data));
         let response = await fetch(input, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -156,7 +171,7 @@ async function fetchManifest() {
             method: 'post',
             body: JSON.stringify(data)
         });
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         $('.bus-seat-select').LoadingOverlay('hide');
         // $('.modal-content').LoadingOverlay('hide');
         return await response.json();
@@ -168,17 +183,17 @@ async function fetchManifest() {
 
 async function fetchReserve() {
     $('.modal-content').LoadingOverlay('show');
-    let token = sessionStorage.getItem('TOKEN');
+    let token = localStorage.getItem('TOKEN');
     if (token) {
 
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
-        console.log(input);
+        //console.log(input);
         let data = {
-            "clientId": sessionStorage.getItem('clientId'),
+            "clientId": localStorage.getItem('clientId'),
             "token": token,
-            "tripDate": sessionStorage.getItem('departure'),
-            "noOfPax": sessionStorage.getItem('passenger_count'),
-            "routeId": sessionStorage.getItem('RouteId'),
+            "tripDate": localStorage.getItem('departure'),
+            "noOfPax": localStorage.getItem('passenger_count'),
+            "routeId": localStorage.getItem('RouteId'),
             "reservationStatus": "0",
             "firstName": "a",
             "middleName": "a",
@@ -192,11 +207,11 @@ async function fetchReserve() {
             "paidBy": "",
             "modeOfPayment": "",
             "paymentRemarks": "",
-            "pickUp": sessionStorage.getItem('RouteId').split('.')[1],
-            "dropOff": sessionStorage.getItem('RouteId').split('.')[2]
+            "pickUp": localStorage.getItem('RouteId').split('.')[1],
+            "dropOff": localStorage.getItem('RouteId').split('.')[2]
         };
-        //console.log('RESERVE POST');
-        //console.log(JSON.stringify(data));
+        ////console.log('RESERVE POST');
+        ////console.log(JSON.stringify(data));
         let response = await fetch(input, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -204,7 +219,7 @@ async function fetchReserve() {
             method: 'post',
             body: JSON.stringify(data)
         });
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         return await response.json();
 
     } else {
@@ -215,17 +230,17 @@ async function fetchReserve() {
 async function fetchLocation() {
     // $('.from-value').LoadingOverlay('show');
     let input = 'https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getorigindestinations2/1/-1/1000';
-    console.log(input);
+    //console.log(input);
     let response = await fetch(input);
     // $('.from-value').LoadingOverlay('hide');
     return await response.json();
 }
 
 async function fetchToLocation() {
-    let name = sessionStorage.getItem('originName');
+    let name = localStorage.getItem('originName');
     // $('.to-value').LoadingOverlay('show');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getorigindestinations2/2/${name}/1000`;
-    console.log(input);
+    //console.log(input);
     let response = await fetch(input);
     // $('.to-value').LoadingOverlay('hide');
     return await response.json();
@@ -246,11 +261,11 @@ groupBy = (list, keyGetter) => {
 }
 
 getPassengerInfo = (id) => {
-    let reservation = sessionStorage.getItem('reservation');
+    let reservation = localStorage.getItem('reservation');
     let cinfo = JSON.parse(reservation)[id];
     let pBooker = parseInt(id) === 0 ? 1 : 0;
-    sessionStorage.setItem('refNo', cinfo.ReferenceNo);
-    sessionStorage.setItem('pBooker', pBooker);
+    localStorage.setItem('refNo', cinfo.ReferenceNo);
+    localStorage.setItem('pBooker', pBooker);
     document.querySelector('#email').value = cinfo.Email;
     document.querySelector('#first_name').value = cinfo.FirstName;
     document.querySelector('#last_name').value = cinfo.LastName;
@@ -260,7 +275,7 @@ getPassengerInfo = (id) => {
 };
 
 cancelBookings = () => {
-    let reservation = sessionStorage.getItem('reservation');
+    let reservation = localStorage.getItem('reservation');
     let info = JSON.parse(reservation)[0];
     let data = {
         "ClientID": info.clientID,
@@ -273,7 +288,7 @@ cancelBookings = () => {
     }
     fetchCancelBooking(data).then(res => {
         if (res.result === 'OK') {
-            sessionStorage.removeItem('reservation');
+            localStorage.removeItem('reservation');
             // modal.classList.remove('active');
             // Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
         }
@@ -283,7 +298,7 @@ cancelBookings = () => {
 EditInfo = (e) => {
     e.preventDefault();
     let data = {
-        "clientid": sessionStorage.getItem('clientId'),
+        "clientid": localStorage.getItem('clientId'),
         "loyaltyId": "",
         "birthDate": document.querySelector('#birthday').value,
         "contactNo": document.querySelector('#contact_number').value,
@@ -292,9 +307,9 @@ EditInfo = (e) => {
         "gender": document.querySelector("input[name='gender']:checked").value,
         "lastName": document.querySelector('#last_name').value,
         "middleName": "",
-        "referenceNo": sessionStorage.getItem('refNo'),
-        "replaceprimarybooker": parseInt(sessionStorage.getItem('pBooker')),
-        "tripID": sessionStorage.getItem('departure') + '.' + sessionStorage.getItem('RouteId')
+        "referenceNo": localStorage.getItem('refNo'),
+        "replaceprimarybooker": parseInt(localStorage.getItem('pBooker')),
+        "tripID": localStorage.getItem('departure') + '.' + localStorage.getItem('RouteId')
     }
     fetchUpdatePassenger(data).then(res => {
         if (res.result === 'OK') {
@@ -302,7 +317,7 @@ EditInfo = (e) => {
             getReserve();
         }
     }).catch(error => {
-        console.log(error);
+        //console.log(error);
     });
 
 };
@@ -317,10 +332,10 @@ EditInfo = (e) => {
 //             let html = '';
 //             let placeholder = document.querySelector(".item.from-locations");
 //             _.forEach(gd, function (item, area) {
-//                 // console.log(area);
+//                 // //console.log(area);
 //                 html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
 //                 item.forEach(loc => {
-//                     // console.log(loc);
+//                     // //console.log(loc);
 //                     html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.originName} </a>`;
 //                 })
 //                 html += '</div>'
@@ -347,15 +362,21 @@ EditInfo = (e) => {
 getReserve = () => {
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
-        //console.log('RESERVE RESULT');
+        ////console.log('RESERVE RESULT');
         if (data.length > 0) {
+            if(data.length !==  parseInt(localStorage.getItem('passenger_count'))){
+                console.log('bookings cancelled');
+                cancelBookings();
+                getReserve();
+                return;
+            }
             let passList = document.getElementById('passenger_assign');
             let passLists = document.getElementById('passenger-list');
             let header = document.getElementById("header-booking");
             // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
             let html = '', htmList = '';
-            sessionStorage.setItem('refNo', data[0].ReferenceNo);
-            sessionStorage.setItem('reservation', JSON.stringify(data));
+            localStorage.setItem('refNo', data[0].ReferenceNo);
+            localStorage.setItem('reservation', JSON.stringify(data));
             data.forEach((res, index) => {
                 let name = `${res.LastName}, ${res.FirstName} ${res.MiddleName}`;
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
@@ -383,7 +404,7 @@ getReserve = () => {
             //seatSelect.classList.add("active");
         }
     }).catch(error => {
-        console.log(error);
+        //console.log(error);
     });
 
 
@@ -409,16 +430,16 @@ function continueBooking() {
 
 getManifest = () => {
     fetchManifest().then(data => {
-        // console.log(data);
+        // //console.log(data);
         bookingDetails.scrollTop = 0;
         if (data.RESULT === 'SEATPLAN NOT FOUND') {
             Swal.fire(data.RESULT);
         } else {
             let gp = _.groupBy(JSON.parse(JSON.stringify(data)), 'row');
-            // console.log(gp);
+            // //console.log(gp);
             let placeholder = document.querySelector('.bus-body');
             let html = `<table class="table table-sm"><tbody>`;
-            _.forEach(gp,(list, row) => {
+            _.forEach(gp, (list, row) => {
                 html += '<tr>';
                 list.forEach((row1) => {
                     if (row1.row === 0) {
@@ -502,7 +523,7 @@ getManifest = () => {
             });
         }
     }).catch(error => {
-        console.log(error);
+        //console.log(error);
     });
 
 }
@@ -511,9 +532,9 @@ getSchedules = () => {
 
     fetchResults().then((data) => {
         if (data.length > 0) {
-            sessionStorage.setItem('schedules', JSON.stringify(data));
+            localStorage.setItem('schedules', JSON.stringify(data));
             let html = '';
-            //console.log(data);
+            ////console.log(data);
             let placeholder = document.querySelector(" .search-result-main");
             let header = document.getElementById("header_travel");
             let header1 = document.getElementById("side_header");
@@ -548,11 +569,11 @@ getSchedules = () => {
         }
 
         let bookBtn = document.querySelectorAll(".btn.book");
-        let schedules = JSON.parse(sessionStorage.getItem('schedules'));
+        let schedules = JSON.parse(localStorage.getItem('schedules'));
         bookBtn.forEach((e) => {
             e.addEventListener("click", attr => {
                 let ok = true;
-                let current_sched = JSON.parse(sessionStorage.getItem('selected-sched'));
+                let current_sched = JSON.parse(localStorage.getItem('selected-sched'));
                 if (_.isEqual(current_sched, schedules[e.dataset.id]) === false && current_sched !== null) {
                     let text = "Choosing another trip will cancel your seat selection for this trip. Continue?";
                     if (confirm(text) == true) {
@@ -571,10 +592,10 @@ getSchedules = () => {
                     // e.setAttribute("disabled", true);
 
                     let dest = schedules[e.dataset.id];
-                    sessionStorage.setItem('selected-sched', JSON.stringify(dest))
-                    console.log(dest);
+                    localStorage.setItem('selected-sched', JSON.stringify(dest))
+                    //console.log(dest);
                     let fare = dest.fare;
-                    let paxCount = sessionStorage.getItem('passenger_count');
+                    let paxCount = localStorage.getItem('passenger_count');
                     let sub_total = fare * paxCount;
                     let resvFee = 50 * paxCount;
                     document.getElementById('side_departure').textContent = `${formatDate(dest.tripdate)} ${formatTime(dest.etd)}`;
@@ -587,9 +608,9 @@ getSchedules = () => {
                         </div>`;
                     document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + resvFee).toFixed(2);
                     document.getElementById('res_fee').textContent = 'PHP ' + resvFee.toFixed(2);
-                    sessionStorage.setItem('RouteId', dest.tkey);
-                    sessionStorage.setItem('BusType', dest.bustype);
-                    sessionStorage.setItem('clientId', dest.clientid);
+                    localStorage.setItem('RouteId', dest.tkey);
+                    localStorage.setItem('BusType', dest.bustype);
+                    localStorage.setItem('clientId', dest.clientid);
                     getReserve();
                     body.classList.toggle("modal-open");
                     cancelBtn.classList.add("active");
@@ -606,7 +627,7 @@ getSchedules = () => {
         });
 
     }).catch(error => {
-        console.log(error);
+        //console.log(error);
     });
 
 
@@ -614,7 +635,7 @@ getSchedules = () => {
 
 getLocation = (search = '') => {
     fetchLocation().then(data => {
-        // console.log(data);
+        // //console.log(data);
         if (data.length > 0) {
             let html = '';
             let placeholder = document.querySelector(".item.from-locations");
@@ -643,31 +664,31 @@ getLocation = (search = '') => {
                 fromValue.setAttribute("data-id", e.dataset.id);
                 fromValue.setAttribute("data-clientid", e.dataset.clientid);
                 fromValue.value = e.textContent;
-                sessionStorage.setItem('originName', e.textContent);
+                localStorage.setItem('originName', e.textContent);
                 document.querySelector('.to-value').value = '';
                 getDestination();
             });
         });
     }).catch(error => {
-        console.log(error);
+        //console.log(error);
     });
 
 }
 
 Logout = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     window.location.href = 'index.html';
 }
-//     sessionStorage.removeItem('USERNAME');
-//     sessionStorage.removeItem('TOKEN');
-//     sessionStorage.removeItem('originName');
-//     sessionStorage.removeItem('destinationName');
-//     sessionStorage.removeItem('passenger_count');
-//     sessionStorage.removeItem('departure');
-//     sessionStorage.removeItem('schedules');
-//     sessionStorage.removeItem('clientId');
-//     sessionStorage.removeItem('RouteId');
-//     sessionStorage.removeItem('BusType');
+//     localStorage.removeItem('USERNAME');
+//     localStorage.removeItem('TOKEN');
+//     localStorage.removeItem('originName');
+//     localStorage.removeItem('destinationName');
+//     localStorage.removeItem('passenger_count');
+//     localStorage.removeItem('departure');
+//     localStorage.removeItem('schedules');
+//     localStorage.removeItem('clientId');
+//     localStorage.removeItem('RouteId');
+//     localStorage.removeItem('BusType');
 // }
 
 
@@ -677,7 +698,7 @@ getDestination = (search = '') => {
     toLocation = document.querySelectorAll(".item.to-locations a");
     fetchToLocation().then(data => {
         if (data.length > 0) {
-            let destination = sessionStorage.getItem('destinationName');
+            let destination = localStorage.getItem('destinationName');
             let html = '';
             let placeholder = document.querySelector(".item.to-locations");
             var results = _.filter(data, function (row) {
@@ -688,14 +709,14 @@ getDestination = (search = '') => {
 
             // toValue = document.querySelector(".to-value");
             // toValue.value = '';
-            //console.log(dg);
+            ////console.log(dg);
             _.forEach(gd, (item, area) => {
                 html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
                 // toValue.value = item[0].destinationname;
                 // toValue.setAttribute("data-id", item[0].destinationid);
                 item.forEach((loc) => {
                     if (destination === loc.destinationname) {
-                        console.log(destination);
+                        //console.log(destination);
                         toValue.value = loc.destinationname;
                         toValue.setAttribute("data-id", loc.destinationid);
                     }
@@ -711,13 +732,13 @@ getDestination = (search = '') => {
         toLocation = document.querySelectorAll(".item.to-locations a");
         toLocation.forEach((e) => {
             e.addEventListener("click", () => {
-                //console.log(e);
+                ////console.log(e);
                 toValue.setAttribute("value", e.textContent);
                 toValue.value = e.textContent;
             });
         });
     }).catch(error => {
-        console.log(error);
+        //console.log(error);
     });
 
 
@@ -761,11 +782,11 @@ SearchForm = (e) => {
     let clientId = from.dataset.clientid;
     let result;
     if (from && to) {
-        sessionStorage.setItem('originName', origin);
-        sessionStorage.setItem('destinationName', destination);
-        sessionStorage.setItem('passenger_count', paxcount);
-        sessionStorage.setItem('departure', departure);
-        sessionStorage.setItem('clientId', clientId);
+        localStorage.setItem('originName', origin);
+        localStorage.setItem('destinationName', destination);
+        localStorage.setItem('passenger_count', paxcount);
+        localStorage.setItem('departure', departure);
+        localStorage.setItem('clientId', clientId);
         // fetchResults(true, {background: 'rgba(255, 255, 255, 0.3)', image: '', text: 'searching'}).then(res => {
         fetchResults(true).then(res => {
             if (res.length === 0) {
@@ -774,7 +795,7 @@ SearchForm = (e) => {
                 window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/booking.html';
             }
         }).catch(error => {
-            console.log(error);
+            //console.log(error);
         });
     }
 
@@ -784,26 +805,26 @@ SearchForm = (e) => {
 $('.gcashi').click(function () {
     let fee = 0;
     let refNo = '';
-    let data = {
-        "clientid": sessionStorage.getItem('clientId'),
-        "token": sessionStorage.getItem('TOKEN'),
-        "tripID": sessionStorage.getItem('departure') + '.' + sessionStorage.getItem('RouteId'),
-        "referenceNo": sessionStorage.getItem('refNo')
-    };
-    // console.log(data);
-    fetchReservationInfo(data).then(result => {
-        sessionStorage.setItem('reserve_list', JSON.stringify(result));
-        // let f = 0;
-        // console.log(result);
-        // if(result.length >0 ){
-        //     result.forEach(d => {
-        //         refNo = d.ReferenceNo;
-        //         f += parseInt(d.AccommodationFee);
-        //     })
-        // }
-        // fee = f;
-    })
-    let reslist = JSON.parse(sessionStorage.getItem('reserve_list'));
+    // let data = {
+    //     "clientid": localStorage.getItem('clientId'),
+    //     "token": localStorage.getItem('TOKEN'),
+    //     "tripID": localStorage.getItem('departure') + '.' + localStorage.getItem('RouteId'),
+    //     "referenceNo": localStorage.getItem('refNo')
+    // };
+    // // //console.log(data);
+    // fetchReservationInfo(data).then(result => {
+    //     localStorage.setItem('reserve_list', JSON.stringify(result));
+    //     // let f = 0;
+    //     // //console.log(result);
+    //     // if(result.length >0 ){
+    //     //     result.forEach(d => {
+    //     //         refNo = d.ReferenceNo;
+    //     //         f += parseInt(d.AccommodationFee);
+    //     //     })
+    //     // }
+    //     // fee = f;
+    // })
+    let reslist = JSON.parse(localStorage.getItem('reservation'));
     refNo = reslist[0].ReferenceNo;
     reslist.forEach(row => {
         fee += row.AccommodationFee;
@@ -821,7 +842,7 @@ function paygcash(amount, refNo) {
         email: "",
         refno: refNo,
         mobile: "",
-        token: sessionStorage.getItem("TOKEN")
+        token: localStorage.getItem("TOKEN")
     }
 
     try {
@@ -868,7 +889,7 @@ var loadFile = function (event) {
 
 UploadFile = evt => {
     evt.preventDefault();
-    var token = sessionStorage.getItem("TOKEN");
+    var token = localStorage.getItem("TOKEN");
     //alert(newpaxlist[0].ReservationNo);
     // Before the request starts, show the 'Loading message...'
     // $('.result').text('File is being uploaded...');
@@ -876,7 +897,7 @@ UploadFile = evt => {
     // On the click even,
     var formData = new FormData($('#payForm')[0]);
     let apiURL = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine`;
-    let reslist = JSON.parse(sessionStorage.getItem('reserve_list'));
+    let reslist = JSON.parse(localStorage.getItem('reservation'));
     $.ajax({
         type: 'POST',
         url: apiURL + "/savefile/" + token + "/" + reslist[0].ReservationNo + "/PAYMENT",
@@ -897,7 +918,67 @@ UploadFile = evt => {
 
 }
 
+getHistory = () => {
+    fetchBookingHistory().then(result => {
+        let options = {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        };
+        let placeholder = document.querySelector('.booking-history>div>table>tbody');
+        let placeholder1 = document.querySelector('.active-booking>div>table>tbody');
+        let html = '';
+        let html1 = '';
+        //console.log(result);
+        result.forEach(row => {
+            if (row.reservationstatus === 'ACTIVE') {
+                html1 += `<tr class="s-ac">
+                      <td>${row.bus_operator}</td>
+                      <td>${row.origin} - ${row.destination}</td>
+                      <td>
+                        <p>
+                          <i class="uil uil-calender"></i> <span>${(row.etd).split(' ')[0]}</span>
+                        </p>
+                        <p><i class="uil uil-clock"></i><span>${formatTime((row.etd).split(' ')[1])}</span></p>
+                      </td>
+                      <td>${row.reference_no}</td>
+                      <td>${(row.total_amount_due).toLocaleString('en', options)}</td>
+                      <td>${row.paidstatus}</td>
+                      <td>${row.reservationstatus}</td>
+                      <td>
+                        <p>
+                          <i class="uil uil-calender"></i> <span>${(row.expiration).split(' ')[0]}</span>
+                        </p>
+                        <p><i class="uil uil-clock"></i><span>${formatTime((row.expiration).split(' ')[1])}</span></p>
+                      </td>
+                    </tr>`;
+            } else {
+                html += `<tr>
+                      <td>${row.bus_operator}</td>
+                      <td>${row.origin} - ${row.destination}</td>
+                      <td>
+                        <p>
+                          <i class="uil uil-calender"></i> <span>${(row.etd).split(' ')[0]}</span>
+                        </p>
+                        <p><i class="uil uil-clock"></i><span>${formatTime((row.etd).split(' ')[1])}</span></p>
+                      </td>
+                      <td>${row.reference_no}</td>
+                      <td>${(row.total_amount_due).toLocaleString('en', options)}</td>
+                      <td>${row.paidstatus}</td>
+                      <td>${row.reservationstatus}</td>
+                      <td>
+                        <p>
+                          <i class="uil uil-calender"></i> <span>${(row.expiration).split(' ')[0]}</span>
+                        </p>
+                        <p><i class="uil uil-clock"></i><span>${formatTime((row.expiration).split(' ')[1])}</span></p>
+                      </td>
+                    </tr>`;
+            }
+        });
 
-
-
+        placeholder.innerHTML = html;
+        placeholder1.innerHTML = html1;
+    }).catch(error => {
+        //console.error('There was an error!', error);
+    });
+}
 

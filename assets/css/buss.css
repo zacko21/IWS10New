@@ -5,6 +5,7 @@
   grid-template-columns: repeat(2, 1fr) !important;
   gap: 8rem;
 }
+
 .end {
   display: flex;
   align-items: center;

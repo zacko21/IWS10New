@@ -28,7 +28,7 @@ drop.forEach((e) => {
      el=e.previousElementSibling;
       el.childNodes[5].classList.remove('active');
     }
-    console.log(el);
+    // console.log(el);
     if (e.childNodes[5].classList.contains("active")) {
       searchIc.style.display = "block";
     } else {
