@@ -100,7 +100,6 @@ async function fetchUpdatePassenger(data) {
 }
 
 async function fetchCancelBooking(data) {
-    $('.modal-content').LoadingOverlay('show');
     let token = localStorage.getItem('TOKEN');
     if (token) {
 
@@ -114,7 +113,6 @@ async function fetchCancelBooking(data) {
             body: JSON.stringify(data)
         });
         //console.log(JSON.stringify(data));
-        $('.modal-content').LoadingOverlay('hide');
         return await response.json();
     } else {
         window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
@@ -182,7 +180,7 @@ async function fetchManifest() {
 }
 
 async function fetchReserve() {
-    $('.modal-content').LoadingOverlay('show');
+    $('.booking-details').LoadingOverlay('show');
     let token = localStorage.getItem('TOKEN');
     if (token) {
 
@@ -219,7 +217,7 @@ async function fetchReserve() {
             method: 'post',
             body: JSON.stringify(data)
         });
-        //console.log(JSON.stringify(data));
+        $('.booking-details').LoadingOverlay('hide');
         return await response.json();
 
     } else {
@@ -406,7 +404,7 @@ getReserve = (gManifest = true) => {
             payCon.removeAttribute("disabled", false);
             passList.innerHTML = html;
             passLists.innerHTML = htmList;
-            if(gManifest) getManifest();
+            if (gManifest) getManifest();
             //modal.classList.add("active");
             //seatSelect.classList.add("active");
         }
@@ -416,6 +414,7 @@ getReserve = (gManifest = true) => {
 
 
 }
+
 function assignSeat() {
     getManifest();
     seatSelect.classList.add("active");
@@ -757,19 +756,21 @@ getDestination = (search = '') => {
 };
 
 formatDate = (date) => {
-    let tDate = new Date(date)
-    return tDate.toLocaleString('en', {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-    })
+    return moment(date).format('ddd, MMM D')
+    // let tDate = new Date(date)
+    // return tDate.toLocaleString('en', {
+    //     weekday: "short",
+    //     month: "short",
+    //     day: "numeric",
+    // })
 }
 formatDate1 = (date) => {
-    let tDate = new Date(date);
-    let y = tDate.getFullYear();
-    let m = tDate.getMonth() < 10 ? '0' + tDate.getMonth() : tDate.getMonth();
-    let d = tDate.getDay() < 10 ? '0' + tDate.getDay() : tDate.getDay();
-    return (y + '-' + m + '-' + d);
+    return moment(date).format('YYYY-MM-DD');
+    // let tDate = new Date(date);
+    // let y = tDate.getFullYear();
+    // let m = tDate.getMonth() < 10 ? '0' + tDate.getMonth() : tDate.getMonth();
+    // let d = tDate.getDay() < 10 ? '0' + tDate.getDay() : tDate.getDay();
+    // return (y + '-' + m + '-' + d);
 }
 
 formatDateL = (date) => {
@@ -784,8 +785,7 @@ formatDateL = (date) => {
 
 
 formatTime = (time) => {
-    let tTime = new Date('2000-01-01 ' + time);
-    return tTime.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true});
+    return moment('2022-01-01 ' + time).format('hh:mm A');
 }
 
 SearchForm = (e) => {

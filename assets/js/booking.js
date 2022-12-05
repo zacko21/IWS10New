@@ -58,13 +58,11 @@ function continuePayment() {
     let ok = true;
     rlist.forEach(row => {
         if (row.LastName === 'Lastname' || row.FirstName === 'Firstname') {
-            Swal.fire('Please change the Passenger name first before proceeding.');
-            bookingDetails.scrollTop = 0;
+            Swal.fire('Please change the Passenger Name before proceeding. Thank you');
             ok = false;
         }
         if(row.SeatNo === 'UNASSIGNED'){
-            Swal.fire('Before proceeding, please assign a Passenger seat. Thank you.');
-            bookingDetails.scrollTop = 0;
+            Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.');
             ok = false;
         }
     })
