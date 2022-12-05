@@ -269,7 +269,11 @@ getPassengerInfo = (id) => {
     document.querySelector('#email').value = cinfo.Email;
     document.querySelector('#first_name').value = cinfo.FirstName;
     document.querySelector('#last_name').value = cinfo.LastName;
-    // document.querySelector("input[name='gender']:checked").value = cinfo.;
+    // if (cinfo.Gender === 'Male') {
+    //     document.querySelector('#male').checked = true;
+    // } else {
+    //     document.querySelector('#female').checked = true;
+    // }
     document.querySelector('#birthday').value = cinfo.BirthDate;
     document.querySelector('#contact_number').value = cinfo.ContactNo;
 };
@@ -304,7 +308,7 @@ EditInfo = (e) => {
         "contactNo": document.querySelector('#contact_number').value,
         "email": document.querySelector('#email').value,
         "firstName": document.querySelector('#first_name').value,
-        "gender": document.querySelector("input[name='gender']:checked").value,
+        // "gender": document.querySelector("input[name='gender']:checked").value,
         "lastName": document.querySelector('#last_name').value,
         "middleName": "",
         "referenceNo": localStorage.getItem('refNo'),
@@ -312,6 +316,7 @@ EditInfo = (e) => {
         "tripID": localStorage.getItem('departure') + '.' + localStorage.getItem('RouteId')
     }
     fetchUpdatePassenger(data).then(res => {
+        console.log(res);
         if (res.result === 'OK') {
             editBookedInfo.classList.remove("active");
             getReserve(false);
@@ -358,6 +363,8 @@ EditInfo = (e) => {
 //         }
 //     })
 // }
+
+
 getReserve = (gManifest = true) => {
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
@@ -374,11 +381,10 @@ getReserve = (gManifest = true) => {
             if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
                 console.log('bookings cancelled');
                 cancelBookings();
-                getReserve();
-                return;
+                return getReserve();
             }
             data.forEach((res, index) => {
-                let name = `${res.LastName}, ${res.FirstName} ${res.MiddleName}`;
+                let name = `${res.LastName}, ${res.FirstName}`;
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
                 htmList += `<div class="block">
                                 <div class="item">
@@ -396,6 +402,8 @@ getReserve = (gManifest = true) => {
                                 </div>
                             </div>`;
             })
+            passengersInfo.classList.add("active");
+            payCon.removeAttribute("disabled", false);
             passList.innerHTML = html;
             passLists.innerHTML = htmList;
             if(gManifest) getManifest();
@@ -408,7 +416,6 @@ getReserve = (gManifest = true) => {
 
 
 }
-
 function assignSeat() {
     getManifest();
     seatSelect.classList.add("active");
@@ -777,7 +784,7 @@ formatDateL = (date) => {
 
 
 formatTime = (time) => {
-    let tTime = new Date('0000 ' + time);
+    let tTime = new Date('2000-01-01 ' + time);
     return tTime.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true});
 }
 
