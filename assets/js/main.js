@@ -314,7 +314,7 @@ EditInfo = (e) => {
     fetchUpdatePassenger(data).then(res => {
         if (res.result === 'OK') {
             editBookedInfo.classList.remove("active");
-            getReserve();
+            getReserve(false);
         }
     }).catch(error => {
         //console.log(error);
@@ -358,18 +358,12 @@ EditInfo = (e) => {
 //         }
 //     })
 // }
-
-getReserve = () => {
+getReserve = (gManifest = true) => {
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
-        ////console.log('RESERVE RESULT');
+        console.log('RESERVE RESULT');
+        console.log(data);
         if (data.length > 0) {
-            if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
-                console.log('bookings cancelled');
-                cancelBookings();
-                getReserve();
-                return;
-            }
             let passList = document.getElementById('passenger_assign');
             let passLists = document.getElementById('passenger-list');
             let header = document.getElementById("header-booking");
@@ -377,6 +371,12 @@ getReserve = () => {
             let html = '', htmList = '';
             localStorage.setItem('refNo', data[0].ReferenceNo);
             localStorage.setItem('reservation', JSON.stringify(data));
+            if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
+                console.log('bookings cancelled');
+                cancelBookings();
+                getReserve();
+                return;
+            }
             data.forEach((res, index) => {
                 let name = `${res.LastName}, ${res.FirstName} ${res.MiddleName}`;
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
@@ -398,9 +398,8 @@ getReserve = () => {
             })
             passList.innerHTML = html;
             passLists.innerHTML = htmList;
-            getManifest();
+            if(gManifest) getManifest();
             //modal.classList.add("active");
-
             //seatSelect.classList.add("active");
         }
     }).catch(error => {
@@ -408,6 +407,12 @@ getReserve = () => {
     });
 
 
+}
+
+function assignSeat() {
+    getManifest();
+    seatSelect.classList.add("active");
+    bookingDetails.scrollTop = 0;
 }
 
 function closeModalInfo() {
