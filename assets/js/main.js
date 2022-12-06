@@ -1,19 +1,3 @@
-$(document).ready(() => {
-    let div = document.querySelector('.status');
-    if (localStorage.getItem('TOKEN')) {
-        div.innerHTML = `
-                        <a href="user-admin.html" onclick="menu()">My Account</a>
-                    <a href="#" onclick="Logout()">
-                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
-                </a>`;
-    } else {
-        div.innerHTML = `<a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
-            </a> `;
-    }
-})
-
-
 let confirmModal = document.querySelector(".booking-confirm");
 
 async function fetchBookingHistory() {
@@ -1001,3 +985,30 @@ getHistory = () => {
     });
 }
 
+$(document).ready(() => {
+    $.LoadingOverlay('show');
+    let div = document.querySelector('.status');
+    if (localStorage.getItem('TOKEN')) {
+        div.innerHTML = `
+                        <a href="user-admin.html" onclick="menu()">My Account</a>
+                    <a href="#" onclick="Logout()">
+                    <button style="margin-left: 5px" class="btn-primary">Logout</button>
+                </a>`;
+    } else {
+        div.innerHTML = `<a href="signup.html" onclick="menu()">
+                <button class="btn-primary">Sign up</button>
+            </a> `;
+    }
+
+    let path = window.location.pathname;
+    let page = path.split("/").pop();
+
+    if (page.includes('index') || page === '') {
+        getLocation();
+    }
+    if (page.includes('booking')) {
+        getSchedules();
+        localStorage.removeItem('selected-sched');
+    }
+    $.LoadingOverlay('hide');
+})
