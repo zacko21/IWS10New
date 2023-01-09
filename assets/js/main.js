@@ -1,5 +1,7 @@
 let confirmModal = document.querySelector(".booking-confirm");
-
+$.LoadingOverlaySetup({
+    imageColor      : "#4a6923"
+});
 async function fetchBookingHistory() {
     let token = localStorage.getItem('TOKEN');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
@@ -350,12 +352,14 @@ EditInfo = (e) => {
 getReserve = (gManifest = true) => {
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
-        console.log('RESERVE RESULT');
-        console.log(data);
+        console.log('RESERVE RESULT',data);
         if (data.length > 0) {
             let passList = document.getElementById('passenger_assign');
             let passLists = document.getElementById('passenger-list');
             let header = document.getElementById("header-booking");
+            let resBox = document.querySelector('.reserveBox');
+            resBox.style.display = 'block';
+            document.getElementById('reservationNo').innerHTML = data[0].ReservationNo;
             // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
             let html = '', htmList = '';
             localStorage.setItem('refNo', data[0].ReferenceNo);
@@ -365,6 +369,8 @@ getReserve = (gManifest = true) => {
                 cancelBookings();
                 return getReserve();
             }
+
+            let aComplete = true;
             data.forEach((res, index) => {
                 let name = `${res.LastName}, ${res.FirstName}`;
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
@@ -383,7 +389,14 @@ getReserve = (gManifest = true) => {
                                     <i class="uil uil-pen" data-id ="${index}" onclick="editBookingUser(this)"></i>
                                 </div>
                             </div>`;
+                if(res.SeatNo === 'UNASSIGNED'){
+                    aComplete = false;
+                }
+
             })
+            if(aComplete) {
+                seatSelect.classList.remove("active");
+            }
             passengersInfo.classList.add("active");
             payCon.removeAttribute("disabled", false);
             passList.innerHTML = html;
@@ -473,9 +486,7 @@ getManifest = () => {
                                 } else {
                                     html += `<div class="seat unavailable booked">
                                 <img alt="" src="assets/images/chair.svg"/>
-                                
                                    </div>`;
-
                                 }
 
                                 break;
@@ -792,7 +803,10 @@ SearchForm = (e) => {
         // fetchResults(true, {background: 'rgba(255, 255, 255, 0.3)', image: '', text: 'searching'}).then(res => {
         fetchResults(true).then(res => {
             if (res.length === 0) {
-                Swal.fire('NO SCHEDULES FOUND');
+                //Swal.fire('NO SCHEDULES FOUND');
+                Swal.fire({
+                    html: "<p style='font-size: medium'>No trips available on the date or route you selected at this time. You may make another search or contact <span style='color: blue'>info@iwantseats.com.ph</span> for inquiries.</p>",
+                });
             } else {
                 window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/booking.html';
             }
