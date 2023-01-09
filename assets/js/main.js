@@ -431,7 +431,7 @@ getManifest = () => {
             Swal.fire(data.RESULT);
         } else {
             let gp = _.groupBy(JSON.parse(JSON.stringify(data)), 'row');
-            // //console.log(gp);
+            console.log(gp);
             let placeholder = document.querySelector('.bus-body');
             let html = `<table class="table table-sm"><tbody>`;
             _.forEach(gp, (list, row) => {
@@ -465,11 +465,10 @@ getManifest = () => {
                                    </div>`;
                                 break;
                             case '2':
-                                if (row1.value === '') {
-
+                                if (row1.value === '' || row1.value === 'COMFORT ROOM' || row1.value === 'CR' || row1.label === 'CR' || row1.label === 'COMFORT ROOM') {
                                     html += `<div class="seat">
                                 <img alt="" src="assets/images/cr.svg"/>
-                                <span>${row1.label}</span>
+                                <span>CR</span>
                                    </div>`;
                                 } else {
                                     html += `<div class="seat unavailable booked">
