@@ -555,8 +555,8 @@
 </footer>
 
 <script rel="script" src="assets/js/jquery.min.js?v="></script>
+<script rel="script" src="assets/js/axios.min.js"></script>
 <script rel="script" src="assets/js/app.min.js?v=10"></script>
-<script rel="script" src="assets/js/booking.min.js?v=10"></script>
 <script rel="script" src="assets/js/loadingoverlay.min.js?v=10"></script>
 <script rel="script" src="assets/js/lodash.min.js?v=10"></script>
 <script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
@@ -567,6 +567,9 @@
 <script>
     var script = document.createElement('script');
     script.setAttribute('src', 'assets/js/main.js?v=' + Date.now()); //was missing single quote
+    document.body.appendChild(script);
+    var script = document.createElement('script');
+    script.setAttribute('src', 'assets/js/booking.js?v=' + Date.now()); //was missing single quote
     document.body.appendChild(script);
     $("#chkReturn").change(function () {
         if (this.checked) {

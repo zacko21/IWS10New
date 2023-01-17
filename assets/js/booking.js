@@ -94,6 +94,7 @@ function continuePayment() {
 }
 
 function confirmBooking(e) {
+    $('.booking-modal.active>.wraper-item').LoadingOverlay('show');
     fetchPassengerSeat(document.getElementById('passenger_assign').value, e.dataset.seat).then(res => {
         if (res.result === 'OK') {
             getReserve(true);
@@ -104,6 +105,7 @@ function confirmBooking(e) {
             passengersInfo.classList.add("active");
             payCon.removeAttribute("disabled", false);
             bookingDetails.scrollTop = 0;
+            $('.booking-modal.active>.wraper-item').LoadingOverlay('hide');
         }
     });
 

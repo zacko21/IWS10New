@@ -1,3 +1,10 @@
+"use strict";
+let axiosConfig = {
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+    }
+};
+
 let confirmModal = document.querySelector(".booking-confirm");
 
 Date.prototype.addDays = function (days) {
@@ -95,18 +102,16 @@ async function fetchUpdatePassenger(data) {
 async function fetchCancelBooking(data) {
     let token = localStorage.getItem('TOKEN');
     if (token) {
-
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/cancelbooking/${token}`;
         //console.log(input);
-        let response = await fetch(input, {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            method: 'post',
-            body: JSON.stringify(data)
-        });
-        //console.log(JSON.stringify(data));
-        return await response.json();
+        try {
+            let response = await axios.post(input, data, axiosConfig)
+            console.log(response.status)
+            console.log('cancel', response.data);
+            return response.data;
+        } catch (err) {
+            console.error(err);
+        }
     } else {
         window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
     }
@@ -155,68 +160,72 @@ async function fetchManifest() {
             "BusType": localStorage.getItem('BusType')
         };
         // //console.log(JSON.stringify(data));
-        let response = await fetch(input, {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            method: 'post',
-            body: JSON.stringify(data)
-        });
-        //console.log(JSON.stringify(data));
-        $('.bus-seat-select').LoadingOverlay('hide');
-        // $('.modal-content').LoadingOverlay('hide');
-        return await response.json();
+        try {
+            let response = await axios.post(input, data, axiosConfig)
+            console.log(response.status);
+            $('.bus-seat-select').LoadingOverlay('hide');
+            console.log('manifest', response.data);
+            if(response.data == '') {
+                console.log('empty data');
+                return fetchManifest();
+            }
+            return response.data;
+        } catch (err) {
+            console.error(err);
+        }
 
     } else {
         window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
     }
 }
 
-async function fetchReserve() {
+async function fetchReserve () {
     $('.booking-details').LoadingOverlay('show');
     let token = localStorage.getItem('TOKEN');
     if (token) {
 
-        let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
-        //console.log(input);
-        let data = {
-            "clientId": localStorage.getItem('clientId'),
-            "token": token,
-            "tripDate": localStorage.getItem('departure'),
-            "noOfPax": localStorage.getItem('passenger_count'),
-            "routeId": localStorage.getItem('RouteId'),
-            "reservationStatus": "0",
-            "firstName": "a",
-            "middleName": "a",
-            "lastName": "a",
-            "seatNo": "UNASSIGNED",
-            "paxDiscountId": "",
-            "discountType": "",
-            "bookingAgent": "IWS",
-            "userId": "1",
-            "bookedBy": "",
-            "paidBy": "",
-            "modeOfPayment": "",
-            "paymentRemarks": "",
-            "pickUp": localStorage.getItem('RouteId').split('.')[1],
-            "dropOff": localStorage.getItem('RouteId').split('.')[2]
-        };
-        ////console.log('RESERVE POST');
-        ////console.log(JSON.stringify(data));
-        let response = await fetch(input, {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            method: 'post',
-            body: JSON.stringify(data)
-        });
-        $('.booking-details').LoadingOverlay('hide');
-        return await response.json();
+            let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
+            //console.log(input);
+            let data = {
+                "clientId": localStorage.getItem('clientId'),
+                "token": token,
+                "tripDate": localStorage.getItem('departure'),
+                "noOfPax": localStorage.getItem('passenger_count'),
+                "routeId": localStorage.getItem('RouteId'),
+                "reservationStatus": "0",
+                "firstName": "a",
+                "middleName": "a",
+                "lastName": "a",
+                "seatNo": "UNASSIGNED",
+                "paxDiscountId": "",
+                "discountType": "",
+                "bookingAgent": "IWS",
+                "userId": "1",
+                "bookedBy": "",
+                "paidBy": "",
+                "modeOfPayment": "",
+                "paymentRemarks": "",
+                "pickUp": localStorage.getItem('RouteId').split('.')[1],
+                "dropOff": localStorage.getItem('RouteId').split('.')[2]
+            };
+            console.log('RESERVE POST',JSON.stringify(data));
+        try {
+            let response = await axios.post(input, data, axiosConfig)
+            console.log(response.status)
 
-    } else {
-        window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
+            $('.booking-details').LoadingOverlay('hide');
+            console.log('reserve', response.data);
+            if(response.data == '') {
+                console.log('empty data');
+                return fetchReserve();
+            }
+            return response.data;
+        } catch (err) {
+            console.error(err);
+        }
     }
 }
+
 
 async function fetchLocation() {
     // $('.from-value').LoadingOverlay('show');
@@ -237,7 +246,7 @@ async function fetchToLocation() {
     return await response.json();
 }
 
-groupBy = (list, keyGetter) => {
+const groupBy = (list, keyGetter) => {
     const map = new Map();
     list.forEach((item) => {
         const key = keyGetter(item);
@@ -251,7 +260,7 @@ groupBy = (list, keyGetter) => {
     return map;
 }
 
-getPassengerInfo = (id) => {
+const getPassengerInfo = (id) => {
     let reservation = localStorage.getItem('reservation');
     let cinfo = JSON.parse(reservation)[id];
     let pBooker = parseInt(id) === 0 ? 1 : 0;
@@ -269,7 +278,7 @@ getPassengerInfo = (id) => {
     document.querySelector('#contact_number').value = cinfo.ContactNo;
 };
 
-cancelBookings = () => {
+const cancelBookings = (getR = false) => {
     let reservation = localStorage.getItem('reservation');
     let info = JSON.parse(reservation)[0];
     let data = {
@@ -283,14 +292,21 @@ cancelBookings = () => {
     }
     fetchCancelBooking(data).then(res => {
         if (res.result === 'OK') {
+            console.log('CANCEL RESULT', res.result);
             //localStorage.removeItem('reservation');
             // modal.classList.remove('active');
             // Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
+        }else{
+            console.log('CANCEL RESULT', res.result);
+        }
+    }).then(ex => {
+        if(getR){
+            getReserve();
         }
     })
 }
 
-EditInfo = (e) => {
+const EditInfo = (e) => {
     e.preventDefault();
     let data = {
         "clientid": localStorage.getItem('clientId'),
@@ -356,10 +372,9 @@ EditInfo = (e) => {
 // }
 
 
-getReserve = (gManifest = true) => {
+const getReserve = (gManifest = true) => {
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
-        console.log('RESERVE RESULT', data);
         if (data.length > 0) {
             let passList = document.getElementById('passenger_assign');
             let passLists = document.getElementById('passenger-list');
@@ -368,11 +383,10 @@ getReserve = (gManifest = true) => {
             let html = '', htmList = '';
             localStorage.setItem('refNo', data[0].ReferenceNo);
             localStorage.setItem('reservation', JSON.stringify(data));
-            // if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
-            //     console.log('bookings cancelled');
-            //     cancelBookings();
-            //     return getReserve();
-            // }
+            if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
+                console.log('bookings cancelled');
+                return cancelBookings(true);
+            }
             data.forEach((res, index) => {
                 let name = `${res.LastName}, ${res.FirstName}`;
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
@@ -401,7 +415,7 @@ getReserve = (gManifest = true) => {
             //seatSelect.classList.add("active");
         }
     }).catch(error => {
-        //console.log(error);
+        console.log('error',error);
     });
 
 
@@ -431,7 +445,7 @@ function continueBooking() {
     confirmModal.classList.toggle("active");
 }
 
-getManifest = () => {
+const getManifest = () => {
     fetchManifest().then(data => {
         // //console.log(data);
         bookingDetails.scrollTop = 0;
@@ -439,7 +453,6 @@ getManifest = () => {
             Swal.fire(data.RESULT);
         } else {
             let gp = _.groupBy(JSON.parse(JSON.stringify(data)), 'row');
-            console.log(gp);
             let placeholder = document.querySelector('.bus-body');
             let html = `<table class="table table-sm"><tbody>`;
             _.forEach(gp, (list, row) => {
@@ -467,13 +480,13 @@ getManifest = () => {
                                    </div>`;
                                 break;
                             case '1':
-                                html += `<div data-id="${row1.value}" data-type="${row1.type}" class="seat ${row1.value === '' || row1.value === 'OFL' ? 'unavailable booked' : 'available'}">
+                                html += `<div data-id="${row1.value}" data-type="${row1.type}" class="seat ${row1.value === '' || row1.label2 === 'OFL' ? 'unavailable booked' : row1.label2 === 'SP' ? 'available senior' : 'available' }">
                                 <img alt="" src="assets/images/chair.svg"/>
                                 <span>${row1.label}</span>
                                    </div>`;
                                 break;
                             case '2':
-                                if (row1.value === '' || row1.value === 'COMFORT ROOM' || row1.value === 'CR' || row1.label === 'CR' || row1.label === 'COMFORT ROOM') {
+                                if (row1.value === '' || row1.value === 'COMFORT ROOM' || row1.value === 'CR' || row1.label === 'CR' || row1.label === 'COMFORT ROOM' || row1.label === 'RESTROOM') {
                                     html += `<div class="seat">
                                 <img alt="" src="assets/images/cr.svg"/>
                                 <span>CR</span>
@@ -530,7 +543,7 @@ getManifest = () => {
 
 }
 
-getSchedules = () => {
+const getSchedules = () => {
 
     fetchResults().then((data) => {
         if (data.length > 0) {
@@ -576,10 +589,10 @@ getSchedules = () => {
             e.addEventListener("click", attr => {
                 let ok = true;
                 let current_sched = JSON.parse(localStorage.getItem('selected-sched'));
-                if (_.isEqual(current_sched, schedules[e.dataset.id]) === false && current_sched !== null) {
+                let sel_sched = schedules[e.dataset.id];
+                if (_.isEqual(current_sched, sel_sched) === false && current_sched !== null) {
                     let text = "Choosing another trip will cancel your seat selection for this trip. Continue?";
                     if (confirm(text) == true) {
-                        ok = true;
                         cancelBookings();
                     } else {
                         ok = false;
@@ -592,6 +605,7 @@ getSchedules = () => {
                     })
                     e.classList.add("active");
                     // e.setAttribute("disabled", true);
+                    getReserve();
 
                     let dest = schedules[e.dataset.id];
                     localStorage.setItem('selected-sched', JSON.stringify(dest))
@@ -613,7 +627,6 @@ getSchedules = () => {
                     localStorage.setItem('RouteId', dest.tkey);
                     localStorage.setItem('BusType', dest.bustype);
                     localStorage.setItem('clientId', dest.clientid);
-                    getReserve();
                     body.classList.toggle("modal-open");
                     cancelBtn.classList.add("active");
                     continueBtn.classList.add("active");
@@ -635,7 +648,7 @@ getSchedules = () => {
 
 }
 
-getLocation = (search = '') => {
+const getLocation = (search = '') => {
     fetchLocation().then(data => {
         // //console.log(data);
         if (data.length > 0) {
@@ -677,7 +690,7 @@ getLocation = (search = '') => {
 
 }
 
-Logout = () => {
+const Logout = () => {
     localStorage.clear();
     window.location.href = 'index.html';
 }
@@ -694,7 +707,7 @@ Logout = () => {
 // }
 
 
-getDestination = (search = '') => {
+const getDestination = (search = '') => {
     // alert(origin);
     let toLocation, toValue;
     toLocation = document.querySelectorAll(".item.to-locations a");
@@ -746,7 +759,7 @@ getDestination = (search = '') => {
 
 };
 
-formatDate = (date) => {
+const formatDate = (date) => {
     return moment(date).format('ddd, MMM D')
     // let tDate = new Date(date)
     // return tDate.toLocaleString('en', {
@@ -755,7 +768,7 @@ formatDate = (date) => {
     //     day: "numeric",
     // })
 }
-formatDate1 = (date) => {
+const formatDate1 = (date) => {
     return moment(date).format('YYYY-MM-DD');
     // let tDate = new Date(date);
     // let y = tDate.getFullYear();
@@ -764,7 +777,7 @@ formatDate1 = (date) => {
     // return (y + '-' + m + '-' + d);
 }
 
-formatDateL = (date) => {
+const formatDateL = (date) => {
     let tDate = new Date(date)
     return tDate.toLocaleString('en', {
         weekday: "long",
@@ -775,11 +788,11 @@ formatDateL = (date) => {
 }
 
 
-formatTime = (time) => {
+const formatTime = (time) => {
     return moment('2022-01-01 ' + time).format('hh:mm A');
 }
 
-SearchForm = (e) => {
+const SearchForm = (e) => {
     e.preventDefault();
     let from = document.getElementById('from')
 
@@ -897,7 +910,7 @@ var loadFile = function (event) {
     }
 };
 
-UploadFile = evt => {
+const UploadFile = evt => {
     evt.preventDefault();
     var token = localStorage.getItem("TOKEN");
     //alert(newpaxlist[0].ReservationNo);
@@ -928,7 +941,7 @@ UploadFile = evt => {
 
 }
 
-getHistory = () => {
+const getHistory = () => {
     fetchBookingHistory().then(result => {
         let options = {
             minimumFractionDigits: 2,
