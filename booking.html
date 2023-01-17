@@ -31,6 +31,7 @@
             <div class="status">
                 <a href="#" onclick="Logout()">
                     <button class="btn-primary">Logout</button>
+
                 </a>
             </div>
         </div>
@@ -529,20 +530,20 @@
     </div>
 </footer>
 
-<script rel="script" src="assets/js/jquery.min.js?v=10"></script>
+<script rel="script" src="assets/js/jquery.min.js?v="></script>
 <script rel="script" src="assets/js/app.min.js?v=10"></script>
 <script rel="script" src="assets/js/booking.min.js?v=10"></script>
 <script rel="script" src="assets/js/loadingoverlay.min.js?v=10"></script>
 <script rel="script" src="assets/js/lodash.min.js?v=10"></script>
 <script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
 <script rel="script" src="assets/js/moment.min.js?v=10"></script>
-<script rel="script" src="assets/js/main.min.js?v=10"></script>
-<script>
-    // $(document).ready(() => {
-    //     // getSchedules();
-    //     // localStorage.removeItem('selected-sched');
-    // });
 
+
+<!--<script rel="script" src="assets/js/main.min.js?v=10"></script>-->
+<script>
+    var script = document.createElement('script');
+    script.setAttribute('src', 'assets/js/main.js?v=' + Date.now()); //was missing single quote
+    document.body.appendChild(script);
     $("#chkReturn").change(function () {
         if (this.checked) {
             Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')

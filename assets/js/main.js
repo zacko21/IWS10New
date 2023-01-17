@@ -1,5 +1,14 @@
 let confirmModal = document.querySelector(".booking-confirm");
 
+Date.prototype.addDays = function (days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+let dtDepart = document.getElementById("date_of_departure");
+dtDepart.setAttribute('min', new Date().addDays(1).toISOString().split('T')[0]);
+dtDepart.setAttribute('max', new Date().addDays(30).toISOString().split('T')[0]);
+
 async function fetchBookingHistory() {
     let token = localStorage.getItem('TOKEN');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
@@ -274,7 +283,7 @@ cancelBookings = () => {
     }
     fetchCancelBooking(data).then(res => {
         if (res.result === 'OK') {
-            localStorage.removeItem('reservation');
+            //localStorage.removeItem('reservation');
             // modal.classList.remove('active');
             // Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
         }
@@ -350,8 +359,7 @@ EditInfo = (e) => {
 getReserve = (gManifest = true) => {
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
-        console.log('RESERVE RESULT');
-        console.log(data);
+        console.log('RESERVE RESULT', data);
         if (data.length > 0) {
             let passList = document.getElementById('passenger_assign');
             let passLists = document.getElementById('passenger-list');
@@ -360,11 +368,11 @@ getReserve = (gManifest = true) => {
             let html = '', htmList = '';
             localStorage.setItem('refNo', data[0].ReferenceNo);
             localStorage.setItem('reservation', JSON.stringify(data));
-            if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
-                console.log('bookings cancelled');
-                cancelBookings();
-                return getReserve();
-            }
+            // if (data.length !== parseInt(localStorage.getItem('passenger_count'))) {
+            //     console.log('bookings cancelled');
+            //     cancelBookings();
+            //     return getReserve();
+            // }
             data.forEach((res, index) => {
                 let name = `${res.LastName}, ${res.FirstName}`;
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
@@ -459,7 +467,7 @@ getManifest = () => {
                                    </div>`;
                                 break;
                             case '1':
-                                html += `<div data-id="${row1.value}" data-type="${row1.type}" class="seat ${(row1.value === '') ? 'unavailable booked' : 'available'}">
+                                html += `<div data-id="${row1.value}" data-type="${row1.type}" class="seat ${row1.value === '' || row1.value === 'OFL' ? 'unavailable booked' : 'available'}">
                                 <img alt="" src="assets/images/chair.svg"/>
                                 <span>${row1.label}</span>
                                    </div>`;
