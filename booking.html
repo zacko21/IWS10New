@@ -139,7 +139,10 @@
                 <!-- payment step -->
                 <div class="step-block booking-payment">
                     <h1 class="block-title">Payment method</h1>
-
+                    <!--                    <div style="padding: 10px 10px 20px 10px; font-style: normal">-->
+                    <!--                        <p>Reservation No: <span style="font-weight: bold">sdfasd</span> </p>-->
+                    <!--                        <p>Travel Date: <span style="font-weight: bold">sdfasd</span> </p>-->
+                    <!--                    </div>-->
                     <div class="payment-tabs">
                         <div class="tab active" data-target="card-gcash">
                             Gcash and Card
@@ -224,13 +227,26 @@
                                     <h3>Pay with GCash</h3>
                                     <p>
                                         Safe money transfer using your bank account. Visa,
-                                        Mastro, Discover, American Express, etc.
+                                        MasterCard, Discover, American Express, etc.
                                     </p>
                                 </div>
                                 <div class="card-icon">
                                     <img alt="" src="assets/images/gcash.png"/>
                                 </div>
                             </div>
+                        </div>
+
+
+                        <div class="payment-block gcash" style="text-align: center">
+                            <p>
+                                Payments via GCash (Paymongo) are instantly confirmed. Kindly expect your confirmed trip
+                                itinerary in your e-mail after payment.
+                                <br/>
+                                <br/>
+                                If you do not receive your confirmed itinerary within 2 hours of GCash payment, please
+                                E-MAIL <a href="mailto:payments@iwantseats.com.ph"><span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a>
+                                with your reservation number.
+                            </p>
                         </div>
                     </div>
                     <!-- card and gcash pay end -->
@@ -294,12 +310,17 @@
                         </div>
                         <div class="payment-block bank">
                             <center>
-                                <h1 class="block-title">
-                                    Once paid, PLEASE SEND YOUR PROOF OF PAYMENT WITHIN 24 HOURS TO
-                                    <span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span> or UPLOAD IT BELOW.
-                                    (Online Bank transfer and
-                                    over-the-counter payments must still be confirmed with proof of payment)
-                                </h1>
+                                <p>
+                                    Once paid, PLEASE SEND YOUR PROOF OF PAYMENT with your reservation number to
+                                    <a href="mailto:payments@iwantseats.com.ph"><span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a> or UPLOAD IT BELOW to
+                                    avoid auto-cancellation of booking.
+                                    <br/>
+                                    <br/>
+                                    Bookings paid by Bank Transfer must still be confirmed with proof of payment. Upon
+                                    confirmation, please expect your confirmed trip itinerary in your e-mail within 24
+                                    hours.
+                                </p>
+                                <br/>
                                 <button
                                         class="btn btn-primary proof-btn"
                                         data-target="bank-proof"
@@ -348,12 +369,15 @@
             <!-- bus seat planing and mobile modal -->
             <div class="booking-details">
                 <h3 class="title">Booking summary</h3>
+                <div class="reserveBox" style="text-align: center; display: none">
+                    <p class="text-center" style="padding: 10px;background-color: #7cad3e;border-radius: 7px;">Reservation No: <span id="reservationNo" style="font-weight: bold;text-decoration: underline;"></span></p>
+                </div>
                 <div class="block bus-seat-select">
                     <h3 class="title">Choose Seat</h3>
                     <div class="bus-body">
                     </div>
                 </div>
-                <div class="block passenger-s">
+                <div id="passenger-block" class="block passenger-s">
                     <h3 class="title">Passenger(s)</h3>
                     <div id="passenger-list">
                     </div>

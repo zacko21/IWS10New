@@ -26,6 +26,10 @@ bookBtn.forEach((e) => {
 
 function closeModal() {
     cancelBookings();
+    setTimeout(function (){
+        window.location.reload();
+    },1000);
+
     body.classList.toggle("modal-open");
     cancelBtn.classList.remove("active");
     continueBtn.classList.remove("active");
@@ -53,12 +57,26 @@ function cancelBooking() {
     //closeModal();
 }
 
+
+function jumpTo(anchor_id){
+    self.location.href = "#"+anchor_id;                 //Navigate to the target element.
+}
 function continuePayment() {
+    window.scrollTo(0,0);
     let rlist = JSON.parse(localStorage.getItem('reservation'));
     let ok = true;
     rlist.forEach(row => {
         if (row.LastName === 'Lastname' || row.FirstName === 'Firstname') {
-            Swal.fire('Please change the Passenger Name before proceeding. Thank you');
+            Swal.fire({
+                html: '<p style="font-size: medium">Please change the Passenger Name before proceeding. Thank you</p>',
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                }
+            })
             ok = false;
         }
         if(row.SeatNo === 'UNASSIGNED'){
@@ -72,16 +90,15 @@ function continuePayment() {
         searchRes.classList.remove("step-active");
         bookingDetails.style = "position:relative;transform:unset";
         body.classList.remove("modal-open");
-        bookingDetails.scrollTop = 0;
     }
 }
 
 function confirmBooking(e) {
     fetchPassengerSeat(document.getElementById('passenger_assign').value, e.dataset.seat).then(res => {
         if (res.result === 'OK') {
-            getReserve(false);
+            getReserve(true);
             bookingModal.classList.toggle("active");
-            seatSelect.classList.remove("active");
+            //seatSelect.classList.remove("active");
             cancelBtn.classList.add("active");
             continueBtn.classList.add("active");
             passengersInfo.classList.add("active");
