@@ -1,4 +1,3 @@
-"use strict";
 let axiosConfig = {
     headers: {
         'Content-Type': 'application/json;charset=UTF-8'
@@ -19,7 +18,7 @@ dtDepart.setAttribute('max', new Date().addDays(30).toISOString().split('T')[0])
 async function fetchBookingHistory() {
     let token = localStorage.getItem('TOKEN');
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
-    if (token) {
+    if (token != null && token!='') {
         //console.log(input);
         let data = {
             "token": token,
@@ -58,7 +57,7 @@ async function fetchResults(show = false, options = {}, target = 'body') {
 
 async function fetchReservationInfo(data) {
     let token = localStorage.getItem('TOKEN');
-    if (token) {
+    if (token != null && token!='') {
 
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getreservationinfotest/${token}`;
         //console.log(input);
@@ -80,7 +79,7 @@ async function fetchReservationInfo(data) {
 
 async function fetchUpdatePassenger(data) {
     let token = localStorage.getItem('TOKEN');
-    if (token) {
+    if (token != null && token!='') {
         let refNo = localStorage.getItem('refNo');
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/passenger/${token}/${refNo}`;
         //console.log(input);
@@ -101,7 +100,7 @@ async function fetchUpdatePassenger(data) {
 
 async function fetchCancelBooking(data) {
     let token = localStorage.getItem('TOKEN');
-    if (token) {
+    if (token != null && token!='') {
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/cancelbooking/${token}`;
         //console.log(input);
         try {
@@ -121,7 +120,7 @@ async function fetchCancelBooking(data) {
 async function fetchPassengerSeat(refNo, seatNo) {
     // $('.bus-seat-select').LoadingOverlay('show');
     let token = localStorage.getItem('TOKEN');
-    if (token) {
+    if (token != null && token!='') {
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updatepassengerseattest/${token}`;
         let data = {
             "ClientID": localStorage.getItem('clientId'),
@@ -150,7 +149,8 @@ async function fetchPassengerSeat(refNo, seatNo) {
 async function fetchManifest() {
     $('.bus-seat-select').LoadingOverlay('show');
     let token = localStorage.getItem('TOKEN');
-    if (token) {
+    console.log(token);
+    if (token != null && token!='') {
         let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifesttest/${token}`;
         //console.log(input);
         let data = {
@@ -182,7 +182,8 @@ async function fetchManifest() {
 async function fetchReserve () {
     $('.booking-details').LoadingOverlay('show');
     let token = localStorage.getItem('TOKEN');
-    if (token) {
+    console.log(token);
+    if (token != null && token!='') {
 
             let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
             //console.log(input);
@@ -223,6 +224,8 @@ async function fetchReserve () {
         } catch (err) {
             console.error(err);
         }
+    } else {
+        window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/login.html';
     }
 }
 
@@ -260,7 +263,7 @@ const groupBy = (list, keyGetter) => {
     return map;
 }
 
-const getPassengerInfo = (id) => {
+function getPassengerInfo(id){
     let reservation = localStorage.getItem('reservation');
     let cinfo = JSON.parse(reservation)[id];
     let pBooker = parseInt(id) === 0 ? 1 : 0;
@@ -278,7 +281,7 @@ const getPassengerInfo = (id) => {
     document.querySelector('#contact_number').value = cinfo.ContactNo;
 };
 
-const cancelBookings = (getR = false) => {
+function cancelBookings (getR = false){
     let reservation = localStorage.getItem('reservation');
     let info = JSON.parse(reservation)[0];
     let data = {
@@ -306,7 +309,7 @@ const cancelBookings = (getR = false) => {
     })
 }
 
-const EditInfo = (e) => {
+function EditInfo(e) {
     e.preventDefault();
     let data = {
         "clientid": localStorage.getItem('clientId'),
@@ -372,7 +375,7 @@ const EditInfo = (e) => {
 // }
 
 
-const getReserve = (gManifest = true) => {
+function getReserve (gManifest = true) {
     let modal = document.querySelector('.modal');
     fetchReserve().then(data => {
         if (data.length > 0) {
@@ -543,7 +546,7 @@ const getManifest = () => {
 
 }
 
-const getSchedules = () => {
+function getSchedules (){
 
     fetchResults().then((data) => {
         if (data.length > 0) {
@@ -648,7 +651,7 @@ const getSchedules = () => {
 
 }
 
-const getLocation = (search = '') => {
+function getLocation(search = '') {
     fetchLocation().then(data => {
         // //console.log(data);
         if (data.length > 0) {
@@ -690,7 +693,7 @@ const getLocation = (search = '') => {
 
 }
 
-const Logout = () => {
+function Logout() {
     localStorage.clear();
     window.location.href = 'index.html';
 }
@@ -707,7 +710,7 @@ const Logout = () => {
 // }
 
 
-const getDestination = (search = '') => {
+function getDestination (search = ''){
     // alert(origin);
     let toLocation, toValue;
     toLocation = document.querySelectorAll(".item.to-locations a");
@@ -759,7 +762,7 @@ const getDestination = (search = '') => {
 
 };
 
-const formatDate = (date) => {
+function formatDate (date)  {
     return moment(date).format('ddd, MMM D')
     // let tDate = new Date(date)
     // return tDate.toLocaleString('en', {
@@ -768,7 +771,7 @@ const formatDate = (date) => {
     //     day: "numeric",
     // })
 }
-const formatDate1 = (date) => {
+function formatDate1  (date) {
     return moment(date).format('YYYY-MM-DD');
     // let tDate = new Date(date);
     // let y = tDate.getFullYear();
@@ -777,7 +780,7 @@ const formatDate1 = (date) => {
     // return (y + '-' + m + '-' + d);
 }
 
-const formatDateL = (date) => {
+function formatDateL  (date)  {
     let tDate = new Date(date)
     return tDate.toLocaleString('en', {
         weekday: "long",
@@ -788,11 +791,11 @@ const formatDateL = (date) => {
 }
 
 
-const formatTime = (time) => {
+function formatTime  (time)  {
     return moment('2022-01-01 ' + time).format('hh:mm A');
 }
 
-const SearchForm = (e) => {
+function SearchForm  (e) {
     e.preventDefault();
     let from = document.getElementById('from')
 
@@ -910,7 +913,7 @@ var loadFile = function (event) {
     }
 };
 
-const UploadFile = evt => {
+function UploadFile (evt) {
     evt.preventDefault();
     var token = localStorage.getItem("TOKEN");
     //alert(newpaxlist[0].ReservationNo);
@@ -941,7 +944,7 @@ const UploadFile = evt => {
 
 }
 
-const getHistory = () => {
+function getHistory  () {
     fetchBookingHistory().then(result => {
         let options = {
             minimumFractionDigits: 2,
