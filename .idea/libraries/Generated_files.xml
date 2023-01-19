@@ -3,19 +3,19 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/assets/js/app.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/axios.min.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/booking.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/lodash.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/main.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/main.min.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/table.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/assets/js/app.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/axios.min.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/booking.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/lodash.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/main.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/main.min.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/table.min.js" />
     </CLASSES>
     <JAVADOC />

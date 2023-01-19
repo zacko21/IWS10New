@@ -105,9 +105,10 @@ function confirmBooking(e) {
             passengersInfo.classList.add("active");
             payCon.removeAttribute("disabled", false);
             bookingDetails.scrollTop = 0;
-            $('.booking-modal.active>.wraper-item').LoadingOverlay('hide');
         }
     });
+    $('.booking-modal.active>.wraper-item').LoadingOverlay('hide');
+
 
 }
 

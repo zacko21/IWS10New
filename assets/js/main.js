@@ -528,7 +528,7 @@ const getManifest = () => {
             // let bookingModal = document.querySelector(".booking-modal");
             seats.forEach((e) => {
                 e.addEventListener("click", () => {
-                    let seat = document.querySelector('.booking-modal>.wraper-item>table>tbody').children[1];
+                    let seat = document.querySelector('.booking-modal>wraper-item>table>tbody').children[1];
                     let btn = document.getElementById('btn_reserve_passenger');
 
                     seat.innerHTML = `<td>${e.dataset.id}</td>
