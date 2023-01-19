@@ -96,30 +96,32 @@
             input: 'email',
             inputLabel: 'Enter your email address',
             inputPlaceholder: 'Enter email address',
-            preConfirm: () => {
-                swal.showLoading();
-            }
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
         }).then(async (result) => {
-            Swal.fire({
-                title: 'Please Wait..',
-                allowOutsideClick: false,
-                showCancelButton: false,
-                showConfirmButton: false,
-                allowEscapeKey: false,
-                willOpen: async function (e) {
-                    Swal.showLoading();
-                    let data = {
-                        email: result.value
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Please Wait..',
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    allowEscapeKey: false,
+                    willOpen: async function (e) {
+                        Swal.showLoading();
+                        let data = {
+                            email: result.value
+                        }
+                        let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/sendonlinedetails`;
+                        let res = await axios.post(input, data, axiosConfig)
+                        if (res.data.RESULT === 'EMAILSENT') {
+                            Swal.fire('Success.. Please check your email.', '', 'success');
+                        } else {
+                            Swal.fire('Failed.. Email not exist', '', 'error');
+                        }
                     }
-                    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/sendonlinedetails`;
-                    let res = await axios.post(input, data, axiosConfig)
-                    if (res.data.RESULT === 'EMAILSENT') {
-                        Swal.fire('Success.. Please check your email.','','success');
-                    } else {
-                        Swal.fire('Failed.. Error occurred','','error');
-                    }
-                }
-            });
+                });
+            }
         });
     }
 
