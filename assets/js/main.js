@@ -382,6 +382,10 @@ function getReserve (gManifest = true) {
             let passList = document.getElementById('passenger_assign');
             let passLists = document.getElementById('passenger-list');
             let header = document.getElementById("header-booking");
+            let resBox = document.querySelector('.reserveBox');
+            resBox.style.display = 'block';
+            document.getElementById('reservationNo').innerHTML = data[0].ReservationNo;
+
             // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
             let html = '', htmList = '';
             localStorage.setItem('refNo', data[0].ReferenceNo);
@@ -528,7 +532,7 @@ const getManifest = () => {
             // let bookingModal = document.querySelector(".booking-modal");
             seats.forEach((e) => {
                 e.addEventListener("click", () => {
-                    let seat = document.querySelector('.booking-modal>wraper-item>table>tbody').children[1];
+                    let seat = document.querySelector('.booking-modal>.wraper-item>table>tbody').children[1];
                     let btn = document.getElementById('btn_reserve_passenger');
 
                     seat.innerHTML = `<td>${e.dataset.id}</td>

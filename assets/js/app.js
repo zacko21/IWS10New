@@ -16,6 +16,12 @@ question.forEach((e) => {
   });
 });
 
+function addElement(el, url){
+  let element = document.createElement(el);
+  element.setAttribute('src', url + '?v=' + Date.now());
+  document.body.appendChild(element);
+}
+
 drop.forEach((e) => {
   e.addEventListener("click", () => {
     let el ;

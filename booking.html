@@ -4,11 +4,11 @@
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
-    <link href="assets/css/style.min.css?v=10" rel="stylesheet"/>
-    <link href="assets/css/form.min.css?v=10" rel="stylesheet"/>
-    <link href="assets/css/booking.min.css?v=10" rel="stylesheet"/>
-    <link href="assets/css/buss.min.css?v=10" rel="stylesheet"/>
-    <link href="assets/swal/sweetalert2.min.css?v=10" rel="stylesheet"/>
+    <link href="assets/css/style.min.css" rel="stylesheet"/>
+    <link href="assets/css/form.min.css" rel="stylesheet"/>
+    <link href="assets/css/booking.min.css" rel="stylesheet"/>
+    <link href="assets/css/buss.min.css" rel="stylesheet"/>
+    <link href="assets/swal/sweetalert2.min.css" rel="stylesheet"/>
 
     <!-- unicons -->
     <link
@@ -312,7 +312,8 @@
                             <center>
                                 <p>
                                     Once paid, PLEASE SEND YOUR PROOF OF PAYMENT with your reservation number to
-                                    <a href="mailto:payments@iwantseats.com.ph"><span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a> or UPLOAD IT BELOW to
+                                    <a href="mailto:payments@iwantseats.com.ph"><span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a>
+                                    or UPLOAD IT BELOW to
                                     avoid auto-cancellation of booking.
                                     <br/>
                                     <br/>
@@ -370,14 +371,17 @@
             <div class="booking-details">
                 <h3 class="title">Booking summary</h3>
                 <div class="reserveBox" style="text-align: center; display: none">
-                    <p class="text-center" style="padding: 10px;background-color: #7cad3e;border-radius: 7px;">Reservation No: <span id="reservationNo" style="font-weight: bold;text-decoration: underline;"></span></p>
+                    <p class="text-center" style="padding: 10px;background-color: #7cad3e;border-radius: 7px;">
+                        Reservation No: <span id="reservationNo"
+                                              style="text-decoration: underline; color: orangered "></span>
+                    </p>
                 </div>
                 <div class="block bus-seat-select">
                     <h3 class="title">Choose Seat</h3>
                     <div class="bus-body">
                     </div>
                 </div>
-                <div id="passenger-block" class="block passenger-s">
+                <div class="block passenger-s" id="passenger-block">
                     <h3 class="title">Passenger(s)</h3>
                     <div id="passenger-list">
                     </div>
@@ -554,23 +558,25 @@
     </div>
 </footer>
 
-<script rel="script" src="assets/js/jquery.min.js?v="></script>
+<script rel="script" src="assets/js/jquery.min.js"></script>
 <script rel="script" src="assets/js/axios.min.js"></script>
-<script rel="script" src="assets/js/app.min.js?v=10"></script>
-<script rel="script" src="assets/js/loadingoverlay.min.js?v=10"></script>
-<script rel="script" src="assets/js/lodash.min.js?v=10"></script>
-<script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
-<script rel="script" src="assets/js/moment.min.js?v=10"></script>
+<script rel="script" src="assets/js/app.min.js?v=3216351564156"></script>
+<script rel="script" src="assets/js/loadingoverlay.min.js"></script>
+<script rel="script" src="assets/js/lodash.min.js"></script>
+<script rel="script" src="assets/swal/sweetalert2.min.js"></script>
+<script rel="script" src="assets/js/moment.min.js"></script>
 
 
-<!--<script rel="script" src="assets/js/main.min.js?v=10"></script>-->
+<!--<script rel="script" src="assets/js/main.min.js"></script>-->
 <script>
-    var script = document.createElement('script');
-    script.setAttribute('src', 'assets/js/main.min.js?v=' + Date.now()); //was missing single quote
-    document.body.appendChild(script);
-    var script = document.createElement('script');
-    script.setAttribute('src', 'assets/js/booking.js?v=' + Date.now()); //was missing single quote
-    document.body.appendChild(script);
+    addElement('script', 'assets/js/main.js');
+    addElement('script', 'assets/js/booking.js');
+    // var script = document.createElement('script');
+    // script.setAttribute('src', 'assets/js/main.min.js?v=' + Date.now()); //was missing single quote
+    // document.body.appendChild(script);
+    // var script = document.createElement('script');
+    // script.setAttribute('src', 'assets/js/booking.js?v=' + Date.now()); //was missing single quote
+    // document.body.appendChild(script);
     $("#chkReturn").change(function () {
         if (this.checked) {
             Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
