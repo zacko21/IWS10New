@@ -56,21 +56,9 @@
 
             <div class="ask">
                 <p>Not have an account? <a href="signup.html">Signup</a></p>
-            </div>
-            <div class="social-login-main">
-                <center>
-                    <h1>Or, login with</h1>
-                </center>
-                <div class="social-login">
-                    <button class="s-btn">
-                        <img alt="" src="assets/images/google.svg"/>
-                        Google
-                    </button>
-                    <button class="s-btn">
-                        <img alt="" src="assets/images/fb.svg"/>
-                        Facebook
-                    </button>
-                </div>
+                <p>Forgot password? Click
+                    <a href="#" onclick="openForgot()">here</a>
+                </p>
             </div>
         </form>
     </div>
@@ -88,8 +76,16 @@
 </footer>
 <script rel="script" src="assets/js/app.min.js?v=10"></script>
 <script rel="script" src="assets/swal/sweetalert2.all.js"></script>
-<script rel="script" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js?v=10"></script>
+<script rel="script" src="assets/js/jquery.min.js"></script>
+<script rel="script" src="assets/js/axios.min.js"></script>
+
 <script>
+    let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    };
+
     document.addEventListener("DOMContentLoaded", () => {
         let token = localStorage.getItem('TOKEN');
         if (token) {
@@ -97,7 +93,40 @@
         }
     });
 
-    SubmitForm = (e) => {
+    async function openForgot() {
+        Swal.fire({
+            title: 'FORGOT PASSWORD',
+            input: 'email',
+            inputLabel: 'Enter your email address',
+            inputPlaceholder: 'Enter email address',
+            preConfirm: () => {
+                swal.showLoading();
+            }
+        }).then(async (result) => {
+            Swal.fire({
+                title: 'Please Wait..',
+                allowOutsideClick: false,
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowEscapeKey: false,
+                willOpen: async function (e) {
+                    Swal.showLoading();
+                    let data = {
+                        email: result.value
+                    }
+                    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/sendonlinedetails`;
+                    let res = await axios.post(input, data, axiosConfig)
+                    if (res.data.RESULT === 'EMAILSENT') {
+                        Swal.fire('Success.. Please check your email.','','success');
+                    } else {
+                        Swal.fire('Failed.. Error occurred','','error');
+                    }
+                }
+            });
+        });
+    }
+
+    const SubmitForm = (e) => {
         e.preventDefault();
         let data = {
             email: document.getElementById('email').value,
