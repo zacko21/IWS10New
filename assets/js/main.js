@@ -1022,8 +1022,8 @@ $(document).ready(() => {
                     <button style="margin-left: 5px" class="btn-primary">Logout</button>
                 </a>`;
     } else {
-        div.innerHTML = `<a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
+        div.innerHTML = `<a href="login.html" onclick="menu()">
+                <button class="btn-primary">Login</button>
             </a> `;
     }
 
