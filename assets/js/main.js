@@ -376,7 +376,7 @@ function EditInfo(e) {
 
 
 function getReserve (gManifest = true) {
-    let modal = document.querySelector('.modal');
+    let seatOK = true;
     fetchReserve().then(data => {
         if (data.length > 0) {
             let passList = document.getElementById('passenger_assign');
@@ -394,8 +394,19 @@ function getReserve (gManifest = true) {
                 console.log('bookings cancelled');
                 return cancelBookings(true);
             }
-            data.forEach((res, index) => {
+
+            let fare = 0;
+            let paxCount = data.length;
+            let sub_total = 0 ;
+            let resvFee = 0;
+            data.forEach((res, index) => {               
+                fare = res.AccommodationFee - res.ConvenienceFee;
+                sub_total += res.AccommodationFee;
+                resvFee += res.ConvenienceFee;
                 let name = `${res.LastName}, ${res.FirstName}`;
+                if(res.SeatNo === 'UNASSIGNED'){
+                    seatOK = false;
+                }
                 html += `<option value="${res.ReferenceNo}">${name}</option>`;
                 htmList += `<div class="block">
                                 <div class="item">
@@ -412,16 +423,38 @@ function getReserve (gManifest = true) {
                                     <i class="uil uil-pen" data-id ="${index}" onclick="editBookingUser(this)"></i>
                                 </div>
                             </div>`;
+                        
+
             })
+            let dest = JSON.parse(JSON.stringify(data[0]));
+
+            document.getElementById('side_departure').textContent = `${formatDate(dest.tripdate)} - ${formatTime(localStorage.getItem('sched-etd'))}`;
+            document.getElementById('s_fare').textContent = 'PHP ' + fare.toFixed(2);
+            document.getElementById('sub_total').innerHTML =
+                `<p>Departure <span>(${paxCount} pax)</span></p>
+                    <div class="item">
+                    <p>Sub Total <span>(${paxCount} pax)</span></p>
+                    <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
+                </div>`;
+            document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + resvFee).toFixed(2);
+            document.getElementById('res_fee').textContent = 'PHP ' + resvFee.toFixed(2);
+
             passengersInfo.classList.add("active");
             payCon.removeAttribute("disabled", false);
             passList.innerHTML = html;
             passLists.innerHTML = htmList;
-            if (gManifest) getManifest();
-            //modal.classList.add("active");
-            //seatSelect.classList.add("active");
+            if(seatOK){
+                seatSelect.classList.remove("active");  
+            } else{
+                seatSelect.classList.add("active");
+            }
+        //modal.classList.add("active");
         }
-    }).catch(error => {
+    }).then(()=>{
+        if (gManifest) getManifest();
+
+    })
+    .catch(error => {
         console.log('error',error);
     });
 
@@ -540,7 +573,7 @@ const getManifest = () => {
                                         <td>${e.dataset.type}</td>`;
                     btn.setAttribute('data-seat', e.dataset.id);
                     bookingModal.classList.toggle("active");
-                    floatingSearch.style.display = "none";
+                    // floatingSearch.style.display = "none";
                 });
             });
         }
@@ -612,33 +645,19 @@ function getSchedules (){
                     })
                     e.classList.add("active");
                     // e.setAttribute("disabled", true);
-                    getReserve();
+
 
                     let dest = schedules[e.dataset.id];
+                    localStorage.setItem('sched-etd', dest.etd);
                     localStorage.setItem('selected-sched', JSON.stringify(dest))
                     //console.log(dest);
-                    let fare = dest.fare;
-                    let paxCount = localStorage.getItem('passenger_count');
-                    let sub_total = fare * paxCount;
-                    let resvFee = 50 * paxCount;
-                    document.getElementById('side_departure').textContent = `${formatDate(dest.tripdate)} ${formatTime(dest.etd)}`;
-                    document.getElementById('s_fare').textContent = 'PHP ' + fare.toFixed(2);
-                    document.getElementById('sub_total').innerHTML =
-                        `<p>Departure <span>(${paxCount} pax)</span></p>
-                            <div class="item">
-                            <p>Sub Total <span>(${paxCount} pax)</span></p>
-                            <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
-                        </div>`;
-                    document.getElementById('gran_total').textContent = 'PHP ' + (sub_total + resvFee).toFixed(2);
-                    document.getElementById('res_fee').textContent = 'PHP ' + resvFee.toFixed(2);
                     localStorage.setItem('RouteId', dest.tkey);
                     localStorage.setItem('BusType', dest.bustype);
                     localStorage.setItem('clientId', dest.clientid);
                     body.classList.toggle("modal-open");
                     cancelBtn.classList.add("active");
                     continueBtn.classList.add("active");
-                    seatSelect.classList.add("active");
-
+                    getReserve();
                 }
 
                 // body.classList.toggle("modal-open");

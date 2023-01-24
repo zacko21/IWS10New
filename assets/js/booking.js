@@ -26,9 +26,9 @@ bookBtn.forEach((e) => {
 
 function closeModal() {
     cancelBookings();
-    setTimeout(function (){
-        window.location.reload();
-    },1000);
+    // setTimeout(function (){
+    //     window.location.reload();
+    // },1000);
 
     body.classList.toggle("modal-open");
     cancelBtn.classList.remove("active");
@@ -47,7 +47,7 @@ let bookingModal = document.querySelector(".booking-modal");
 seats.forEach((e) => {
     e.addEventListener("click", () => {
         bookingModal.classList.toggle("active");
-        floatingSearch.style.display = "none";
+        //floatingSearch.style.display = "none";
     });
 });
 
