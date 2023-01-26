@@ -223,7 +223,7 @@
         </div>
       </div>
     </section>
-    <section class="sp">
+    <!-- <section class="sp">
       <div class="container">
         <h1 class="title">Featured Routes</h1>
         <div class="card-wraper1">
@@ -249,7 +249,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- who we are -->
     <section class="sp">
       <div class="container">
@@ -371,71 +371,104 @@
         <h1 class="title">Blog</h1>
         <div class="blog-grid">
           <div class="left">
-            <a href="#">
+            <a
+              target="_blank"
+              href="https://iwantseatsph.wordpress.com/2022/11/11/5-things-to-do-in-laoag-city/"
+            >
               <div class="post">
                 <div class="cover">
-                  <img alt="" src="assets/images/b1.jpg" />
+                  <img alt="" src="assets/images/blog/laoag.png" />
                 </div>
                 <div class="body">
-                  <h1>Blog post</h1>
+                  <h1>5 Things to do in Laoag City</h1>
                   <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                    So you’ve decided to explore Laoag City, part of the
+                    beautiful and vibrant Ilocos Norte region in the
+                    Philippines.
                   </p>
                 </div>
               </div>
             </a>
-            <a href="#">
+            <a
+              target="_blank"
+              href="https://iwantseatsph.wordpress.com/2023/01/25/hidden-gems-of-mindanao-travel-to-davao-and-general-santos-city/"
+            >
               <div class="post">
                 <div class="cover">
-                  <img alt="" src="assets/images/b2.jpg" />
+                  <img alt="" src="assets/images/blog/davao-travel.jpg" />
                 </div>
                 <div class="body">
-                  <h1>Blog post</h1>
+                  <h1>
+                    Hidden Gems of Mindanao: Travel to Davao and General Santos
+                    City
+                  </h1>
                   <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                    Mindanao, the southernmost island group of the Philippines,
+                    is often overlooked by tourists in favor of more popular
+                    destinations like Palawan and Boracay.
                   </p>
                 </div>
               </div>
             </a>
           </div>
           <div class="mid">
-            <a href="#">
+            <a
+              target="_blank"
+              href="https://iwantseatsph.wordpress.com/2023/01/26/discovering-tuguegarao-and-cagayan/"
+            >
               <div class="post">
                 <div class="cover">
-                  <img alt="" src="assets/images/b5.jpg" />
+                  <img alt="" src="assets/images/blog/sta-ana-cagayan.jpg" />
                 </div>
                 <div class="body">
-                  <h1>Blog post</h1>
+                  <h1>Discovering Tuguegarao and Cagayan</h1>
                   <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                    Cagayan, on the other hand, is a nature lover’s paradise.
+                    The province is home to the Cagayan Special Economic Zone
+                    and Freeport, where you can find the famous white sand
+                    beaches of Palaui Island and experience the local culture of
+                    the Cagayanons.
                   </p>
                 </div>
               </div>
             </a>
           </div>
           <div class="right">
-            <a href="#">
+            <a
+              target="_blank"
+              href="https://iwantseatsph.wordpress.com/2023/01/26/baler-a-chill-surf-destination/"
+            >
               <div class="post">
                 <div class="cover">
-                  <img alt="" src="assets/images/b3.jpg" />
+                  <img alt="" src="assets/images/blog/baler-surfing.jpg" />
                 </div>
                 <div class="body">
-                  <h1>Blog post</h1>
+                  <h1>Baler: A Chill Surf Destination</h1>
                   <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                    Baler, located in the province of Aurora in the Philippines,
+                    is a hidden gem that offers a unique blend of history,
+                    culture, and nature.
                   </p>
                 </div>
               </div>
             </a>
-            <a href="#">
+            <a
+              target="_blank"
+              href="https://iwantseatsph.wordpress.com/2023/01/25/10-places-to-visit-in-baguio-city/"
+            >
               <div class="post">
                 <div class="cover">
-                  <img alt="" src="assets/images/b4.jpg" />
+                  <img
+                    alt=""
+                    src="assets/images/blog/baguio-city-places-by-bus.png"
+                  />
                 </div>
                 <div class="body">
-                  <h1>Blog post</h1>
+                  <h1>10 Places to Visit in Baguio City</h1>
                   <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                    Baguio City is perhaps one of the coolest tourist
+                    destinations in the Philippines! Literally and figuratively!
+                    No wonder it’s the country’s Summer Capital.
                   </p>
                 </div>
               </div>
@@ -455,24 +488,24 @@
           </p>
         </div>
 
-        <form action="#" class="contact-form">
+        <form id="contactForm" class="contact-form">
           <div class="row">
             <div class="fild">
               <i class="uil uil-user"></i>
-              <input placeholder="Name" type="text" />
+              <input name="name" placeholder="Name" type="text" />
             </div>
             <div class="fild">
               <i class="uil uil-envelope"></i>
-              <input placeholder="Email" type="email" />
+              <input name="email" placeholder="Email" type="email" />
             </div>
           </div>
           <textarea
             id=""
-            name=""
+            name="message"
             placeholder="Type your message...."
           ></textarea>
 
-          <button class="btn signup">
+          <button class="btn signup" type="submit">
             Send <i class="uil uil-message"></i>
           </button>
         </form>
@@ -490,12 +523,13 @@
       </div>
     </footer>
     <script rel="script" src="assets/js/jquery.min.js?v=10"></script>
+    <script rel="script" src="assets/js/axios.min.js"></script>
     <script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
     <script rel="script" src="assets/js/loadingoverlay.min.js?v=10"></script>
     <script rel="script" src="assets/js/lodash.min.js?v=10"></script>
     <script rel="script" src="assets/js/app.min.js?v=10"></script>
     <script>
-      addElement("script", "assets/js/main.min.js");
+      addElement("script", "assets/js/main.js");
       $(document).ready(() => {
         // getLocation();
       });

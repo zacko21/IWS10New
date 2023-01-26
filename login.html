@@ -1,167 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
-    <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/form.min.css?v=10" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/form.min.css?v=10" rel="stylesheet" />
     <title>IWantSeats</title>
-    <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
+    <link
+      href="assets/images/logo.png"
+      rel="icon"
+      sizes="185x191"
+      type="image/png"
+    />
     <!-- unicons -->
     <link
-            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-            rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+      rel="stylesheet"
     />
-</head>
-<body>
-<header>
-    <div class="container-max">
+  </head>
+  <body>
+    <header>
+      <div class="container-max">
         <div class="logo" onclick="window.open('index.html', '_self')">
-            <img alt="" src="assets/images/logo-black.png"/>
+          <img alt="" src="assets/images/logo-black.png" />
         </div>
         <div class="links">
-            <a href="index.html" onclick="menu()">Home</a>
-            <a href="#" onclick="menu()">Reservations</a>
-            <a href="index.html#contact" onclick="menu()">Contact us</a>
+          <a href="index.html" onclick="menu()">Home</a>
+          <a href="#" onclick="menu()">Reservations</a>
+          <a href="index.html#contact" onclick="menu()">Contact us</a>
         </div>
         <div class="menu" onclick="menu()">
-            <i class="uil uil-align-center-alt"></i>
+          <i class="uil uil-align-center-alt"></i>
         </div>
-    </div>
-</header>
-<section class="form-main">
-    <div class="container">
+      </div>
+    </header>
+    <section class="form-main">
+      <div class="container">
         <form id="login" onsubmit="SubmitForm(event)">
-            <center>
-                <div class="form-title">
-                    <h3>Login</h3>
-                </div>
-            </center>
+          <center>
+            <div class="form-title">
+              <h3>Login</h3>
+            </div>
+          </center>
 
-            <div class="fild">
-                <i class="uil uil-envelope-alt"></i>
-                <input id="email" name="email" placeholder="Email" required type="email"/>
-            </div>
-            <div class="fild">
-                <i class="uil uil-key-skeleton-alt"></i>
-                <input id="password" placeholder="Password" required type="password"/>
-                <i class="uil uil-dizzy-meh"></i>
-            </div>
-            <button class="btn signup" id="btn_login">Login</button>
+          <div class="fild">
+            <i class="uil uil-envelope-alt"></i>
+            <input
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+              type="email"
+            />
+          </div>
+          <div class="fild">
+            <i class="uil uil-key-skeleton-alt"></i>
+            <input
+              id="password"
+              placeholder="Password"
+              required
+              type="password"
+            />
+            <i class="uil uil-dizzy-meh"></i>
+          </div>
+          <button class="btn signup" id="btn_login">Login</button>
 
-            <div class="ask">
-                <p>Not have an account? <a href="signup.html">Signup</a></p>
-                <p>Forgot password? Click
-                    <a href="#" onclick="openForgot()">here</a>
-                </p>
-            </div>
+          <div class="ask">
+            <p>Not have an account? <a href="signup.html">Signup</a></p>
+            <p>
+              Forgot password? Click
+              <a href="#" onclick="openForgot()">here</a>
+            </p>
+          </div>
         </form>
-    </div>
-</section>
-<footer>
-    <div class="container">
+      </div>
+    </section>
+    <footer>
+      <div class="container">
         <center>
-            <p>&copy; 2022 - 2023 - iWantSeats 10</p>
-            <div class="privacy">
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Privacy policy</a>
-            </div>
+          <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+          <div class="privacy">
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Privacy policy</a>
+          </div>
         </center>
-    </div>
-</footer>
-<script rel="script" src="assets/js/app.min.js?v=10"></script>
-<script rel="script" src="assets/swal/sweetalert2.all.js"></script>
-<script rel="script" src="assets/js/jquery.min.js"></script>
-<script rel="script" src="assets/js/axios.min.js"></script>
+      </div>
+    </footer>
+    <script rel="script" src="assets/js/app.min.js?v=10"></script>
+    <script rel="script" src="assets/swal/sweetalert2.all.js"></script>
+    <script rel="script" src="assets/js/jquery.min.js"></script>
+    <script rel="script" src="assets/js/axios.min.js"></script>
 
-<script>
-    let axiosConfig = {
+    <script>
+      let axiosConfig = {
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
-    };
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+      };
 
-    document.addEventListener("DOMContentLoaded", () => {
-        let token = localStorage.getItem('TOKEN');
+      document.addEventListener("DOMContentLoaded", () => {
+        let token = localStorage.getItem("TOKEN");
         if (token) {
-            window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/index.html';
+          window.location.href =
+            document.URL.substring(0, document.URL.lastIndexOf("/")) +
+            "/index.html";
         }
-    });
+      });
 
-    async function openForgot() {
+      async function openForgot() {
         Swal.fire({
-            title: 'FORGOT PASSWORD',
-            input: 'email',
-            inputLabel: 'Enter your email address',
-            inputPlaceholder: 'Enter email address',
-            allowOutsideClick: false,
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
+          title: "FORGOT PASSWORD",
+          input: "email",
+          inputLabel: "Enter your email address",
+          inputPlaceholder: "Enter email address",
+          allowOutsideClick: false,
+          showCancelButton: true,
+          confirmButtonText: "Submit",
         }).then(async (result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Please Wait..',
-                    allowOutsideClick: false,
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    allowEscapeKey: false,
-                    willOpen: async function (e) {
-                        Swal.showLoading();
-                        let data = {
-                            email: result.value
-                        }
-                        let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/sendonlinedetails`;
-                        let res = await axios.post(input, data, axiosConfig)
-                        if (res.data.RESULT === 'EMAILSENT') {
-                            Swal.fire('Success.. Please check your email.', '', 'success');
-                        } else {
-                            Swal.fire('Failed.. Email not exist', '', 'error');
-                        }
-                    }
-                });
-            }
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Please Wait..",
+              allowOutsideClick: false,
+              showCancelButton: false,
+              showConfirmButton: false,
+              allowEscapeKey: false,
+              willOpen: async function (e) {
+                Swal.showLoading();
+                let data = {
+                  email: result.value,
+                };
+                let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/sendonlinedetails`;
+                let res = await axios.post(input, data, axiosConfig);
+                if (res.data.RESULT === "EMAILSENT") {
+                  Swal.fire(
+                    "Success.. Please check your email.",
+                    "",
+                    "success"
+                  );
+                } else {
+                  Swal.fire("Failed.. Email not exist", "", "error");
+                }
+              },
+            });
+          }
         });
-    }
+      }
 
-    const SubmitForm = (e) => {
+      const SubmitForm = (e) => {
         e.preventDefault();
         let data = {
-            email: document.getElementById('email').value,
-            pwd: document.getElementById('password').value
-        }
+          email: document.getElementById("email").value,
+          pwd: document.getElementById("password").value,
+        };
 
-        let url = "https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/login/aaa/bbb";
+        let url =
+          "https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/login/aaa/bbb";
 
         console.log(JSON.stringify(data));
         fetch(url, {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            method: 'post',
-            body: JSON.stringify(data)
-        }).then(resp => resp.json()).then(row => {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          method: "post",
+          body: JSON.stringify(data),
+        })
+          .then((resp) => resp.json())
+          .then((row) => {
             console.log(row);
-            if (row['RESULT'] === 'INACTIVE') {
-                Swal.fire('Your Account is INACTIVE. Please check your registered email to activate.');
-            } else if (row['RESULT'] === 'OK') {
-                localStorage.setItem('loginInfo', JSON.stringify(data));
-                localStorage.setItem('userInfo', JSON.stringify(row))
-                localStorage.setItem('TOKEN', row['TOKEN']);
-                if (localStorage.getItem('originName')) {
-                    window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/booking.html';
-                } else {
-                    window.location.href = document.URL.substring(0, document.URL.lastIndexOf('/')) + '/index.html';
-                }
+            if (row["RESULT"] === "INACTIVE") {
+              Swal.fire(
+                "Your Account is INACTIVE. Please check your registered email to activate."
+              );
+            } else if (row["RESULT"] === "OK") {
+              localStorage.setItem("loginInfo", JSON.stringify(data));
+              localStorage.setItem("userInfo", JSON.stringify(row));
+              localStorage.setItem("TOKEN", row["TOKEN"]);
+              if (localStorage.getItem("originName")) {
+                window.location.href =
+                  document.URL.substring(0, document.URL.lastIndexOf("/")) +
+                  "/booking.html";
+              } else {
+                window.location.href =
+                  document.URL.substring(0, document.URL.lastIndexOf("/")) +
+                  "/index.html";
+              }
             } else {
-                Swal.fire('INVALID EMAIL/PASSWORD');
-                document.getElementById('login').reset();
+              Swal.fire("INVALID EMAIL/PASSWORD");
+              document.getElementById("login").reset();
             }
-        });
-
-    }
-</script>
-
-</body>
+          });
+      };
+    </script>
+  </body>
 </html>
