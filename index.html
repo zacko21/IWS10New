@@ -1,492 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
-    <link href="assets/css/style.min.css?v=10" rel="stylesheet"/>
-    <link href="assets/css/form.min.css?v=10" rel="stylesheet"/>
+    <link href="assets/css/style.min.css?v=10" rel="stylesheet" />
+    <link href="assets/css/form.min.css?v=10" rel="stylesheet" />
     <title>IWantSeats</title>
-    <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
-    <link href="assets/swal/sweetalert2.min.css?v=10" rel="stylesheet"/>
+    <link
+      href="assets/images/logo.png"
+      rel="icon"
+      sizes="185x191"
+      type="image/png"
+    />
+    <link href="assets/swal/sweetalert2.min.css?v=10" rel="stylesheet" />
 
     <!-- unicons -->
     <link
-            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-            rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+      rel="stylesheet"
     />
-</head>
-<body>
-<header>
-    <div class="container-max">
+  </head>
+  <body>
+    <header>
+      <div class="container-max">
         <div class="logo" onclick="window.open('index.html', '_self')">
-            <img alt="" src="assets/images/logo-black.png"/>
+          <img alt="" src="assets/images/logo-black.png" />
         </div>
         <div class="links">
-            <a href="index.html" onclick="menu()">Home</a>
-            <a href="#" onclick="menu()">About</a>
-            <a href="index.html#contact" onclick="menu()">Contact us</a>
-            <div class="status">
-            </div>
+          <a href="index.html" onclick="menu()">Home</a>
+          <a href="#" onclick="menu()">About</a>
+          <a href="index.html#contact" onclick="menu()">Contact us</a>
+          <div class="status"></div>
         </div>
         <div class="menu" onclick="menu()">
-            <i class="uil uil-align-center-alt"></i>
+          <i class="uil uil-align-center-alt"></i>
         </div>
-    </div>
-</header>
+      </div>
+    </header>
 
-<main>
-    <div class="banner">
+    <main>
+      <div class="banner">
         <div class="container">
-            <div class="typo">
-                <h1>iWantSeats</h1>
-                <p>Travel by bus in the <span>Philippines conveniently</span></p>
-            </div>
+          <div class="typo">
+            <h1>iWantSeats</h1>
+            <p>Travel by bus in the <span>Philippines conveniently</span></p>
+          </div>
         </div>
-    </div>
-    <div class="container">
-        <form class="search-bar-main" id="booking-form" method="POST" onsubmit="SearchForm(event)">
-            <center>
-                <h3 class="sub-title">
-                    Book tickets to your next destination and get fast confirmation.
-                </h3>
-            </center>
-            <div class="search-bar">
-                <div class="search-fild drop-box">
-                    <label for="from">From</label>
-                    <div class="input from-input">
-                        <i class="uil uil-search search-ic"></i>
-                        <input autocomplete="off" class="from-value" id="from" name="from"
-                               oninput="getLocation(this.value)" placeholder="Your location"
-                               required/>
-                        <i class="uil uil-map-marker"></i>
-                    </div>
-                    <div class="dropdown">
-                        <div class="item from-locations">
-                        </div>
-                    </div>
-                </div>
-                <div class="search-fild drop-box">
-                    <label for="to">To</label>
-                    <div class="input to-input">
-                        <i class="uil uil-search search-ic"></i>
-                        <input autocomplete="off" class="to-value" id="to" oninput="getDestination(this.value)"
-                               placeholder="Travel location"
-                               required/>
-                        <i class="uil uil-location-arrow"></i>
-                    </div>
-                    <div class="dropdown">
-                        <div class="item to-locations">
-                        </div>
-                    </div>
-                </div>
-                <div class="search-fild">
-                    <label for="from">Passengers</label>
-                    <div class="input">
-                        <input id="passenger" required type="number" value="1"/>
-                        <i class="uil uil-users-alt"></i>
-                    </div>
-                </div>
-                <div class="search-fild">
-                    <label for="date_of_departure">Travel Date</label>
-                    <div class="input">
-                        <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
-                               required type="date"
-                        />
-                        <i class="uil uil-calendar-alt"></i>
-                    </div>
-                </div>
-                <div class="search-fild">
-                    <div class="flex">
-                        <label for="date_of_return">Return Date</label>
-                        <input id="chkReturn" type="checkbox"/>
-                    </div>
-                    <div class="input">
-                        <input disabled id="date_of_return" name="date_of_return"
-                               onchange="this.className=(this.value!=''?'has-value':'')"
-                               type="date"
-                        />
-                        <i class="uil uil-calendar-alt"></i>
-                    </div>
-                </div>
-                <button class="btn-primary search-btn" id="btn_search">
-                    <i class="uil uil-search"></i> Search
-                </button>
+      </div>
+      <div class="container">
+        <form
+          class="search-bar-main"
+          id="booking-form"
+          method="POST"
+          onsubmit="SearchForm(event)"
+        >
+          <center>
+            <h3 class="sub-title">
+              Book tickets to your next destination and get fast confirmation.
+            </h3>
+          </center>
+          <div class="search-bar">
+            <div class="search-fild drop-box">
+              <label for="from">From</label>
+              <div class="input from-input">
+                <i class="uil uil-search search-ic"></i>
+                <input
+                  autocomplete="off"
+                  class="from-value"
+                  id="from"
+                  name="from"
+                  oninput="getLocation(this.value)"
+                  placeholder="Your location"
+                  required
+                />
+                <i class="uil uil-map-marker"></i>
+              </div>
+              <div class="dropdown">
+                <div class="item from-locations"></div>
+              </div>
             </div>
+            <div class="search-fild drop-box">
+              <label for="to">To</label>
+              <div class="input to-input">
+                <i class="uil uil-search search-ic"></i>
+                <input
+                  autocomplete="off"
+                  class="to-value"
+                  id="to"
+                  oninput="getDestination(this.value)"
+                  placeholder="Travel location"
+                  required
+                />
+                <i class="uil uil-location-arrow"></i>
+              </div>
+              <div class="dropdown">
+                <div class="item to-locations"></div>
+              </div>
+            </div>
+            <div class="search-fild">
+              <label for="from">Passengers</label>
+              <div class="input">
+                <input id="passenger" required type="number" value="1" />
+                <i class="uil uil-users-alt"></i>
+              </div>
+            </div>
+            <div class="search-fild">
+              <label for="date_of_departure">Travel Date</label>
+              <div class="input">
+                <input
+                  id="date_of_departure"
+                  onchange="this.className=(this.value!=''?'has-value':'')"
+                  required
+                  type="date"
+                />
+                <i class="uil uil-calendar-alt"></i>
+              </div>
+            </div>
+            <div class="search-fild">
+              <div class="flex">
+                <label for="date_of_return">Return Date</label>
+                <input id="chkReturn" type="checkbox" />
+              </div>
+              <div class="input">
+                <input
+                  disabled
+                  id="date_of_return"
+                  name="date_of_return"
+                  onchange="this.className=(this.value!=''?'has-value':'')"
+                  type="date"
+                />
+                <i class="uil uil-calendar-alt"></i>
+              </div>
+            </div>
+            <button class="btn-primary search-btn" id="btn_search">
+              <i class="uil uil-search"></i> Search
+            </button>
+          </div>
         </form>
-    </div>
-</main>
+      </div>
+    </main>
 
-<section class="break">
-    <div class="container">
+    <section class="break">
+      <div class="container">
         <h3>Over 3 million passengers served to provide travel convenience</h3>
-    </div>
-</section>
-<!-- logo section -->
-<section class="sp">
-    <div class="container">
+      </div>
+    </section>
+    <!-- logo section -->
+    <section class="sp">
+      <div class="container">
         <h1 class="title t2">
-            Trusted by established transport operators in the Philippines
+          Trusted by established transport operators in the Philippines
         </h1>
         <div class="logos">
-            <a href="joybus.html">
-                <img alt="" src="assets/images/logo_joybus.png"/>
-            </a>
-            <a href="joybus.html">
-                <img alt="" src="assets/images/logogenesistransport.png"/>
-            </a>
-            <a href="joybus.html">
-                <img alt="" src="assets/images/gvflorida_logo.png"/>
-            </a>
-            <a href="joybus.html">
-                <img alt="" src="assets/images/ybllogo.png"/>
-            </a>
-            <a href="joybus.html">
-                <img alt="" src="assets/images/farinaslogo.png"/>
-            </a>
-            <a href="joybus.html">
-                <img alt="" src="assets/images/rorobus.png"/>
-            </a>
+          <a href="joybus.html">
+            <img alt="" src="assets/images/logo_joybus.png" />
+          </a>
+          <a href="joybus.html">
+            <img alt="" src="assets/images/logogenesistransport.png" />
+          </a>
+          <a href="joybus.html">
+            <img alt="" src="assets/images/gvflorida_logo.png" />
+          </a>
+          <a href="joybus.html">
+            <img alt="" src="assets/images/ybllogo.png" />
+          </a>
+          <a href="joybus.html">
+            <img alt="" src="assets/images/farinaslogo.png" />
+          </a>
+          <a href="joybus.html">
+            <img alt="" src="assets/images/rorobus.png" />
+          </a>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section class="sp">
-    <div class="container">
+    <section class="sp">
+      <div class="container">
         <h1 class="title">Destinations</h1>
         <div class="card-wraper">
-            <div class="card">
-                <div class="cover">
-                    <img alt="" src="assets/images/1.png"/>
-                </div>
-                <div class="body">
-                    <h1>BAGUIO CITY</h1>
-                    <p>
-                        Baguio City is the most popular destination in Luzon primarily
-                        because of its cool climate and relative short distance to
-                        Manila. Travel by bus to Baguio via Genesis/Joybus.
-                    </p>
-                </div>
+          <div class="card">
+            <div class="cover">
+              <img alt="" src="assets/images/1.png" />
             </div>
-            <div class="card">
-                <div class="cover">
-                    <img alt="" src="assets/images/2.png"/>
-                </div>
-                <div class="body">
-                    <h1>LAOAG</h1>
-                    <p>
-                        Laoag City is a vibrant center in the North. It offers truly
-                        unique experiences like scenic beaches, panoramic sand dunes,
-                        and great heritage sites. Travel by bus to Ilocos via Fariñas
-                        Transit or GV Florida.
-                    </p>
-                </div>
+            <div class="body">
+              <h1>BAGUIO CITY</h1>
+              <p>
+                Baguio City is the most popular destination in Luzon primarily
+                because of its cool climate and relative short distance to
+                Manila. Travel by bus to Baguio via Genesis/Joybus.
+              </p>
             </div>
-            <div class="card">
-                <div class="cover">
-                    <img alt="" src="assets/images/3.png"/>
-                </div>
-                <div class="body">
-                    <h1>KORONADAL</h1>
-                    <p>
-                        Koronadal is a beautiful city in South Cotabato. It has vast
-                        plantations and mesmerizing natural works. Travel by bus to
-                        Koronadal via Yellow Bus Lines.
-                    </p>
-                </div>
+          </div>
+          <div class="card">
+            <div class="cover">
+              <img alt="" src="assets/images/2.png" />
             </div>
+            <div class="body">
+              <h1>LAOAG</h1>
+              <p>
+                Laoag City is a vibrant center in the North. It offers truly
+                unique experiences like scenic beaches, panoramic sand dunes,
+                and great heritage sites. Travel by bus to Ilocos via Fariñas
+                Transit or GV Florida.
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="cover">
+              <img alt="" src="assets/images/3.png" />
+            </div>
+            <div class="body">
+              <h1>KORONADAL</h1>
+              <p>
+                Koronadal is a beautiful city in South Cotabato. It has vast
+                plantations and mesmerizing natural works. Travel by bus to
+                Koronadal via Yellow Bus Lines.
+              </p>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
-<section class="sp">
-    <div class="container">
+      </div>
+    </section>
+    <section class="sp">
+      <div class="container">
         <h1 class="title">Featured Routes</h1>
         <div class="card-wraper1">
-            <div class="card">
-                <div class="body">
-                    <h1>Cubao to Baguio via Joybus / Genesis Transport
-                    </h1>
-                </div>
+          <div class="card">
+            <div class="body">
+              <h1>Cubao to Baguio via Joybus / Genesis Transport</h1>
             </div>
-            <div class="card">
-                <div class="body">
-                    <h1>Cubao to Baler via Joybus / Genesis Transport
-                    </h1>
-                </div>
+          </div>
+          <div class="card">
+            <div class="body">
+              <h1>Cubao to Baler via Joybus / Genesis Transport</h1>
             </div>
-            <div class="card">
-                <div class="body">
-                    <h1>Sampaloc, Manila to Laoag via Fariñas Trans
-                    </h1>
-                </div>
+          </div>
+          <div class="card">
+            <div class="body">
+              <h1>Sampaloc, Manila to Laoag via Fariñas Trans</h1>
             </div>
-            <div class="card">
-                <div class="body">
-                    <h1>Sampaloc, Manila to Tuguegarao via GV Florida
-                    </h1>
-                </div>
+          </div>
+          <div class="card">
+            <div class="body">
+              <h1>Sampaloc, Manila to Tuguegarao via GV Florida</h1>
             </div>
+          </div>
         </div>
-    </div>
-</section>
-<!-- who we are -->
-<section class="sp">
-    <div class="container">
+      </div>
+    </section>
+    <!-- who we are -->
+    <section class="sp">
+      <div class="container">
         <h1 class="title">Who we are</h1>
         <div class="grid-2">
-            <div class="img">
-                <img alt="" src="assets/images/people.jpg"/>
-            </div>
-            <div class="content">
-                <p>
-                    iWantSeats is the Philippines’ first real-time bus ticket booking
-                    service. Having served over 3 million passengers and trusted by
-                    established bus operators, iWantSeats is proud to be one of the
-                    pioneers in bringing convenience and operational efficiency to bus
-                    travel in the Philippines. <br/><br/>
+          <div class="img">
+            <img alt="" src="assets/images/people.jpg" />
+          </div>
+          <div class="content">
+            <p>
+              iWantSeats is the Philippines’ first real-time bus ticket booking
+              service. Having served over 3 million passengers and trusted by
+              established bus operators, iWantSeats is proud to be one of the
+              pioneers in bringing convenience and operational efficiency to bus
+              travel in the Philippines. <br /><br />
 
-                    Beginning with popular routes of travel by bus from Manila to
-                    Baguio and Baler via JoyBus and Genesis Transport, travelers can
-                    now plan trips and book their bus tickets to hundreds of
-                    destinations around the Philippines. Top destinations include
-                    Manila to Laoag, Ilocos Norte. Manila to Isabela, and Manila to
-                    Cagayan and more. Our partners include Farinas Trans, GV Florida,
-                    Yellow Bus Line, and Rorobus.
-                    <br/><br/>
+              Beginning with popular routes of travel by bus from Manila to
+              Baguio and Baler via JoyBus and Genesis Transport, travelers can
+              now plan trips and book their bus tickets to hundreds of
+              destinations around the Philippines. Top destinations include
+              Manila to Laoag, Ilocos Norte. Manila to Isabela, and Manila to
+              Cagayan and more. Our partners include Farinas Trans, GV Florida,
+              Yellow Bus Line, and Rorobus.
+              <br /><br />
 
-                    Secure your seats for your next trip and get fast confirmation!
-                    Our customer support is ready to assist you for any concerns.
-                </p>
-            </div>
+              Secure your seats for your next trip and get fast confirmation!
+              Our customer support is ready to assist you for any concerns.
+            </p>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<!-- how section -->
-<section class="sp">
-    <div class="container">
+    <!-- how section -->
+    <section class="sp">
+      <div class="container">
         <h1 class="title">F.A.Q</h1>
         <div class="grid-2">
-            <div class="faq-main">
-                <div class="faq">
-                    <div class="question">
-                        How does iWantSeats work?
-                        <i class="uil uil-arrow-circle-down"></i>
-                    </div>
-                    <div class="answer">
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas
-                            praesentium officia nesciunt voluptates distinctio expedita
-                            numquam nam reiciendis aperiam repudiandae, incidunt laborum
-                            quia in sed, nemo, iste amet fuga. Mollitia?
-                        </p>
-                    </div>
-                </div>
-                <div class="faq">
-                    <div class="question">
-                        How much is the fee to book our bus ticket on iWantSeats?
-                        <i class="uil uil-arrow-circle-down"></i>
-                    </div>
-                    <div class="answer">
-                        <p>
-                            iWantSeats only charges a minimal convenience booking fee of
-                            P30 to P50 per ticket.
-                        </p>
-                    </div>
-                </div>
-                <div class="faq">
-                    <div class="question">
-                        When should I pay for my transaction?
-                        <i class="uil uil-arrow-circle-down"></i>
-                    </div>
-                    <div class="answer">
-                        <p>
-                            Please settle your payment within 48 hours. Your reservation
-                            will automatically expire if we do not receive confirmation of
-                            payment from you within this period. You may rebook your trip
-                            if seats are still available.
-                        </p>
-                    </div>
-                </div>
-                <div class="faq">
-                    <div class="question">
-                        Can I rebook or cancel my booking?
-                        <i class="uil uil-arrow-circle-down"></i>
-                    </div>
-                    <div class="answer">
-                        <p>
-                            Can I rebook or cancel my booking? iWantSeats allows
-                            cancellations and rebookings of existing bookings through its
-                            website. There is no refund for the website convenience fee.
-                            However, refund for the bus tickets depends on the policy of
-                            the bus operator where the booking was made. The specific
-                            terms for this policy should be provided and agreed on before
-                            payment.
-                        </p>
-                    </div>
-                </div>
-                <div class="faq">
-                    <div class="question">
-                        How early should I be at the terminal?
-                        <i class="uil uil-arrow-circle-down"></i>
-                    </div>
-                    <div class="answer">
-                        <p>
-                            Once you receive your e-ticket after payment, you will just
-                            need to show this at the terminal. Please be there 30 minutes
-                            before your scheduled trip.
-                        </p>
-                    </div>
-                </div>
+          <div class="faq-main">
+            <div class="faq">
+              <div class="question">
+                How does iWantSeats work?
+                <i class="uil uil-arrow-circle-down"></i>
+              </div>
+              <div class="answer">
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas
+                  praesentium officia nesciunt voluptates distinctio expedita
+                  numquam nam reiciendis aperiam repudiandae, incidunt laborum
+                  quia in sed, nemo, iste amet fuga. Mollitia?
+                </p>
+              </div>
             </div>
-            <div class="img fix">
-                <img alt="" src="assets/images/banner1.jpg"/>
+            <div class="faq">
+              <div class="question">
+                How much is the fee to book our bus ticket on iWantSeats?
+                <i class="uil uil-arrow-circle-down"></i>
+              </div>
+              <div class="answer">
+                <p>
+                  iWantSeats only charges a minimal convenience booking fee of
+                  P30 to P50 per ticket.
+                </p>
+              </div>
             </div>
+            <div class="faq">
+              <div class="question">
+                When should I pay for my transaction?
+                <i class="uil uil-arrow-circle-down"></i>
+              </div>
+              <div class="answer">
+                <p>
+                  Please settle your payment within 48 hours. Your reservation
+                  will automatically expire if we do not receive confirmation of
+                  payment from you within this period. You may rebook your trip
+                  if seats are still available.
+                </p>
+              </div>
+            </div>
+            <div class="faq">
+              <div class="question">
+                Can I rebook or cancel my booking?
+                <i class="uil uil-arrow-circle-down"></i>
+              </div>
+              <div class="answer">
+                <p>
+                  Can I rebook or cancel my booking? iWantSeats allows
+                  cancellations and rebookings of existing bookings through its
+                  website. There is no refund for the website convenience fee.
+                  However, refund for the bus tickets depends on the policy of
+                  the bus operator where the booking was made. The specific
+                  terms for this policy should be provided and agreed on before
+                  payment.
+                </p>
+              </div>
+            </div>
+            <div class="faq">
+              <div class="question">
+                How early should I be at the terminal?
+                <i class="uil uil-arrow-circle-down"></i>
+              </div>
+              <div class="answer">
+                <p>
+                  Once you receive your e-ticket after payment, you will just
+                  need to show this at the terminal. Please be there 30 minutes
+                  before your scheduled trip.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="img fix">
+            <img alt="" src="assets/images/banner1.jpg" />
+          </div>
         </div>
-    </div>
-</section>
-<section class="sp" id="blog">
-    <div class="container">
+      </div>
+    </section>
+    <section class="sp" id="blog">
+      <div class="container">
         <h1 class="title">Blog</h1>
         <div class="blog-grid">
-            <div class="left">
-                <a href="#">
-                    <div class="post">
-                        <div class="cover">
-                            <img alt="" src="assets/images/b1.jpg"/>
-                        </div>
-                        <div class="body">
-                            <h1>Blog post</h1>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit
-                            </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="post">
-                        <div class="cover">
-                            <img alt="" src="assets/images/b2.jpg"/>
-                        </div>
-                        <div class="body">
-                            <h1>Blog post</h1>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="mid">
-                <a href="#">
-                    <div class="post">
-                        <div class="cover">
-                            <img alt="" src="assets/images/b5.jpg"/>
-                        </div>
-                        <div class="body">
-                            <h1>Blog post</h1>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="right">
-                <a href="#">
-                    <div class="post">
-                        <div class="cover">
-                            <img alt="" src="assets/images/b3.jpg"/>
-                        </div>
-                        <div class="body">
-                            <h1>Blog post</h1>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit
-                            </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="post">
-                        <div class="cover">
-                            <img alt="" src="assets/images/b4.jpg"/>
-                        </div>
-                        <div class="body">
-                            <h1>Blog post</h1>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+          <div class="left">
+            <a href="#">
+              <div class="post">
+                <div class="cover">
+                  <img alt="" src="assets/images/b1.jpg" />
+                </div>
+                <div class="body">
+                  <h1>Blog post</h1>
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                  </p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="post">
+                <div class="cover">
+                  <img alt="" src="assets/images/b2.jpg" />
+                </div>
+                <div class="body">
+                  <h1>Blog post</h1>
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="mid">
+            <a href="#">
+              <div class="post">
+                <div class="cover">
+                  <img alt="" src="assets/images/b5.jpg" />
+                </div>
+                <div class="body">
+                  <h1>Blog post</h1>
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="right">
+            <a href="#">
+              <div class="post">
+                <div class="cover">
+                  <img alt="" src="assets/images/b3.jpg" />
+                </div>
+                <div class="body">
+                  <h1>Blog post</h1>
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                  </p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="post">
+                <div class="cover">
+                  <img alt="" src="assets/images/b4.jpg" />
+                </div>
+                <div class="body">
+                  <h1>Blog post</h1>
+                  <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
-    </div>
-</section>
-<section class="sp" id="contact">
-    <div class="container">
+      </div>
+    </section>
+    <section class="sp" id="contact">
+      <div class="container">
         <div class="sec-typo">
-            <h1>Contact Us</h1>
-            <p>
-                For customer inquiries and suggestions, or if you represent a
-                transport operator interested in automating your online booking
-                process, please feel free to contact us.
-            </p>
+          <h1>Contact Us</h1>
+          <p>
+            For customer inquiries and suggestions, or if you represent a
+            transport operator interested in automating your online booking
+            process, please feel free to contact us.
+          </p>
         </div>
 
         <form action="#" class="contact-form">
-            <div class="row">
-                <div class="fild">
-                    <i class="uil uil-user"></i>
-                    <input placeholder="Name" type="text"/>
-                </div>
-                <div class="fild">
-                    <i class="uil uil-envelope"></i>
-                    <input placeholder="Email" type="email"/>
-                </div>
+          <div class="row">
+            <div class="fild">
+              <i class="uil uil-user"></i>
+              <input placeholder="Name" type="text" />
             </div>
-            <textarea
-                    id=""
-                    name=""
-                    placeholder="Type your message...."
-            ></textarea>
+            <div class="fild">
+              <i class="uil uil-envelope"></i>
+              <input placeholder="Email" type="email" />
+            </div>
+          </div>
+          <textarea
+            id=""
+            name=""
+            placeholder="Type your message...."
+          ></textarea>
 
-            <button class="btn signup">
-                Send <i class="uil uil-message"></i>
-            </button>
+          <button class="btn signup">
+            Send <i class="uil uil-message"></i>
+          </button>
         </form>
-    </div>
-</section>
-<footer>
-    <div class="container">
+      </div>
+    </section>
+    <footer>
+      <div class="container">
         <center>
-            <p>&copy; 2022 - 2023 - iWantSeats 10</p>
-            <div class="privacy">
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Privacy policy</a>
-            </div>
+          <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+          <div class="privacy">
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Privacy policy</a>
+          </div>
         </center>
-    </div>
-</footer>
-<script rel="script" src="assets/js/jquery.min.js?v=10"></script>
-<script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
-<script rel="script" src="assets/js/loadingoverlay.min.js?v=10"></script>
-<script rel="script" src="assets/js/lodash.min.js?v=10"></script>
-<script rel="script" src="assets/js/app.min.js?v=10"></script>
-<script>
-
-    addElement('script', 'assets/js/main.min.js');
-    $(document).ready(() => {
+      </div>
+    </footer>
+    <script rel="script" src="assets/js/jquery.min.js?v=10"></script>
+    <script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
+    <script rel="script" src="assets/js/loadingoverlay.min.js?v=10"></script>
+    <script rel="script" src="assets/js/lodash.min.js?v=10"></script>
+    <script rel="script" src="assets/js/app.min.js?v=10"></script>
+    <script>
+      addElement("script", "assets/js/main.min.js");
+      $(document).ready(() => {
         // getLocation();
-    })
+      });
 
-    $("#chkReturn").change(function () {
+      $("#chkReturn").change(function () {
         if (this.checked) {
-            Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
+          Swal.fire(
+            "Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you."
+          );
         }
-    });
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
