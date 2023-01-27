@@ -1139,7 +1139,7 @@ $("#contactForm").submit(async function (e) {
   let name = formData.get("name");
   let email = formData.get("email");
   let message = formData.get("message");
-
+  let body =`<p>Dear iWantSeats,</p><p><strong>${name}</strong>has sent you a message.</p><p><em><strong>${message}</strong></em></p>`;
   Swal.fire({
     title: "Please Wait..",
     allowOutsideClick: false,
@@ -1150,12 +1150,13 @@ $("#contactForm").submit(async function (e) {
       Swal.showLoading();
       let data = {
         groupname: "MOREPOWER",
-        recipients: email,
-        message: message,
+        recipients: `notifications@iwantseats.com:${email}`,
+        message: body,
       };
       console.log("send-data", data);
       let input = `https://iwsenterprise.com/squareone/api_pasabuy_sendemail.aspx`;
       let res = await axios.post(input, data, axiosConfig);
+      console.log(res.data);
       if (res.data === "SAVED") {
         Swal.fire(
           "Thank you for contacting us.",
