@@ -1139,7 +1139,7 @@ $("#contactForm").submit(async function (e) {
   let name = formData.get("name");
   let email = formData.get("email");
   let message = formData.get("message");
-  let body =`<p>Dear iWantSeats,</p><p><strong>${name}</strong>has sent you a message.</p><p><em><strong>${message}</strong></em></p>`;
+  let body =`<p>Dear iWantSeats,</p><p><strong>${name}</strong> has sent you a message.</p><p><em><strong>${message}</strong></em></p>`;
   Swal.fire({
     title: "Please Wait..",
     allowOutsideClick: false,
@@ -1149,8 +1149,8 @@ $("#contactForm").submit(async function (e) {
     willOpen: async function (e) {
       Swal.showLoading();
       let data = {
-        groupname: "MOREPOWER",
-        recipients: `notifications@iwantseats.com:${email}`,
+        groupname: "IWANTSEATS CONTACT",
+        recipients: `${email}:notifications@iwantseats.com`,
         message: body,
       };
       console.log("send-data", data);
