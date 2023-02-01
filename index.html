@@ -1,229 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <!-- link css -->
-    <link href="assets/css/style.min.css?v=10" rel="stylesheet" />
-    <link href="assets/css/form.min.css?v=10" rel="stylesheet" />
-    <title>IWantSeats</title>
-    <link
-      href="assets/images/logo.png"
-      rel="icon"
-      sizes="185x191"
-      type="image/png"
-    />
-    <link href="assets/swal/sweetalert2.min.css?v=10" rel="stylesheet" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			content="IE=edge"
+			http-equiv="X-UA-Compatible" />
+		<meta
+			content="width=device-width, initial-scale=1.0"
+			name="viewport" />
+		<!-- link css -->
+		<link
+			href="assets/css/style.min.css?v=10"
+			rel="stylesheet" />
+		<link
+			href="assets/css/form.min.css?v=10"
+			rel="stylesheet" />
+		<title>IWantSeats</title>
+		<link
+			href="assets/images/logo.png"
+			rel="icon"
+			sizes="185x191"
+			type="image/png" />
+		<link
+			href="assets/swal/sweetalert2.min.css?v=10"
+			rel="stylesheet" />
 
-    <!-- unicons -->
-    <link
-      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header>
-      <div class="container-max">
-        <div class="logo" onclick="window.open('./', '_self')">
-          <img alt="" src="assets/images/logo-black.png" />
-        </div>
-        <div class="links">
-          <a href="#" onclick="menu()">Home</a>
-          <a href="#" onclick="menu()">About</a>
-          <a href="./#contact" onclick="menu()">Contact us</a>
-          <div class="status"></div>
-        </div>
-        <div class="menu" onclick="menu()">
-          <i class="uil uil-align-center-alt"></i>
-        </div>
-      </div>
-    </header>
+		<!-- unicons -->
+		<link
+			href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+			rel="stylesheet" />
+	</head>
+	<body>
+		<header>
+			<div class="container-max">
+				<div
+					class="logo"
+					onclick="window.open('./', '_self')">
+					<img
+						alt=""
+						src="assets/images/logo-black.png" />
+				</div>
+				<div class="links">
+					<a
+						href="#"
+						onclick="menu()"
+						>Home</a
+					>
+					<a
+						href="#"
+						onclick="menu()"
+						>About</a
+					>
+					<a
+						href="./#contact"
+						onclick="menu()"
+						>Contact us</a
+					>
+					<div class="status"></div>
+				</div>
+				<div
+					class="menu"
+					onclick="menu()">
+					<i class="uil uil-align-center-alt"></i>
+				</div>
+			</div>
+		</header>
 
-    <main>
-      <div class="banner">
-        <div class="container">
-          <div class="typo">
-            <h1>iWantSeats</h1>
-            <p>Travel by bus in the <span>Philippines conveniently</span></p>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <form
-          class="search-bar-main"
-          id="booking-form"
-          method="POST"
-          onsubmit="SearchForm(event)"
-        >
-          <center>
-            <h3 class="sub-title">
-              Book tickets to your next destination and get fast confirmation.
-            </h3>
-          </center>
-          <div class="search-bar">
-            <div class="search-fild drop-box">
-              <label for="from">From</label>
-              <div class="input from-input">
-                <i class="uil uil-search search-ic"></i>
-                <input
-                  autocomplete="off"
-                  class="from-value"
-                  id="from"
-                  name="from"
-                  oninput="getLocation(this.value)"
-                  placeholder="Your location"
-                  required
-                />
-                <i class="uil uil-map-marker"></i>
-              </div>
-              <div class="dropdown">
-                <div class="item from-locations"></div>
-              </div>
-            </div>
-            <div class="search-fild drop-box">
-              <label for="to">To</label>
-              <div class="input to-input">
-                <i class="uil uil-search search-ic"></i>
-                <input
-                  autocomplete="off"
-                  class="to-value"
-                  id="to"
-                  oninput="getDestination(this.value)"
-                  placeholder="Travel location"
-                  required
-                />
-                <i class="uil uil-location-arrow"></i>
-              </div>
-              <div class="dropdown">
-                <div class="item to-locations"></div>
-              </div>
-            </div>
-            <div class="search-fild">
-              <label for="from">Passengers</label>
-              <div class="input">
-                <input id="passenger" required type="number" value="1" />
-                <i class="uil uil-users-alt"></i>
-              </div>
-            </div>
-            <div class="search-fild">
-              <label for="date_of_departure">Travel Date</label>
-              <div class="input">
-                <input
-                  id="date_of_departure"
-                  onchange="this.className=(this.value!=''?'has-value':'')"
-                  required
-                  type="date"
-                />
-                <i class="uil uil-calendar-alt"></i>
-              </div>
-            </div>
-            <div class="search-fild">
-              <div class="flex">
-                <label for="date_of_return">Return Date</label>
-                <input id="chkReturn" type="checkbox" />
-              </div>
-              <div class="input">
-                <input
-                  disabled
-                  id="date_of_return"
-                  name="date_of_return"
-                  onchange="this.className=(this.value!=''?'has-value':'')"
-                  type="date"
-                />
-                <i class="uil uil-calendar-alt"></i>
-              </div>
-            </div>
-            <button class="btn-primary search-btn" id="btn_search">
-              <i class="uil uil-search"></i> Search
-            </button>
-          </div>
-        </form>
-      </div>
-    </main>
+		<main>
+			<div class="banner">
+				<div class="container">
+					<div class="typo">
+						<h1>iWantSeats</h1>
+						<p>Travel by bus in the <span>Philippines conveniently</span></p>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<form
+					class="search-bar-main"
+					id="booking-form"
+					method="POST"
+					onsubmit="SearchForm(event)">
+					<center>
+						<h3 class="sub-title">
+							Book tickets to your next destination and get fast confirmation.
+						</h3>
+					</center>
+					<div class="search-bar">
+						<div class="search-fild drop-box">
+							<label for="from">From</label>
+							<div class="input from-input">
+								<i class="uil uil-search search-ic"></i>
+								<input
+									autocomplete="off"
+									class="from-value"
+									id="from"
+									name="from"
+									oninput="getLocation(this.value)"
+									placeholder="Your location"
+									required />
+								<i class="uil uil-map-marker"></i>
+							</div>
+							<div class="dropdown">
+								<div class="item from-locations"></div>
+							</div>
+						</div>
+						<div class="search-fild drop-box">
+							<label for="to">To</label>
+							<div class="input to-input">
+								<i class="uil uil-search search-ic"></i>
+								<input
+									autocomplete="off"
+									class="to-value"
+									id="to"
+									oninput="getDestination(this.value)"
+									placeholder="Travel location"
+									required />
+								<i class="uil uil-location-arrow"></i>
+							</div>
+							<div class="dropdown">
+								<div class="item to-locations"></div>
+							</div>
+						</div>
+						<div class="search-fild">
+							<label for="from">Passengers</label>
+							<div class="input">
+								<input
+									id="passenger"
+									required
+									type="number"
+									value="1" />
+								<i class="uil uil-users-alt"></i>
+							</div>
+						</div>
+						<div class="search-fild">
+							<label for="date_of_departure">Travel Date</label>
+							<div class="input">
+								<input
+									id="date_of_departure"
+									onchange="this.className=(this.value!=''?'has-value':'')"
+									required
+									type="date" />
+								<i class="uil uil-calendar-alt"></i>
+							</div>
+						</div>
+						<div class="search-fild">
+							<div class="flex">
+								<label for="date_of_return">Return Date</label>
+								<input
+									id="chkReturn"
+									type="checkbox" />
+							</div>
+							<div class="input">
+								<input
+									disabled
+									id="date_of_return"
+									name="date_of_return"
+									onchange="this.className=(this.value!=''?'has-value':'')"
+									type="date" />
+								<i class="uil uil-calendar-alt"></i>
+							</div>
+						</div>
+						<button
+							class="btn-primary search-btn"
+							id="btn_search">
+							<i class="uil uil-search"></i> Search
+						</button>
+					</div>
+				</form>
+			</div>
+		</main>
 
-    <section class="break">
-      <div class="container">
-        <h3>Over 3 million passengers served to provide travel convenience</h3>
-      </div>
-    </section>
-    <!-- logo section -->
-    <section class="sp">
-      <div class="container">
-        <h1 class="title t2">
-          Trusted by established transport operators in the Philippines
-        </h1>
-        <div class="logos">
-          <a href="joybus.html">
-            <img alt="" src="assets/images/logo_joybus.png" />
-          </a>
-          <a href="joybus.html">
-            <img alt="" src="assets/images/logogenesistransport.png" />
-          </a>
-          <a href="joybus.html">
-            <img alt="" src="assets/images/gvflorida_logo.png" />
-          </a>
-          <a href="joybus.html">
-            <img alt="" src="assets/images/ybllogo.png" />
-          </a>
-          <a href="joybus.html">
-            <img alt="" src="assets/images/farinaslogo.png" />
-          </a>
-          <a href="joybus.html">
-            <img alt="" src="assets/images/rorobus.png" />
-          </a>
-        </div>
-      </div>
-    </section>
+		<section class="break">
+			<div class="container">
+				<h3>Over 3 million passengers served to provide travel convenience</h3>
+			</div>
+		</section>
+		<!-- logo section -->
+		<section class="sp">
+			<div class="container">
+				<h1 class="title t2">
+					Trusted by established transport operators in the Philippines
+				</h1>
+				<div class="logos">
+					<a href="joybus.html">
+						<img
+							alt=""
+							src="assets/images/logo_joybus.png" />
+					</a>
+					<a href="joybus.html">
+						<img
+							alt=""
+							src="assets/images/logogenesistransport.png" />
+					</a>
+					<a href="joybus.html">
+						<img
+							alt=""
+							src="assets/images/gvflorida_logo.png" />
+					</a>
+					<a href="joybus.html">
+						<img
+							alt=""
+							src="assets/images/ybllogo.png" />
+					</a>
+					<a href="joybus.html">
+						<img
+							alt=""
+							src="assets/images/farinaslogo.png" />
+					</a>
+					<a href="joybus.html">
+						<img
+							alt=""
+							src="assets/images/rorobus.png" />
+					</a>
+				</div>
+			</div>
+		</section>
 
-    <section class="sp">
-      <div class="container">
-        <h1 class="title">Destinations</h1>
-        <div class="card-wraper">
-          <div class="card">
-            <div class="cover">
-              <img alt="" src="assets/images/1.png" />
-            </div>
-            <div class="body">
-              <h1>BAGUIO CITY</h1>
-              <p>
-                Baguio City is the most popular destination in Luzon primarily
-                because of its cool climate and relative short distance to
-                Manila. Travel by bus to Baguio via Genesis/Joybus.
-              </p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="cover">
-              <img alt="" src="assets/images/2.png" />
-            </div>
-            <div class="body">
-              <h1>LAOAG</h1>
-              <p>
-                Laoag City is a vibrant center in the North. It offers truly
-                unique experiences like scenic beaches, panoramic sand dunes,
-                and great heritage sites. Travel by bus to Ilocos via Fariñas
-                Transit or GV Florida.
-              </p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="cover">
-              <img alt="" src="assets/images/3.png" />
-            </div>
-            <div class="body">
-              <h1>KORONADAL</h1>
-              <p>
-                Koronadal is a beautiful city in South Cotabato. It has vast
-                plantations and mesmerizing natural works. Travel by bus to
-                Koronadal via Yellow Bus Lines.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- <section class="sp">
+		<section class="sp">
+			<div class="container">
+				<h1 class="title">Destinations</h1>
+				<div class="card-wraper">
+					<div class="card">
+						<div class="cover">
+							<img
+								alt=""
+								src="assets/images/1.png" />
+						</div>
+						<div class="body">
+							<h1>BAGUIO CITY</h1>
+							<p>
+								Baguio City is the most popular destination in Luzon primarily
+								because of its cool climate and relative short distance to
+								Manila. Travel by bus to Baguio via Genesis/Joybus.
+							</p>
+						</div>
+					</div>
+					<div class="card">
+						<div class="cover">
+							<img
+								alt=""
+								src="assets/images/2.png" />
+						</div>
+						<div class="body">
+							<h1>LAOAG</h1>
+							<p>
+								Laoag City is a vibrant center in the North. It offers truly
+								unique experiences like scenic beaches, panoramic sand dunes,
+								and great heritage sites. Travel by bus to Ilocos via Fariñas
+								Transit or GV Florida.
+							</p>
+						</div>
+					</div>
+					<div class="card">
+						<div class="cover">
+							<img
+								alt=""
+								src="assets/images/3.png" />
+						</div>
+						<div class="body">
+							<h1>KORONADAL</h1>
+							<p>
+								Koronadal is a beautiful city in South Cotabato. It has vast
+								plantations and mesmerizing natural works. Travel by bus to
+								Koronadal via Yellow Bus Lines.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- <section class="sp">
       <div class="container">
         <h1 class="title">Featured Routes</h1>
         <div class="card-wraper1">
@@ -250,297 +297,626 @@
         </div>
       </div>
     </section> -->
-    <!-- who we are -->
-    <section class="sp">
-      <div class="container">
-        <h1 class="title">Who we are</h1>
-        <div class="grid-2">
-          <div class="img">
-            <img alt="" src="assets/images/people.jpg" />
-          </div>
-          <div class="content">
-            <p>
-              iWantSeats is the Philippines’ first real-time bus ticket booking
-              service. Having served over 3 million passengers and trusted by
-              established bus operators, iWantSeats is proud to be one of the
-              pioneers in bringing convenience and operational efficiency to bus
-              travel in the Philippines. <br /><br />
+		<!-- who we are -->
+		<section class="sp">
+			<div class="container">
+				<h1 class="title">Who we are</h1>
+				<div class="grid-2">
+					<div class="img">
+						<img
+							alt=""
+							src="assets/images/people.jpg" />
+					</div>
+					<div class="content">
+						<p>
+							iWantSeats is the Philippines’ first real-time bus ticket booking
+							service. Having served over 3 million passengers and trusted by
+							established bus operators, iWantSeats is proud to be one of the
+							pioneers in bringing convenience and operational efficiency to bus
+							travel in the Philippines. <br /><br />
 
-              Beginning with popular routes of travel by bus from Manila to
-              Baguio and Baler via JoyBus and Genesis Transport, travelers can
-              now plan trips and book their bus tickets to hundreds of
-              destinations around the Philippines. Top destinations include
-              Manila to Laoag, Ilocos Norte. Manila to Isabela, and Manila to
-              Cagayan and more. Our partners include Farinas Trans, GV Florida,
-              Yellow Bus Line, and Rorobus.
-              <br /><br />
+							Beginning with popular routes of travel by bus from Manila to
+							Baguio and Baler via JoyBus and Genesis Transport, travelers can
+							now plan trips and book their bus tickets to hundreds of
+							destinations around the Philippines. Top destinations include
+							Manila to Laoag, Ilocos Norte. Manila to Isabela, and Manila to
+							Cagayan and more. Our partners include Farinas Trans, GV Florida,
+							Yellow Bus Line, and Rorobus.
+							<br /><br />
 
-              Secure your seats for your next trip and get fast confirmation!
-              Our customer support is ready to assist you for any concerns.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+							Secure your seats for your next trip and get fast confirmation!
+							Our customer support is ready to assist you for any concerns.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <!-- how section -->
-    <section class="sp">
-      <div class="container">
-        <h1 class="title">F.A.Q</h1>
-        <div class="grid-2">
-          <div class="faq-main">
-            <div class="faq">
-              <div class="question">
-                How does iWantSeats work?
-                <i class="uil uil-arrow-circle-down"></i>
-              </div>
-              <div class="answer">
-                <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas
-                  praesentium officia nesciunt voluptates distinctio expedita
-                  numquam nam reiciendis aperiam repudiandae, incidunt laborum
-                  quia in sed, nemo, iste amet fuga. Mollitia?
-                </p>
-              </div>
-            </div>
-            <div class="faq">
-              <div class="question">
-                How much is the fee to book our bus ticket on iWantSeats?
-                <i class="uil uil-arrow-circle-down"></i>
-              </div>
-              <div class="answer">
-                <p>
-                  iWantSeats only charges a minimal convenience booking fee of
-                  P30 to P50 per ticket.
-                </p>
-              </div>
-            </div>
-            <div class="faq">
-              <div class="question">
-                When should I pay for my transaction?
-                <i class="uil uil-arrow-circle-down"></i>
-              </div>
-              <div class="answer">
-                <p>
-                  Please settle your payment within 48 hours. Your reservation
-                  will automatically expire if we do not receive confirmation of
-                  payment from you within this period. You may rebook your trip
-                  if seats are still available.
-                </p>
-              </div>
-            </div>
-            <div class="faq">
-              <div class="question">
-                Can I rebook or cancel my booking?
-                <i class="uil uil-arrow-circle-down"></i>
-              </div>
-              <div class="answer">
-                <p>
-                  Can I rebook or cancel my booking? iWantSeats allows
-                  cancellations and rebookings of existing bookings through its
-                  website. There is no refund for the website convenience fee.
-                  However, refund for the bus tickets depends on the policy of
-                  the bus operator where the booking was made. The specific
-                  terms for this policy should be provided and agreed on before
-                  payment.
-                </p>
-              </div>
-            </div>
-            <div class="faq">
-              <div class="question">
-                How early should I be at the terminal?
-                <i class="uil uil-arrow-circle-down"></i>
-              </div>
-              <div class="answer">
-                <p>
-                  Once you receive your e-ticket after payment, you will just
-                  need to show this at the terminal. Please be there 30 minutes
-                  before your scheduled trip.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="img fix">
-            <img alt="" src="assets/images/banner1.jpg" />
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="sp" id="blog">
-      <div class="container">
-        <h1 class="title">Blog</h1>
-        <div class="blog-grid">
-          <div class="left">
-            <a
-              target="_blank"
-              href="https://iwantseatsph.wordpress.com/2022/11/11/5-things-to-do-in-laoag-city/"
-            >
-              <div class="post">
-                <div class="cover">
-                  <img alt="" src="assets/images/blog/laoag.png" />
-                </div>
-                <div class="body">
-                  <h1>5 Things to do in Laoag City</h1>
-                  <p>
-                    So you’ve decided to explore Laoag City, part of the
-                    beautiful and vibrant Ilocos Norte region in the
-                    Philippines.
-                  </p>
-                </div>
-              </div>
-            </a>
-            <a
-              target="_blank"
-              href="https://iwantseatsph.wordpress.com/2023/01/25/hidden-gems-of-mindanao-travel-to-davao-and-general-santos-city/"
-            >
-              <div class="post">
-                <div class="cover">
-                  <img alt="" src="assets/images/blog/davao-travel.jpg" />
-                </div>
-                <div class="body">
-                  <h1>
-                    Hidden Gems of Mindanao: Travel to Davao and General Santos
-                    City
-                  </h1>
-                  <p>
-                    Mindanao, the southernmost island group of the Philippines,
-                    is often overlooked by tourists in favor of more popular
-                    destinations like Palawan and Boracay.
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="mid">
-            <a
-              target="_blank"
-              href="https://iwantseatsph.wordpress.com/2023/01/26/discovering-tuguegarao-and-cagayan/"
-            >
-              <div class="post">
-                <div class="cover">
-                  <img alt="" src="assets/images/blog/sta-ana-cagayan.jpg" />
-                </div>
-                <div class="body">
-                  <h1>Discovering Tuguegarao and Cagayan</h1>
-                  <p>
-                    Cagayan, on the other hand, is a nature lover’s paradise.
-                    The province is home to the Cagayan Special Economic Zone
-                    and Freeport, where you can find the famous white sand
-                    beaches of Palaui Island and experience the local culture of
-                    the Cagayanons.
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="right">
-            <a
-              target="_blank"
-              href="https://iwantseatsph.wordpress.com/2023/01/26/baler-a-chill-surf-destination/"
-            >
-              <div class="post">
-                <div class="cover">
-                  <img alt="" src="assets/images/blog/baler-surfing.jpg" />
-                </div>
-                <div class="body">
-                  <h1>Baler: A Chill Surf Destination</h1>
-                  <p>
-                    Baler, located in the province of Aurora in the Philippines,
-                    is a hidden gem that offers a unique blend of history,
-                    culture, and nature.
-                  </p>
-                </div>
-              </div>
-            </a>
-            <a
-              target="_blank"
-              href="https://iwantseatsph.wordpress.com/2023/01/25/10-places-to-visit-in-baguio-city/"
-            >
-              <div class="post">
-                <div class="cover">
-                  <img
-                    alt=""
-                    src="assets/images/blog/baguio-city-places-by-bus.png"
-                  />
-                </div>
-                <div class="body">
-                  <h1>10 Places to Visit in Baguio City</h1>
-                  <p>
-                    Baguio City is perhaps one of the coolest tourist
-                    destinations in the Philippines! Literally and figuratively!
-                    No wonder it’s the country’s Summer Capital.
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="sp" id="contact">
-      <div class="container">
-        <div class="sec-typo">
-          <h1>Contact Us</h1>
-          <p>
-            For customer inquiries and suggestions, or if you represent a
-            transport operator interested in automating your online booking
-            process, please feel free to contact us.
-          </p>
-        </div>
+		<!-- how section -->
+		<section class="sp">
+			<div class="container">
+				<h1 class="title">F.A.Q</h1>
+				<div class="grid-2">
+					<div class="faq-main">
+						<div class="faq">
+							<div class="question">
+								How does iWantSeats work?
+								<i class="uil uil-arrow-circle-down"></i>
+							</div>
+							<div class="answer">
+								<p>
+									Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas
+									praesentium officia nesciunt voluptates distinctio expedita
+									numquam nam reiciendis aperiam repudiandae, incidunt laborum
+									quia in sed, nemo, iste amet fuga. Mollitia?
+								</p>
+							</div>
+						</div>
+						<div class="faq">
+							<div class="question">
+								How much is the fee to book our bus ticket on iWantSeats?
+								<i class="uil uil-arrow-circle-down"></i>
+							</div>
+							<div class="answer">
+								<p>
+									iWantSeats only charges a minimal convenience booking fee of
+									P30 to P50 per ticket.
+								</p>
+							</div>
+						</div>
+						<div class="faq">
+							<div class="question">
+								When should I pay for my transaction?
+								<i class="uil uil-arrow-circle-down"></i>
+							</div>
+							<div class="answer">
+								<p>
+									Please settle your payment within 48 hours. Your reservation
+									will automatically expire if we do not receive confirmation of
+									payment from you within this period. You may rebook your trip
+									if seats are still available.
+								</p>
+							</div>
+						</div>
+						<div class="faq">
+							<div class="question">
+								Can I rebook or cancel my booking?
+								<i class="uil uil-arrow-circle-down"></i>
+							</div>
+							<div class="answer">
+								<p>
+									Can I rebook or cancel my booking? iWantSeats allows
+									cancellations and rebookings of existing bookings through its
+									website. There is no refund for the website convenience fee.
+									However, refund for the bus tickets depends on the policy of
+									the bus operator where the booking was made. The specific
+									terms for this policy should be provided and agreed on before
+									payment.
+								</p>
+							</div>
+						</div>
+						<div class="faq">
+							<div class="question">
+								How early should I be at the terminal?
+								<i class="uil uil-arrow-circle-down"></i>
+							</div>
+							<div class="answer">
+								<p>
+									Once you receive your e-ticket after payment, you will just
+									need to show this at the terminal. Please be there 30 minutes
+									before your scheduled trip.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="img fix">
+						<img
+							alt=""
+							src="assets/images/banner1.jpg" />
+					</div>
+				</div>
+			</div>
+		</section>
+		<section
+			class="sp"
+			id="blog">
+			<div class="container">
+				<h1 class="title">Blog</h1>
+				<div class="blog-grid">
+					<div class="left">
+						<a
+							target="_blank"
+							href="https://iwantseatsph.wordpress.com/2022/11/11/5-things-to-do-in-laoag-city/">
+							<div class="post">
+								<div class="cover">
+									<img
+										alt=""
+										src="assets/images/blog/laoag.png" />
+								</div>
+								<div class="body">
+									<h1>5 Things to do in Laoag City</h1>
+									<p>
+										So you’ve decided to explore Laoag City, part of the
+										beautiful and vibrant Ilocos Norte region in the
+										Philippines.
+									</p>
+								</div>
+							</div>
+						</a>
+						<a
+							target="_blank"
+							href="https://iwantseatsph.wordpress.com/2023/01/25/hidden-gems-of-mindanao-travel-to-davao-and-general-santos-city/">
+							<div class="post">
+								<div class="cover">
+									<img
+										alt=""
+										src="assets/images/blog/davao-travel.jpg" />
+								</div>
+								<div class="body">
+									<h1>
+										Hidden Gems of Mindanao: Travel to Davao and General Santos
+										City
+									</h1>
+									<p>
+										Mindanao, the southernmost island group of the Philippines,
+										is often overlooked by tourists in favor of more popular
+										destinations like Palawan and Boracay.
+									</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="mid">
+						<a
+							target="_blank"
+							href="https://iwantseatsph.wordpress.com/2023/01/26/discovering-tuguegarao-and-cagayan/">
+							<div class="post">
+								<div class="cover">
+									<img
+										alt=""
+										src="assets/images/blog/sta-ana-cagayan.jpg" />
+								</div>
+								<div class="body">
+									<h1>Discovering Tuguegarao and Cagayan</h1>
+									<p>
+										Cagayan, on the other hand, is a nature lover’s paradise.
+										The province is home to the Cagayan Special Economic Zone
+										and Freeport, where you can find the famous white sand
+										beaches of Palaui Island and experience the local culture of
+										the Cagayanons.
+									</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="right">
+						<a
+							target="_blank"
+							href="https://iwantseatsph.wordpress.com/2023/01/26/baler-a-chill-surf-destination/">
+							<div class="post">
+								<div class="cover">
+									<img
+										alt=""
+										src="assets/images/blog/baler-surfing.jpg" />
+								</div>
+								<div class="body">
+									<h1>Baler: A Chill Surf Destination</h1>
+									<p>
+										Baler, located in the province of Aurora in the Philippines,
+										is a hidden gem that offers a unique blend of history,
+										culture, and nature.
+									</p>
+								</div>
+							</div>
+						</a>
+						<a
+							target="_blank"
+							href="https://iwantseatsph.wordpress.com/2023/01/25/10-places-to-visit-in-baguio-city/">
+							<div class="post">
+								<div class="cover">
+									<img
+										alt=""
+										src="assets/images/blog/baguio-city-places-by-bus.png" />
+								</div>
+								<div class="body">
+									<h1>10 Places to Visit in Baguio City</h1>
+									<p>
+										Baguio City is perhaps one of the coolest tourist
+										destinations in the Philippines! Literally and figuratively!
+										No wonder it’s the country’s Summer Capital.
+									</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section
+			class="sp"
+			id="contact">
+			<div class="container">
+				<div class="sec-typo">
+					<h1>Contact Us</h1>
+					<p>
+						For customer inquiries and suggestions, or if you represent a
+						transport operator interested in automating your online booking
+						process, please feel free to contact us.
+					</p>
+				</div>
 
-        <form id="contactForm" class="contact-form">
-          <div class="row">
-            <div class="fild">
-              <i class="uil uil-user"></i>
-              <input name="name" placeholder="Name" type="text"  required/>
-            </div>
-            <div class="fild">
-              <i class="uil uil-envelope"></i>
-              <input name="email" placeholder="Email" type="email" required />
-            </div>
-          </div>
-          <textarea
-            id="" required
-            name="message"
-            placeholder="Type your message...."
-          ></textarea>
+				<form
+					id="contactForm"
+					class="contact-form">
+					<div class="row">
+						<div class="fild">
+							<i class="uil uil-user"></i>
+							<input
+								name="name"
+								placeholder="Name"
+								type="text"
+								required />
+						</div>
+						<div class="fild">
+							<i class="uil uil-envelope"></i>
+							<input
+								name="email"
+								placeholder="Email"
+								type="email"
+								required />
+						</div>
+					</div>
+					<textarea
+						id=""
+						required
+						name="message"
+						placeholder="Type your message...."></textarea>
 
-          <button class="btn signup" type="submit">
-            Send <i class="uil uil-message"></i>
-          </button>
-        </form>
-      </div>
-    </section>
-    <footer>
-      <div class="container">
-        <center>
-          <p>&copy; 2022 - 2023 - iWantSeats 10</p>
-          <div class="privacy">
-            <a href="#">Terms and Conditions</a>
-            <a href="#">Privacy policy</a>
-          </div>
-        </center>
-      </div>
-    </footer>
-    <script rel="script" src="assets/js/jquery.min.js?v=10"></script>
-    <script rel="script" src="assets/js/axios.min.js"></script>
-    <script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
-    <script rel="script" src="assets/js/loadingoverlay.min.js?v=10"></script>
-    <script rel="script" src="assets/js/lodash.min.js?v=10"></script>
-    <script rel="script" src="assets/js/app.min.js?v=10"></script>
-    <script>
-      addElement("script", "assets/js/main.js");
-      $(document).ready(() => {
-        // getLocation();
-      });
+					<button
+						class="btn signup"
+						type="submit">
+						Send <i class="uil uil-message"></i>
+					</button>
+				</form>
+			</div>
+		</section>
+		<footer>
+			<div class="container">
+				<center>
+					<p>&copy; 2022 - 2023 - iWantSeats 10</p>
+					<div class="privacy">
+						<a
+							class="trigger"
+							href="javascript:;"
+							>Terms and Conditions</a
+						>
+						<a class="trigger1"
+						href="javascript:;">Privacy policy</a>
+					</div>
+				</center>
+			</div>
+		</footer>
 
-      $("#chkReturn").change(function () {
-        if (this.checked) {
-          Swal.fire(
-            "Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you."
-          );
-        }
-      });
-    </script>
-  </body>
+		<div id="policy" class="modal">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<span class="close-button" id="pClose" style="font-size: large;">×</span>
+					<h1><strong>Policy</strong></h1>					
+				
+				</div>
+				<div class="modal-body">
+
+				</div>
+			</div>
+		</div>
+
+		<div id="terms" class="modal">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<span class="close-button" id="tClose" style="font-size: large;">×</span>
+					<h1><strong>Terms and Conditions</strong></h1>					
+				
+				</div>
+				<div class="modal-body">
+					<p>
+						<br />
+						Welcome to the iWantSeats&rsquo; Terms of Use agreement.<br />
+						The following Terms of Use apply when you view or use the Service
+						via our website located at
+						<a href="https://www.iwantseats.com/">www.iwantseats.com</a> or
+						<a href="https://www.iwantseats.com.ph">www.iwantseats.com.ph</a
+						><br />
+						Please review the following terms carefully. By accessing or using
+						the Service, you signify your agreement to theseTerms of Use. If you
+						do not agree to be bound by these Terms of Use in their entirety,
+						you may not access or use the Service.
+					</p>
+					<br />
+					<p>
+						<strong>THE COMPANY</strong><br />
+						&emsp;iWantSeats (&ldquo;Company&rdquo;) shall serve as an online
+						booking facility for bus operators (&ldquo;Operator/s&rdquo;) listed
+						in its website, iwantseats.com (&ldquo;Website&rdquo;). The
+						Company&rsquo;s sole responsibility to the Operator shall be to
+						provide an online medium to facilitate the reservation of a bus seat
+						to a prospective passenger, which will be treated as the
+						Company&rsquo;s customer (&ldquo;Customer&rdquo;), through online
+						booking. The Company shall not be considered an agent of the
+						Operator as a common carrier nor shall it share in the obligations
+						and liabilities of the Operator as a common carrier. The Company
+						shall not be included as a party to the contract of carriage between
+						Operator and Customer. The Company shall provide and maintain an
+						online booking facility to assist a Customer who wants to book a bus
+						ticket online. Its obligations shall be limited to its role as an
+						online booking facility and shall not be liable to the Customer as a
+						common carrier or an agent of the common carrier.<br />
+						DEFINITIONS<br />
+						&emsp;&ldquo;Company&rdquo; means iWantSeats (Augmata, Inc.). which
+						shall serve as an online booking facility servicing bus operators.
+						&ldquo;Operator&rdquo; means a bus operator or company which shall
+						provide the transportation service to its passengers.
+						&ldquo;Customer&rdquo; means a prospective passenger who wishes to
+						book a bus ticket via the online booking facility.
+						&ldquo;Website&rdquo; means iwantseats.com where the online booking
+						transaction shall be done. &ldquo;eTicket Itinerary&rdquo; means the
+						electronic document confirming the reservation after verifying
+						receipt of payment and containing details of the scheduled trip and
+						personal information of the passenger. &ldquo;Confirmed
+						Reservation&rdquo; means a reservation for which full payment has
+						been made and confirmed by the Customer and acknowledged by
+						iWantSeats as supported by a proof of payment and constitutes a
+						completed transaction.
+					</p>
+					<br />
+					<p>
+						<strong>FARES, FEES, AND TAXES</strong><br />
+						&emsp;The Company shall reflect the schedule of fares and fees which
+						it warrants as true and correct as of the time of publication. For
+						facilitating the online booking of tickets, the Company shall
+						collect a web service convenience fee of Php 50 for each passenger
+						booked, inclusive of VAT, per passenger. This fee is on top of the
+						regular fare and fees charged by the Operator. The web service
+						convenience fee shall be non-refundable. There may be additional
+						service charges for payment facilities or other services used. Upon
+						confirmation of the booking, an eTicket Itinerary shall be sent to
+						the Customer. The Customer shall shoulder any government taxes,
+						charges or insurance surcharge imposed by the Government or terminal
+						operator for use of services or facilities, in addition to fares,
+						fees, and charges imposed by the Company and the Operator. Such
+						government taxes, charges or insurance surcharge may be changed from
+						time to time, even after the confirmation of the booking, but shall
+						still be borne by the Customer before departure.
+					</p>
+					<br />
+					<p>
+						<strong>MANNER OF PAYMENT</strong><br />
+						&emsp;The Customer shall pay the reservations made on the Website
+						via over-the-counter and other options provided. Full payment shall
+						be made before the expiration of the reservation period indicated on
+						the booking and confirmation page. Unpaid reservations shall be
+						cancelled automatically by the system. Upon validation of the full
+						payment made by the Customer, the Company shall confirm the
+						reservation. Upon confirmation of payment should the transaction
+						only be deemed as complete and the booking valid. An eTicket
+						Itinerary shall be sent to the contact details provided by the
+						Customer.
+					</p>
+					<br />
+					<p>
+						<strong>REFUND, REBOOKING AND CANCELLATION OF BOOKINGS</strong
+						><br />
+						&emsp;The Company may charge 30% of the total amount paid for
+						rebookings, cancellation, or refunds, except when the reason for
+						rebooking, cancellation, or refund is due to iWantSeats or the
+						operator, or depending on the rebooking or refund policy of the
+						operator.
+					</p>
+					<br />
+					<p>
+						<strong>EMBARKATION DEADLINES</strong><br />
+						&emsp;The Customer shall be required to check-in at the terminal at
+						the point of departure, 30 (thirty) minutes before the scheduled
+						time of departure. If the Customer fails to show up at the terminal
+						within the given time, the Operator shall have the right to forfeit
+						the reservation and give the Customer&rsquo;s slot to walk-in
+						customers. The Customer shall be required to present: (1) a printed
+						e-Ticket Itinerary; and (2) a valid ID. The Operator shall not honor
+						any reservation absent any of these documents. In case of violation
+						of these embarkation deadlines, the Customer and the Operator may
+						agree to a refund, rebooking, or forfeiture, subject to the
+						Operator&rsquo;s rules and regulations.
+					</p>
+					<br />
+					<p>
+						<strong>DENIAL OF LIABILITY</strong><br />
+						&emsp;The Company, as an online booking facility, shall not be
+						liable to the Customer for the following: Delays or cancellations of
+						the scheduled trip for whatever cause or reason; Loss of or damages
+						to the Customer&rsquo;s baggage; Loss, death, damage or injury
+						caused to the Customer; Failure to comply with any warranty or
+						representation; and any other damage or prejudice caused to the
+						Customer by the Operator, its employees, or third persons. The
+						Company shall not be liable to the Customer for any loss or damage
+						resulting from the Customer&rsquo;s mistake in providing false,
+						fraudulent, or improper information in the booking application, such
+						as contact details, email account, and other relevant information;
+						and in the payment of the booked reservation coursed through payment
+						channels, such as account number, account information, reservation
+						number, and other relevant information.
+					</p>
+					<br />
+					<p>
+						<strong>MODIFICATION OF TERMS AND CONDITIONS</strong><br />
+						&emsp;The Company reserves the right to revise the terms and
+						conditions, without notice to or approval of the user. The Customer
+						shall be deemed to have automatically agreed to the modifications
+						upon continued use of the website.
+					</p>
+					<br />
+					<p>
+						<strong>BINDING FORCE OF THE AGREEMENT</strong><br />
+						&emsp;By availing of the services of this online booking facility,
+						the Customer shall agree to be bound by the terms and conditions of
+						the Contract of Carriage of the Operator.
+					</p>
+					<br />
+					<p>
+						<strong>DISCLAIMER</strong><br />
+						&emsp;The Company does not warrant the completeness,
+						merchantability, or fitness for a particular purpose of any content
+						or product contained in its Website.
+					</p>
+					<br />
+					<p>
+						<strong
+							>REGISTRATION; RULES FOR USER CONDUCT AND USE OF THE
+							SERVICE</strong
+						><br />
+						Your permission to use the Site is conditioned upon the following
+						use and conduct restrictions:<br />
+						You agree that you will not under any circumstances:
+					</p>
+
+					<ul>
+						<li>
+							access the Service for any reason other than your
+							personal, non-commercial use solely as permitted by the normal
+							functionality of the Service,
+						</li>
+						<li>
+							collect or harvest any personal data of any user of the
+							Site or the Service
+						</li>
+						<li>
+							use the Site or the Service for the solicitation of
+							business in the course of trade or in connection with a commercial
+							enterprise;
+						</li>
+						<li>
+							distribute any part or parts of the Site or the Service
+							without our explicit written permission (we grant the operators of
+							public search engines permission to use spiders to copy materials
+							from the site for the sole purpose of creating publicly-available
+							searchable indices but retain the right to revoke this permission
+							at any time on a general or specific basis);
+						</li>
+						<li>
+							use the Service for any unlawful purpose or for the
+							promotion of illegal activities;
+						</li>
+						<li>
+							attempt to, or harass, abuse or harm another person or
+							group;
+						</li>
+						<li>
+							use another user&rsquo;s account without permission;
+						</li>
+						<li>
+							intentionally allow another user to access your account;
+						</li>
+						<li>
+							provide false or inaccurate information when registering
+							an account;
+						</li>
+						<li>
+							interfere or attempt to interfere with the proper
+							functioning of the Service;
+						</li>
+						<li>
+							make any automated use of the Site, the Service or the
+							related systems, or take any action that we deem to impose or to
+							potentially impose an unreasonable or disproportionately large
+							load on our servers or network infrastructure;
+						</li>
+						<li>
+							bypass any robot exclusion headers or other measures we
+							take to restrict access to the Service, or use any software,
+							technology, or device to scrape, spider, or crawl the Service or
+							harvest or manipulate data;
+						</li>
+						<li>
+							circumvent, disable or otherwise interfere with any
+							security-related features of the Service or features that prevent
+							or restrict use or copying of content, or enforce limitations on
+							use of the Service or the content accessible via the Service; or
+						</li>
+						<li>
+							publish or link to malicious content of any sort,
+							including that intended to damage or disrupt another user&rsquo;s
+							browser or computer.
+						</li>
+					</ul>
+					<br />
+					<p>
+						<strong
+							>USER CONSENT TO RECEIVE COMMUNICATIONS IN ELECTRONIC FORM</strong
+						><br />
+						For contractual purposes, you: (a) consent to receive communications
+						from us in an electronic form via the email address you have
+						submitted; and (b) agree that all Terms of Use, agreements, notices,
+						disclosures, and other communications that we provide to you
+						electronically satisfy any legal requirement that such
+						communications would satisfy if it were in writing. The foregoing
+						does not affect your non-waivable rights.
+					</p>
+
+					<p>
+						We may also use your email address to send you other messages,
+						including information about the Site or the Service and special
+						offers. You may opt out of such email by changing your account
+						settings, using the &ldquo;Unsubscribe&rdquo; link in the message,
+						or by sending an email to <a href="mailto:info@iwantseats.com.ph">info@iwantseats.com.ph</a><br />
+						Opting out may prevent you from receiving messages regarding the
+						Site, the Service or special offers.<br />
+						&nbsp;
+					</p>
+				</div>
+			</div>
+		</div>
+		<script
+			rel="script"
+			src="assets/js/jquery.min.js?v=10"></script>
+		<script
+			rel="script"
+			src="assets/js/axios.min.js"></script>
+		<script
+			rel="script"
+			src="assets/swal/sweetalert2.min.js?v=10"></script>
+		<script
+			rel="script"
+			src="assets/js/loadingoverlay.min.js?v=10"></script>
+		<script
+			rel="script"
+			src="assets/js/lodash.min.js?v=10"></script>
+		<script
+			rel="script"
+			src="assets/js/app.min.js?v=2947293798"></script>
+		<script>
+			function addElement(el, url) {
+				let element = document.createElement(el);
+				if (el === "link") {
+					element.setAttribute("href", url + "?v=" + Date.now());
+					element.setAttribute("rel", "stylesheet");
+					document.head.appendChild(element);
+				} else {
+					element.setAttribute("src", url + "?v=" + Date.now());
+					document.body.appendChild(element);
+				}
+			}
+			addElement("script", "assets/js/main.js");
+			addElement("script", "assets/js/modal.js");
+			addElement("link", "assets/css/modal.css");
+			$(document).ready(() => {
+				// getLocation();
+			});
+
+			$("#chkReturn").change(function () {
+				if (this.checked) {
+					Swal.fire(
+						"Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you."
+					);
+				}
+			});
+		</script>
+	</body>
 </html>
