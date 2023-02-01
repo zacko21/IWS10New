@@ -1,588 +1,584 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
-    <link href="assets/css/style.min.css" rel="stylesheet"/>
-    <link href="assets/css/form.min.css" rel="stylesheet"/>
-    <link href="assets/css/booking.css" rel="stylesheet"/>
-    <link href="assets/css/buss.min.css" rel="stylesheet"/>
-    <link href="assets/swal/sweetalert2.min.css" rel="stylesheet"/>
+    <link href="assets/css/style.min.css" rel="stylesheet" />
+    <link href="assets/css/form.min.css" rel="stylesheet" />
+    <link href="assets/css/booking.css" rel="stylesheet" />
+    <link href="assets/css/buss.min.css" rel="stylesheet" />
+    <link href="assets/swal/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- unicons -->
-    <link
-            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-            rel="stylesheet"
-    />
+    <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" />
     <title>IWantSeats</title>
     <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
 </head>
-<body>
-<header>
-    <div class="container-max">
-        <div class="logo" onclick="window.open('./', '_self')">
-            <img alt="" src="assets/images/logo-black.png"/>
-        </div>
-        <div class="links">
-            <a href="./" onclick="menu()">Home</a>
-            <a href="#" onclick="menu()">About</a>
-            <a href="./#contact" onclick="menu()">Contact us</a>
-            <div class="status">
-                <a href="#" onclick="Logout()">
-                    <button class="btn-primary">Logout</button>
 
-                </a>
+<body>
+    <header>
+        <div class="container-max">
+            <div class="logo" onclick="window.open('./', '_self')">
+                <img alt="" src="assets/images/logo-black.png" />
+            </div>
+            <div class="links">
+                <a href="./" onclick="menu()">Home</a>
+                <a href="#" onclick="menu()">About</a>
+                <a href="./#contact" onclick="menu()">Contact us</a>
+                <div class="status">
+                    <a href="#" onclick="Logout()">
+                        <button class="btn-primary">Logout</button>
+
+                    </a>
+                </div>
+            </div>
+            <div class="menu" onclick="menu()">
+                <i class="uil uil-align-center-alt"></i>
             </div>
         </div>
-        <div class="menu" onclick="menu()">
-            <i class="uil uil-align-center-alt"></i>
-        </div>
-    </div>
-</header>
-<main>
-    <button class="btn search-ag" onclick="openSearchbar()">
-        <i class="uil uil-search"></i>
-    </button>
+    </header>
+    <main>
+        <button class="btn search-ag" onclick="openSearchbar()">
+            <i class="uil uil-search"></i>
+        </button>
 
-    <div class="container">
-        <form class="search-bar-main" method="POST">
-            <div class="search-bar">
-                <div class="travel-location">
-                    <div class="search-fild drop-box">
-                        <label for="from">From</label>
-                        <div class="input from-input">
-                            <i class="uil uil-search search-ic"></i>
-                            <input autocomplete="off" class="from-value" id="from" name="from"
-                                   oninput="getLocation(this.value)" placeholder="Your location"
-                                   required/>
-                            <i class="uil uil-map-marker"></i>
+        <div class="container">
+            <form class="search-bar-main" method="POST">
+                <div class="search-bar">
+                    <div class="travel-location">
+                        <div class="search-fild drop-box">
+                            <label for="from">From</label>
+                            <div class="input from-input">
+                                <i class="uil uil-search search-ic"></i>
+                                <input autocomplete="off" class="from-value" id="from" name="from"
+                                    oninput="getLocation(this.value)" placeholder="Your location" required />
+                                <i class="uil uil-map-marker"></i>
+                            </div>
+                            <div class="dropdown">
+                                <div class="item from-locations">
+                                </div>
+                            </div>
                         </div>
-                        <div class="dropdown">
-                            <div class="item from-locations">
+                        <div class="search-fild drop-box">
+                            <label for="to">To</label>
+                            <div class="input to-input">
+                                <i class="uil uil-search search-ic"></i>
+                                <input autocomplete="off" class="to-value" id="to" oninput="getDestination(this.value)"
+                                    placeholder="Travel location" required />
+                                <i class="uil uil-location-arrow"></i>
+                            </div>
+                            <div class="dropdown">
+                                <div class="item to-locations">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="search-fild drop-box">
-                        <label for="to">To</label>
-                        <div class="input to-input">
-                            <i class="uil uil-search search-ic"></i>
-                            <input autocomplete="off" class="to-value" id="to" oninput="getDestination(this.value)"
-                                   placeholder="Travel location"
-                                   required/>
-                            <i class="uil uil-location-arrow"></i>
-                        </div>
-                        <div class="dropdown">
-                            <div class="item to-locations">
+                    <div class="date-passengers">
+                        <div class="search-fild">
+                            <label for="from">Passengers</label>
+                            <div class="input">
+                                <input id="passenger" required type="number" value="1" />
+                                <i class="uil uil-users-alt"></i>
                             </div>
                         </div>
+                        <div class="search-fild">
+                            <label for="date_of_departure">Travel Date</label>
+                            <div class="input">
+                                <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
+                                    required type="date" />
+                                <i class="uil uil-calendar-alt"></i>
+                            </div>
+                        </div>
+                        <div class="search-fild">
+                            <div class="flex">
+                                <label for="date_of_return">Return Date</label>
+                                <input id="chkReturn" type="checkbox" />
+                            </div>
+                            <div class="input">
+                                <input disabled id="date_of_return" name="date_of_return"
+                                    onchange="this.className=(this.value!=''?'has-value':'')" type="date" />
+                                <i class="uil uil-calendar-alt"></i>
+                            </div>
+                        </div>
+                        <button class="btn-primary search-btn" onclick="SearchForm(event)">
+                            <i class="uil uil-search"></i> Search
+                        </button>
                     </div>
                 </div>
-                <div class="date-passengers">
-                    <div class="search-fild">
-                        <label for="from">Passengers</label>
-                        <div class="input">
-                            <input id="passenger" required type="number" value="1"/>
-                            <i class="uil uil-users-alt"></i>
+            </form>
+        </div>
+    </main>
+    <section class="sp">
+        <div class="container">
+            <div class="layout-main">
+                <div class="steps-main">
+                    <div class="step-block search-res step-active">
+                        <div class="choosen-location">
+                            <p id="header_travel"></p>
+                            <!--                <div class="time">-->
+                            <!--                  <input -->
+                            <!--                    type="datetime-local"-->
+                            <!--                    placeholder="Date and time"-->
+                            <!--                    onchange="this.className=(this.value!=''?'has-value':'')"-->
+                            <!--                    placeholder="date"-->
+                            <!--                  />-->
+                            <!--                </div>-->
+                        </div>
+                        <div class="search-result-main">
                         </div>
                     </div>
-                    <div class="search-fild">
-                        <label for="date_of_departure">Travel Date</label>
-                        <div class="input">
-                            <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
-                                   required type="date"
-                            />
-                            <i class="uil uil-calendar-alt"></i>
+
+                    <!-- payment step -->
+                    <div class="step-block booking-payment">
+                        <h1 class="block-title">Payment method</h1>
+                        <!--                    <div style="padding: 10px 10px 20px 10px; font-style: normal">-->
+                        <!--                        <p>Reservation No: <span style="font-weight: bold">sdfasd</span> </p>-->
+                        <!--                        <p>Travel Date: <span style="font-weight: bold">sdfasd</span> </p>-->
+                        <!--                    </div>-->
+                        <div class="payment-tabs">
+                            <div class="tab active" data-target="card-gcash">
+                                Gcash and Card
+                            </div>
+                            <div class="tab" data-target="bank-deposit">Bank deposit</div>
+                        </div>
+                        <!-- card and gcash pay -->
+                        <div class="payment-module active" data-content="card-gcash">
+                            <!--                <div class="payment-block">-->
+                            <!--                  <div>-->
+                            <!--                    <input type="radio" name="payment" checked />-->
+                            <!--                    <div class="content">-->
+                            <!--                      <h3>Credit Card</h3>-->
+                            <!--                      <p>-->
+                            <!--                        Safe money transfer using your bank account. Visa,-->
+                            <!--                        Mastro, Discover, American Express, etc.-->
+                            <!--                      </p>-->
+                            <!--                    </div>-->
+                            <!--                    <div class="card-icon">-->
+                            <!--                      <img src="assets/images/cards.png" alt="" />-->
+                            <!--                    </div>-->
+                            <!--                  </div>-->
+
+                            <!--                  <form class="card-form" action="#">-->
+                            <!--                    <div class="row">-->
+                            <!--                      <div class="input">-->
+                            <!--                        <label for="fname">First name</label>-->
+                            <!--                        <input-->
+                            <!--                          type="text"-->
+                            <!--                          id="fname"-->
+                            <!--                          placeholder="First name"-->
+                            <!--                        />-->
+                            <!--                      </div>-->
+                            <!--                      <div class="input">-->
+                            <!--                        <label for="lname">Last name</label>-->
+                            <!--                        <input-->
+                            <!--                          type="text"-->
+                            <!--                          id="lname"-->
+                            <!--                          placeholder="First name"-->
+                            <!--                        />-->
+                            <!--                      </div>-->
+                            <!--                    </div>-->
+                            <!--                    <div class="flex">-->
+                            <!--                      <div class="input">-->
+                            <!--                        <label for="card">Card number</label>-->
+                            <!--                        <input-->
+                            <!--                          type="text"-->
+                            <!--                          id="card"-->
+                            <!--                          placeholder="0000 0000 0000 0000"-->
+                            <!--                        />-->
+                            <!--                      </div>-->
+                            <!--                      <div class="input">-->
+                            <!--                        <label for="e-date">Expiry Date</label>-->
+                            <!--                        <input type="text" id="e-date" placeholder="MM/YY" />-->
+                            <!--                      </div>-->
+                            <!--                      <div class="input">-->
+                            <!--                        <label for="cvv">CVV</label>-->
+                            <!--                        <input type="text" id="cvv" placeholder="000" />-->
+                            <!--                      </div>-->
+                            <!--                    </div>-->
+                            <!--                    <div class="row">-->
+                            <!--                      <div class="input">-->
+                            <!--                        <label for="country">Country</label>-->
+                            <!--                        <input type="text" id="country" placeholder="Country" />-->
+                            <!--                      </div>-->
+                            <!--                      <div class="input">-->
+                            <!--                        <label for="postal">Postal/Zip</label>-->
+                            <!--                        <input-->
+                            <!--                          type="text"-->
+                            <!--                          id="postal"-->
+                            <!--                          placeholder="Postal/Zip"-->
+                            <!--                        />-->
+                            <!--                      </div>-->
+                            <!--                    </div>-->
+                            <!--                  </form>-->
+                            <!--                </div>-->
+
+                            <div class="payment-block gcash">
+                                <div>
+                                    <input class="gcashi" name="gcash" type="radio" />
+                                    <div class="content">
+                                        <h3>Pay with GCash</h3>
+                                        <p>
+                                            Safe money transfer using your bank account. Visa,
+                                            MasterCard, Discover, American Express, etc.
+                                        </p>
+                                    </div>
+                                    <div class="card-icon">
+                                        <img alt="" src="assets/images/gcash.png" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="payment-block gcash" style="text-align: center">
+                                <p>
+                                    Payments via GCash (Paymongo) are instantly confirmed. Kindly expect your confirmed
+                                    trip
+                                    itinerary in your e-mail after payment.
+                                    <br />
+                                    <br />
+                                    If you do not receive your confirmed itinerary within 2 hours of GCash payment,
+                                    please
+                                    E-MAIL <a href="mailto:payments@iwantseats.com.ph"><span
+                                            style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a>
+                                    with your reservation number.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- card and gcash pay end -->
+
+                        <!-- Bank payment option -->
+                        <div class="payment-module" data-content="bank-deposit">
+                            <div class="typo3">
+                                <h2 class="block-title">Pay over-the counter or online</h2>
+                                <p>
+                                    To send payment, please follow the easy instructions below.
+                                </p>
+                            </div>
+
+                            <div class="payment-block bank">
+                                <div class="typo3">
+                                    <h2>Pay via BDO deposit</h2>
+                                </div>
+                                <div class="info">
+                                    <div class="item">
+                                        <p>Account name:</p>
+                                        <span>Augmata Inc <i class="uil uil-copy"></i></span>
+                                    </div>
+                                    <div class="item">
+                                        <p>Account number:</p>
+                                        <span>0069-3007-3406<i class="uil uil-copy"></i></span>
+                                    </div>
+                                    <div class="item">
+                                        <p>Account Type:</p>
+                                        <span>Savings
+                                            <i class="uil uil-copy"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-block bank">
+                                <div class="typo3">
+                                    <h2>Pay via Bank of the Philippine Islands(BPI) deposit</h2>
+                                </div>
+                                <div class="info">
+                                    <div class="item">
+                                        <p>Account name:</p>
+                                        <span>Stephanie Kapunan<i class="uil uil-copy"></i></span>
+                                    </div>
+                                    <div class="item">
+                                        <p>Account number:</p>
+                                        <span>3919-1197-39<i class="uil uil-copy"></i></span>
+                                    </div>
+                                    <div class="item">
+                                        <p>Account Type:</p>
+                                        <span>Savings
+                                            <i class="uil uil-copy"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-block bank">
+                                <center>
+                                    <p>
+                                        Once paid, PLEASE SEND YOUR PROOF OF PAYMENT with your reservation number to
+                                        <a href="mailto:payments@iwantseats.com.ph"><span
+                                                style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a>
+                                        or UPLOAD IT BELOW to
+                                        avoid auto-cancellation of booking.
+                                        <br />
+                                        <br />
+                                        Bookings paid by Bank Transfer must still be confirmed with proof of payment.
+                                        Upon
+                                        confirmation, please expect your confirmed trip itinerary in your e-mail within
+                                        24
+                                        hours.
+                                    </p>
+                                    <br />
+                                    <button class="btn btn-primary proof-btn" data-target="bank-proof">
+                                        Payment Proof
+                                    </button>
+                                </center>
+                            </div>
+                        </div>
+                        <!-- Bank payment option end -->
+
+                        <!-- proof submission -->
+                        <div class="payment-module Proof" data-content="bank-proof">
+                            <div class="typo3">
+                                <h1 class="block-title">Proof of your payment</h1>
+                                <p>
+                                    Upload photos or scanned copies of the requirements below.
+                                </p>
+                            </div>
+                            <div class="payment-block bank">
+                                <center>
+                                    <form id="payForm" method="post" onsubmit="UploadFile(event)">
+                                        <div class="document-up">
+                                            <label for="paymentFile">
+                                                <img alt="" id="iproof" src="assets/images/upload.svg" />
+                                            </label>
+                                            <input accept="image/*" id="paymentFile" name="paymentFile"
+                                                onchange="loadFile(event)" required type="file" />
+                                        </div>
+                                        <p>
+                                            The Upload/Submit button will upload the submitted proof of payment to <span
+                                                style="color: blue">payments@iwantseats.com.ph</span> along with the
+                                            Reservation Number
+                                        </p>
+                                        <br /><br />
+                                        <button class="btn btn-primary">Submit</button>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                        <!-- proof submission end -->
+                    </div>
+                </div>
+
+                <!-- bus seat planing and mobile modal -->
+                <div class="booking-details">
+                    <h3 class="title">Booking summary</h3>
+                    <div class="reserveBox" style="text-align: center; display: none">
+                        <p class="text-center" style="padding: 10px;background-color: #7cad3e;border-radius: 7px;">
+                            Reservation No: <span id="reservationNo"
+                                style="text-decoration: underline; color: orangered "></span>
+                        </p>
+                    </div>
+                    <div class="block bus-seat-select">
+                        <h3 class="title">Choose Seat</h3>
+                        <div class="bus-body">
                         </div>
                     </div>
-                    <div class="search-fild">
-                        <div class="flex">
-                            <label for="date_of_return">Return Date</label>
-                            <input id="chkReturn" type="checkbox"/>
+                    <div class="block passenger-s" id="passenger-block">
+                        <h3 class="title">Passenger(s)</h3>
+                        <div id="passenger-list">
                         </div>
-                        <div class="input">
-                            <input disabled id="date_of_return" name="date_of_return"
-                                   onchange="this.className=(this.value!=''?'has-value':'')"
-                                   type="date"
-                            />
-                            <i class="uil uil-calendar-alt"></i>
+                        <div style="overflow: auto; text-align: center">
+                            <button class="btn btn-primary" onclick="assignSeat()"
+                                style="padding: 5px 10px 5px 10px; width: 60%">
+                                Assign
+                                Seat
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="block locate-block">
+                        <div class="item">
+                            <i class="uil uil-map-marker"></i>
+                            <div>
+                                <p>Destination:</p>
+                                <p id="side_header"></p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="uil uil-bus-school"></i>
+                            <div id="s_departure">
+                                <p>Departure:</p>
+                                <span id="side_departure"></span>
+                            </div>
                         </div>
                     </div>
-                    <button class="btn-primary search-btn" onclick="SearchForm(event)">
-                        <i class="uil uil-search"></i> Search
+                    <div class="block">
+                        <div class="item">
+                            <div>
+                                <p>Fare:</p>
+                                <span id="s_fare">PHP 0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div id="sub_total">
+
+                            <p>Departure <span>(0 pax)</span></p>
+                            <div class="item">
+                                <p>Sub Total <span>(0 pax)</span></p>
+                                <h3><span>PHP 0.00</span></h3>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <p>Reservation Fee</p>
+                            <h3><span id="res_fee">PHP 0</span></h3>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="item">
+                            <p>Total</p>
+                            <h2><span id="gran_total">PHP 0.00</span></h2>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <table  style="width:100%; background-color: white!important;">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 20px;background-color: white;"><input id="terms_policy" type="checkbox"></td>
+                                    <td style="background-color: white;"><label for="terms_policy">I agree to <a style="color: var(--secoundary);" href="javascript:;">Terms and Conditions</a>  & <a href="javascript:;" style="color: var(--secoundary);">Privacy Policy</a></label> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="btn pay-con continue" disabled onclick="continuePayment()">
+                        <i class="uil uil-credit-card"></i>
+                        Continue Booking
+                    </button>
+                    <button class="btn cancel-btn" onclick="closeModal()">
+                        Cancel Booking
                     </button>
                 </div>
-            </div>
-        </form>
-    </div>
-</main>
-<section class="sp">
-    <div class="container">
-        <div class="layout-main">
-            <div class="steps-main">
-                <div class="step-block search-res step-active">
-                    <div class="choosen-location">
-                        <p id="header_travel"></p>
-                        <!--                <div class="time">-->
-                        <!--                  <input -->
-                        <!--                    type="datetime-local"-->
-                        <!--                    placeholder="Date and time"-->
-                        <!--                    onchange="this.className=(this.value!=''?'has-value':'')"-->
-                        <!--                    placeholder="date"-->
-                        <!--                  />-->
-                        <!--                </div>-->
-                    </div>
-                    <div class="search-result-main">
+                <!-- bus seat planing and mobile modal end -->
+
+                <!-- booking popup modal -->
+                <div class="booking-modal">
+                    <div class="wraper-item">
+                        <table>
+                            <tr>
+                                <th>Seat No</th>
+                                <th>Seat Name</th>
+                                <th>Type</th>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Seat 11</td>
+                                <td>1</td>
+                            </tr>
+                        </table>
+                        <input id="seatNo" type="hidden" value="0">
+                        <select id="passenger_assign">
+                            <option value="#">User name here</option>
+                        </select>
+                        <div class="btns">
+                            <button class="btn btn-primary" id="btn_reserve_passenger" onclick="confirmBooking(this)">
+                                Confirm
+                            </button>
+                            <button class="btn btn-primary" onclick="cancelBooking()">
+                                Cancel
+                            </button>
+                        </div>
                     </div>
                 </div>
+                <!-- booking popup modal end -->
 
-                <!-- payment step -->
-                <div class="step-block booking-payment">
-                    <h1 class="block-title">Payment method</h1>
-                    <!--                    <div style="padding: 10px 10px 20px 10px; font-style: normal">-->
-                    <!--                        <p>Reservation No: <span style="font-weight: bold">sdfasd</span> </p>-->
-                    <!--                        <p>Travel Date: <span style="font-weight: bold">sdfasd</span> </p>-->
-                    <!--                    </div>-->
-                    <div class="payment-tabs">
-                        <div class="tab active" data-target="card-gcash">
-                            Gcash and Card
-                        </div>
-                        <div class="tab" data-target="bank-deposit">Bank deposit</div>
-                    </div>
-                    <!-- card and gcash pay -->
-                    <div class="payment-module active" data-content="card-gcash">
-                        <!--                <div class="payment-block">-->
-                        <!--                  <div>-->
-                        <!--                    <input type="radio" name="payment" checked />-->
-                        <!--                    <div class="content">-->
-                        <!--                      <h3>Credit Card</h3>-->
-                        <!--                      <p>-->
-                        <!--                        Safe money transfer using your bank account. Visa,-->
-                        <!--                        Mastro, Discover, American Express, etc.-->
-                        <!--                      </p>-->
-                        <!--                    </div>-->
-                        <!--                    <div class="card-icon">-->
-                        <!--                      <img src="assets/images/cards.png" alt="" />-->
-                        <!--                    </div>-->
-                        <!--                  </div>-->
-
-                        <!--                  <form class="card-form" action="#">-->
-                        <!--                    <div class="row">-->
-                        <!--                      <div class="input">-->
-                        <!--                        <label for="fname">First name</label>-->
-                        <!--                        <input-->
-                        <!--                          type="text"-->
-                        <!--                          id="fname"-->
-                        <!--                          placeholder="First name"-->
-                        <!--                        />-->
-                        <!--                      </div>-->
-                        <!--                      <div class="input">-->
-                        <!--                        <label for="lname">Last name</label>-->
-                        <!--                        <input-->
-                        <!--                          type="text"-->
-                        <!--                          id="lname"-->
-                        <!--                          placeholder="First name"-->
-                        <!--                        />-->
-                        <!--                      </div>-->
-                        <!--                    </div>-->
-                        <!--                    <div class="flex">-->
-                        <!--                      <div class="input">-->
-                        <!--                        <label for="card">Card number</label>-->
-                        <!--                        <input-->
-                        <!--                          type="text"-->
-                        <!--                          id="card"-->
-                        <!--                          placeholder="0000 0000 0000 0000"-->
-                        <!--                        />-->
-                        <!--                      </div>-->
-                        <!--                      <div class="input">-->
-                        <!--                        <label for="e-date">Expiry Date</label>-->
-                        <!--                        <input type="text" id="e-date" placeholder="MM/YY" />-->
-                        <!--                      </div>-->
-                        <!--                      <div class="input">-->
-                        <!--                        <label for="cvv">CVV</label>-->
-                        <!--                        <input type="text" id="cvv" placeholder="000" />-->
-                        <!--                      </div>-->
-                        <!--                    </div>-->
-                        <!--                    <div class="row">-->
-                        <!--                      <div class="input">-->
-                        <!--                        <label for="country">Country</label>-->
-                        <!--                        <input type="text" id="country" placeholder="Country" />-->
-                        <!--                      </div>-->
-                        <!--                      <div class="input">-->
-                        <!--                        <label for="postal">Postal/Zip</label>-->
-                        <!--                        <input-->
-                        <!--                          type="text"-->
-                        <!--                          id="postal"-->
-                        <!--                          placeholder="Postal/Zip"-->
-                        <!--                        />-->
-                        <!--                      </div>-->
-                        <!--                    </div>-->
-                        <!--                  </form>-->
-                        <!--                </div>-->
-
-                        <div class="payment-block gcash">
-                            <div>
-                                <input class="gcashi" name="gcash" type="radio"/>
-                                <div class="content">
-                                    <h3>Pay with GCash</h3>
-                                    <p>
-                                        Safe money transfer using your bank account. Visa,
-                                        MasterCard, Discover, American Express, etc.
-                                    </p>
-                                </div>
-                                <div class="card-icon">
-                                    <img alt="" src="assets/images/gcash.png"/>
-                                </div>
+                <!-- edit booking unser info modal -->
+                <div class="edit-booked-user-info-modal">
+                    <form class="edit-booked-user-info" id="pass-info" onsubmit="EditInfo(event)">
+                        <h3>Edit info</h3>
+                        <div class="row">
+                            <div class="fild">
+                                <i class="uil uil-user"></i>
+                                <input id="first_name" name="first_name" placeholder="First name" required
+                                    type="text" />
+                            </div>
+                            <div class="fild">
+                                <i class="uil uil-user"></i>
+                                <input id="last_name" name="last_name" placeholder="Last name" required type="text" />
                             </div>
                         </div>
-
-
-                        <div class="payment-block gcash" style="text-align: center">
-                            <p>
-                                Payments via GCash (Paymongo) are instantly confirmed. Kindly expect your confirmed trip
-                                itinerary in your e-mail after payment.
-                                <br/>
-                                <br/>
-                                If you do not receive your confirmed itinerary within 2 hours of GCash payment, please
-                                E-MAIL <a href="mailto:payments@iwantseats.com.ph"><span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a>
-                                with your reservation number.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- card and gcash pay end -->
-
-                    <!-- Bank payment option -->
-                    <div class="payment-module" data-content="bank-deposit">
-                        <div class="typo3">
-                            <h2 class="block-title">Pay over-the counter or online</h2>
-                            <p>
-                                To send payment, please follow the easy instructions below.
-                            </p>
-                        </div>
-
-                        <div class="payment-block bank">
-                            <div class="typo3">
-                                <h2>Pay via BDO deposit</h2>
+                        <div class="row">
+                            <div class="fild">
+                                <i class="uil uil-phone"></i>
+                                <input id="contact_number" name="contact_number" placeholder="Phone number"
+                                    type="contact_number" />
                             </div>
-                            <div class="info">
-                                <div class="item">
-                                    <p>Account name:</p>
-                                    <span
-                                    >Augmata Inc <i class="uil uil-copy"></i
-                                    ></span>
-                                </div>
-                                <div class="item">
-                                    <p>Account number:</p>
-                                    <span>0069-3007-3406<i class="uil uil-copy"></i></span>
-                                </div>
-                                <div class="item">
-                                    <p>Account Type:</p>
-                                    <span
-                                    >Savings
-                        <i class="uil uil-copy"></i
-                        ></span>
-                                </div>
+                            <div class="fild">
+                                <i class="uil uil-envelope-alt"></i>
+                                <input id="email" placeholder="Email" type="email" />
                             </div>
                         </div>
-                        <div class="payment-block bank">
-                            <div class="typo3">
-                                <h2>Pay via Bank of the Philippine Islands(BPI) deposit</h2>
-                            </div>
-                            <div class="info">
-                                <div class="item">
-                                    <p>Account name:</p>
-                                    <span
-                                    >Stephanie Kapunan<i class="uil uil-copy"></i
-                                    ></span>
-                                </div>
-                                <div class="item">
-                                    <p>Account number:</p>
-                                    <span>3919-1197-39<i class="uil uil-copy"></i></span>
-                                </div>
-                                <div class="item">
-                                    <p>Account Type:</p>
-                                    <span
-                                    >Savings
-                        <i class="uil uil-copy"></i
-                        ></span>
-                                </div>
-                            </div>
+                        <label class="bt" for="birthday">Birthday</label>
+                        <div class="fild" id="birth">
+                            <i class="uil uil-calendar-alt"></i>
+                            <input id="birthday" name="birthday"
+                                onchange="this.className=(this.value!=''?'has-value':'')" type="date" />
                         </div>
-                        <div class="payment-block bank">
-                            <center>
-                                <p>
-                                    Once paid, PLEASE SEND YOUR PROOF OF PAYMENT with your reservation number to
-                                    <a href="mailto:payments@iwantseats.com.ph"><span style="color: blue">PAYMENTS@IWANTSEATS.COM.PH</span></a>
-                                    or UPLOAD IT BELOW to
-                                    avoid auto-cancellation of booking.
-                                    <br/>
-                                    <br/>
-                                    Bookings paid by Bank Transfer must still be confirmed with proof of payment. Upon
-                                    confirmation, please expect your confirmed trip itinerary in your e-mail within 24
-                                    hours.
-                                </p>
-                                <br/>
-                                <button
-                                        class="btn btn-primary proof-btn"
-                                        data-target="bank-proof"
-                                >
-                                    Payment Proof
-                                </button>
-                            </center>
+                        <!--                    <div class="gender-main">-->
+                        <!--                        <label class="bt" for="gender">Gender</label>-->
+                        <!--                        <div class="gender" id="gender">-->
+                        <!--                            <div class="gender-type">-->
+                        <!--                                <input checked id="male" name="gender" type="radio" value="m"/>-->
+                        <!--                                <label for="male">-->
+                        <!--                                    <i class="uil uil-mars"></i>-->
+                        <!--                                    <p>male</p>-->
+                        <!--                                </label>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="gender-type">-->
+                        <!--                                <input id="female" id="female" name="gender" type="radio" value="f"/>-->
+                        <!--                                <label for="female">-->
+                        <!--                                    <i class="uil uil-venus"></i>-->
+                        <!--                                    <p>Female</p>-->
+                        <!--                                </label>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+                        <div class="btns">
+                            <button class="btn btn-primary" type="submit">Save edits</button>
+                            <button class="btn btn-primary" onclick="closeModalInfo()" type="button">Cancel
+                                edits</button>
                         </div>
-                    </div>
-                    <!-- Bank payment option end -->
-
-                    <!-- proof submission -->
-                    <div class="payment-module Proof" data-content="bank-proof">
-                        <div class="typo3">
-                            <h1 class="block-title">Proof of your payment</h1>
-                            <p>
-                                Upload photos or scanned copies of the requirements below.
-                            </p>
-                        </div>
-                        <div class="payment-block bank">
-                            <center>
-                                <form id="payForm" method="post" onsubmit="UploadFile(event)">
-                                    <div class="document-up">
-                                        <label for="paymentFile">
-                                            <img alt="" id="iproof" src="assets/images/upload.svg"/>
-                                        </label>
-                                        <input accept="image/*" id="paymentFile" name="paymentFile"
-                                               onchange="loadFile(event)" required
-                                               type="file"/>
-                                    </div>
-                                    <p>
-                                        The Upload/Submit button will upload the submitted proof of payment to <span
-                                            style="color: blue">payments@iwantseats.com.ph</span> along with the
-                                        Reservation Number
-                                    </p>
-                                    <br/><br/>
-                                    <button class="btn btn-primary">Submit</button>
-                                </form>
-                            </center>
-                        </div>
-                    </div>
-                    <!-- proof submission end -->
+                    </form>
                 </div>
+                <!-- edit booking user info modal end -->
             </div>
-
-            <!-- bus seat planing and mobile modal -->
-            <div class="booking-details">
-                <h3 class="title">Booking summary</h3>
-                <div class="reserveBox" style="text-align: center; display: none">
-                    <p class="text-center" style="padding: 10px;background-color: #7cad3e;border-radius: 7px;">
-                        Reservation No: <span id="reservationNo"
-                                              style="text-decoration: underline; color: orangered "></span>
-                    </p>
-                </div>
-                <div class="block bus-seat-select">
-                    <h3 class="title">Choose Seat</h3>
-                    <div class="bus-body">
-                    </div>
-                </div>
-                <div class="block passenger-s" id="passenger-block">
-                    <h3 class="title">Passenger(s)</h3>
-                    <div id="passenger-list">
-                    </div>
-                    <div style="overflow: auto; text-align: center">
-                        <button class="btn btn-primary" onclick="assignSeat()"
-                                style="padding: 5px 10px 5px 10px; width: 60%">
-                            Assign
-                            Seat
-                        </button>
-                    </div>
-
-                </div>
-                <div class="block locate-block">
-                    <div class="item">
-                        <i class="uil uil-map-marker"></i>
-                        <div>
-                            <p>Destination:</p>
-                            <p id="side_header"></p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <i class="uil uil-bus-school"></i>
-                        <div id="s_departure">
-                            <p>Departure:</p>
-                            <span id="side_departure"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="block">
-                    <div class="item">
-                        <div>
-                            <p>Fare:</p>
-                            <span id="s_fare">PHP 0.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="block">
-                    <div id="sub_total">
-
-                        <p>Departure <span>(0 pax)</span></p>
-                        <div class="item">
-                            <p>Sub Total <span>(0 pax)</span></p>
-                            <h3><span>PHP 0.00</span></h3>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <p>Reservation Fee</p>
-                        <h3><span id="res_fee">PHP 0</span></h3>
-                    </div>
-                </div>
-                <div class="block">
-                    <div class="item">
-                        <p>Total</p>
-                        <h2><span id="gran_total">PHP 0.00</span></h2>
-                    </div>
-                </div>
-
-                <button
-                        class="btn pay-con continue"
-                        disabled
-                        onclick="continuePayment()"
-                >
-                    <i class="uil uil-credit-card"></i>
-                    Continue Booking
-                </button>
-                <button class="btn cancel-btn" onclick="closeModal()">
-                    Cancel Booking
-                </button>
-            </div>
-            <!-- bus seat planing and mobile modal end -->
-
-            <!-- booking popup modal -->
-            <div class="booking-modal">
-                <div class="wraper-item">
-                    <table>
-                        <tr>
-                            <th>Seat No</th>
-                            <th>Seat Name</th>
-                            <th>Type</th>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Seat 11</td>
-                            <td>1</td>
-                        </tr>
-                    </table>
-                    <input id="seatNo" type="hidden" value="0">
-                    <select id="passenger_assign">
-                        <option value="#">User name here</option>
-                    </select>
-                    <div class="btns">
-                        <button class="btn btn-primary" id="btn_reserve_passenger" onclick="confirmBooking(this)">
-                            Confirm
-                        </button>
-                        <button class="btn btn-primary" onclick="cancelBooking()">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- booking popup modal end -->
-
-            <!-- edit booking unser info modal -->
-            <div class="edit-booked-user-info-modal">
-                <form class="edit-booked-user-info" id="pass-info" onsubmit="EditInfo(event)">
-                    <h3>Edit info</h3>
-                    <div class="row">
-                        <div class="fild">
-                            <i class="uil uil-user"></i>
-                            <input id="first_name" name="first_name" placeholder="First name" required type="text"/>
-                        </div>
-                        <div class="fild">
-                            <i class="uil uil-user"></i>
-                            <input id="last_name" name="last_name" placeholder="Last name" required type="text"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="fild">
-                            <i class="uil uil-phone"></i>
-                            <input id="contact_number" name="contact_number" placeholder="Phone number"
-                                   type="contact_number"/>
-                        </div>
-                        <div class="fild">
-                            <i class="uil uil-envelope-alt"></i>
-                            <input id="email" placeholder="Email" type="email"/>
-                        </div>
-                    </div>
-                    <label class="bt" for="birthday">Birthday</label>
-                    <div class="fild" id="birth">
-                        <i class="uil uil-calendar-alt"></i>
-                        <input id="birthday" name="birthday"
-                               onchange="this.className=(this.value!=''?'has-value':'')"
-                               type="date"
-                        />
-                    </div>
-                    <!--                    <div class="gender-main">-->
-                    <!--                        <label class="bt" for="gender">Gender</label>-->
-                    <!--                        <div class="gender" id="gender">-->
-                    <!--                            <div class="gender-type">-->
-                    <!--                                <input checked id="male" name="gender" type="radio" value="m"/>-->
-                    <!--                                <label for="male">-->
-                    <!--                                    <i class="uil uil-mars"></i>-->
-                    <!--                                    <p>male</p>-->
-                    <!--                                </label>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="gender-type">-->
-                    <!--                                <input id="female" id="female" name="gender" type="radio" value="f"/>-->
-                    <!--                                <label for="female">-->
-                    <!--                                    <i class="uil uil-venus"></i>-->
-                    <!--                                    <p>Female</p>-->
-                    <!--                                </label>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <div class="btns">
-                        <button class="btn btn-primary" type="submit">Save edits</button>
-                        <button class="btn btn-primary" onclick="closeModalInfo()" type="button">Cancel edits</button>
-                    </div>
-                </form>
-            </div>
-            <!-- edit booking user info modal end -->
         </div>
-    </div>
-</section>
-<footer>
-    <div class="container">
-        <center>
-            <p>&copy; 2022 - 2023 - iWantSeats 10</p>
-            <div class="privacy">
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Privacy policy</a>
-            </div>
-        </center>
-    </div>
-</footer>
+    </section>
+    <footer>
+        <div class="container">
+            <center>
+                <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+                <div class="privacy">
+                    <a href="#">Terms and Conditions</a>
+                    <a href="#">Privacy policy</a>
+                </div>
+            </center>
+        </div>
+    </footer>
 
-<script rel="script" src="assets/js/jquery.min.js"></script>
-<script rel="script" src="assets/js/axios.min.js"></script>
-<script rel="script" src="assets/js/app.min.js?v=3216351564156"></script>
-<script rel="script" src="assets/js/loadingoverlay.min.js"></script>
-<script rel="script" src="assets/js/lodash.min.js"></script>
-<script rel="script" src="assets/swal/sweetalert2.min.js"></script>
-<script rel="script" src="assets/js/moment.min.js"></script>
+    <script rel="script" src="assets/js/jquery.min.js"></script>
+    <script rel="script" src="assets/js/axios.min.js"></script>
+    <script rel="script" src="assets/js/app.min.js?v=3216351564156"></script>
+    <script rel="script" src="assets/js/loadingoverlay.min.js"></script>
+    <script rel="script" src="assets/js/lodash.min.js"></script>
+    <script rel="script" src="assets/swal/sweetalert2.min.js"></script>
+    <script rel="script" src="assets/js/moment.min.js"></script>
 
 
-<!--<script rel="script" src="assets/js/main.min.js"></script>-->
-<script>
-    addElement('script', 'assets/js/main.js');
-    addElement('script', 'assets/js/booking.js');
-    // var script = document.createElement('script');
-    // script.setAttribute('src', 'assets/js/main.min.js?v=' + Date.now()); //was missing single quote
-    // document.body.appendChild(script);
-    // var script = document.createElement('script');
-    // script.setAttribute('src', 'assets/js/booking.js?v=' + Date.now()); //was missing single quote
-    // document.body.appendChild(script);
-    $("#chkReturn").change(function () {
-        if (this.checked) {
-            Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
-        }
-    });
+    <!--<script rel="script" src="assets/js/main.min.js"></script>-->
+    <script>
+        addElement('script', 'assets/js/main.js');
+        addElement('script', 'assets/js/booking.js');
+        // var script = document.createElement('script');
+        // script.setAttribute('src', 'assets/js/main.min.js?v=' + Date.now()); //was missing single quote
+        // document.body.appendChild(script);
+        // var script = document.createElement('script');
+        // script.setAttribute('src', 'assets/js/booking.js?v=' + Date.now()); //was missing single quote
+        // document.body.appendChild(script);
+        $("#chkReturn").change(function () {
+            if (this.checked) {
+                Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
+            }
+        });
 
-</script>
+    </script>
 </body>
+
 </html>

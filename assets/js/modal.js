@@ -17,8 +17,10 @@ function toggleModal(modal) {
 
 function windowOnClick(event) {
 	console.log(event.target);
+	if (event.target === terms) toggleModal("terms");
 	if (event.target === trigger) toggleModal("terms");
 	if (event.target === closeButton) toggleModal("terms");
+	if (event.target === policy) toggleModal("policy");
 	if (event.target === trigger1) toggleModal("policy");
 	if (event.target === closeButton1) toggleModal("policy");
 }
