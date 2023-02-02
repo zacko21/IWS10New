@@ -311,7 +311,7 @@ async function cancelBookings(getR = false) {
     })
     .then((ex) => {
       if (getR) {
-       getReserve();
+        getReserve();
       }
     });
 }
@@ -532,15 +532,13 @@ const getManifest = () => {
                                    </div>`;
                   break;
                 case "1":
-                  html += `<div data-id="${row1.value}" data-type="${
-                    row1.type
-                  }" class="seat ${
-                    row1.value === "" || row1.label2 === "OFL"
+                  html += `<div data-id="${row1.value}" data-type="${row1.type
+                    }" class="seat ${row1.value === "" || row1.label2 === "OFL"
                       ? "unavailable booked"
                       : row1.label2 === "SP"
-                      ? "available senior"
-                      : "available"
-                  }">
+                        ? "available senior"
+                        : "available"
+                    }">
                                 <img alt="" src="assets/images/chair.svg"/>
                                 <span>${row1.label}</span>
                                    </div>`;
@@ -612,15 +610,16 @@ const getManifest = () => {
 };
 
 function getSchedules() {
+  let placeholder = document.querySelector(" .search-result-main");
+  let header = document.getElementById("header_travel");
+  let header1 = document.getElementById("side_header");
   fetchResults()
     .then((data) => {
       if (data.length > 0) {
         localStorage.setItem("schedules", JSON.stringify(data));
         let html = "";
         ////console.log(data);
-        let placeholder = document.querySelector(" .search-result-main");
-        let header = document.getElementById("header_travel");
-        let header1 = document.getElementById("side_header");
+
         header.innerHTML = `<p><span>${data[0].originname}</span> TO <span>${data[0].destinationname}</span></p>`;
         header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].destinationname}</span></p>`;
         data.forEach((results, index) => {
@@ -628,19 +627,17 @@ function getSchedules() {
             <div class="highlight">
                 <p id="fare">PHP <span>${results["fare"]}</span></p>
                 <p id="etd">Departure: <span>${formatTime(
-                  results["etd"]
-                )}</span></p>
+            results["etd"]
+          )}</span></p>
             </div>
             <div class="details">
-                <h3 id="bus_type">${results["busoperator"]} | ${
-            results["bustype"]
-          }</h3>
+                <h3 id="bus_type">${results["busoperator"]} | ${results["bustype"]
+            }</h3>
                 <div class="travel-info">
                   <div class="item">
                     <i class="uil uil-user"></i>
-                    <p id="seat_available">Seats available: <span>${
-                      results["seatcount"] - results["seatstaken"]
-                    }</span></p>
+                    <p id="seat_available">Seats available: <span>${results["seatcount"] - results["seatstaken"]
+            }</span></p>
                   </div>
                   <div class="item">
                     <i class="uil uil-clock"></i>
@@ -649,14 +646,17 @@ function getSchedules() {
                   <div class="item">
                     <i class="uil uil-user-location"></i>
                     <p id="eta">Arrival: <span>${formatTime(
-                      results["eta"]
-                    )}</span></p>
+              results["eta"]
+            )}</span></p>
                   </div>
                </div>
             </div>
             <button data-id="${index}" class="btn book">Book seats</button></div>`;
         });
         placeholder.innerHTML = html;
+      } else {
+        placeholder.innerHTML = `<p>We can't find available trips for this date. Please try another search</p>`;
+
       }
 
       let bookBtn = document.querySelectorAll(".btn.book");
@@ -710,7 +710,7 @@ function getSchedules() {
       });
     })
     .catch((error) => {
-      //console.log(error);
+      console.log(error);
     });
 }
 
@@ -1037,30 +1037,28 @@ function getHistory() {
                       <td>${row.origin} - ${row.destination}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${
-                            row.etd.split(" ")[0]
-                          }</span>
+                          <i class="uil uil-calender"></i> <span>${row.etd.split(" ")[0]
+            }</span>
                         </p>
                         <p><i class="uil uil-clock"></i><span>${formatTime(
-                          row.etd.split(" ")[1]
-                        )}</span></p>
+              row.etd.split(" ")[1]
+            )}</span></p>
                       </td>
                       <td>${row.reference_no}</td>
                       <td>${row.total_amount_due.toLocaleString(
-                        "en",
-                        options
-                      )}</td>
+              "en",
+              options
+            )}</td>
                       <td>${row.paidstatus}</td>
                       <td>${row.reservationstatus}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${
-                            row.expiration.split(" ")[0]
-                          }</span>
+                          <i class="uil uil-calender"></i> <span>${row.expiration.split(" ")[0]
+            }</span>
                         </p>
                         <p><i class="uil uil-clock"></i><span>${formatTime(
-                          row.expiration.split(" ")[1]
-                        )}</span></p>
+              row.expiration.split(" ")[1]
+            )}</span></p>
                       </td>
                     </tr>`;
         } else {
@@ -1069,30 +1067,28 @@ function getHistory() {
                       <td>${row.origin} - ${row.destination}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${
-                            row.etd.split(" ")[0]
-                          }</span>
+                          <i class="uil uil-calender"></i> <span>${row.etd.split(" ")[0]
+            }</span>
                         </p>
                         <p><i class="uil uil-clock"></i><span>${formatTime(
-                          row.etd.split(" ")[1]
-                        )}</span></p>
+              row.etd.split(" ")[1]
+            )}</span></p>
                       </td>
                       <td>${row.reference_no}</td>
                       <td>${row.total_amount_due.toLocaleString(
-                        "en",
-                        options
-                      )}</td>
+              "en",
+              options
+            )}</td>
                       <td>${row.paidstatus}</td>
                       <td>${row.reservationstatus}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${
-                            row.expiration.split(" ")[0]
-                          }</span>
+                          <i class="uil uil-calender"></i> <span>${row.expiration.split(" ")[0]
+            }</span>
                         </p>
                         <p><i class="uil uil-clock"></i><span>${formatTime(
-                          row.expiration.split(" ")[1]
-                        )}</span></p>
+              row.expiration.split(" ")[1]
+            )}</span></p>
                       </td>
                     </tr>`;
         }
@@ -1140,7 +1136,7 @@ $("#contactForm").submit(async function (e) {
   let name = formData.get("name");
   let email = formData.get("email");
   let message = formData.get("message");
-  let body =`<p>Dear iWantSeats,</p><p><strong>${name}</strong> has sent you a message.</p><p><em><strong>${message}</strong></em></p>`;
+  let body = `<p>Dear iWantSeats,</p><p><strong>${name}</strong> has sent you a message.</p><p><em><strong>${message}</strong></em></p>`;
   Swal.fire({
     title: "Please Wait..",
     allowOutsideClick: false,
