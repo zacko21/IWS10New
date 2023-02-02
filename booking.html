@@ -25,7 +25,7 @@
             </div>
             <div class="links">
                 <a href="./" onclick="menu()">Home</a>
-                <a href="#" onclick="menu()">About</a>
+                <a href="./#" onclick="menu()">About</a>
                 <a href="./#contact" onclick="menu()">Contact us</a>
                 <div class="status">
                     <a href="#" onclick="Logout()">
@@ -216,9 +216,9 @@
 
                             <div class="payment-block gcash">
                                 <div>
-                                    <input class="gcashi" name="gcash" type="radio" />
+                                    <input class="gcashi" name="gcash" type="radio" id="gcash" />
                                     <div class="content">
-                                        <h3>Pay with GCash</h3>
+                                        <label for="gcash"><h3>Pay with GCash</h3></label>
                                         <p>
                                             Safe money transfer using your bank account. Visa,
                                             MasterCard, Discover, American Express, etc.
@@ -606,23 +606,16 @@
     <script rel="script" src="assets/js/moment.min.js"></script>
 
 
-    <!--<script rel="script" src="assets/js/main.min.js"></script>-->
     <script>
-        addElement('script', 'assets/js/main.js');
+        addElement('script', 'assets/js/app.js');
         addElement('script', 'assets/js/booking.js');
+        addElement('script', 'assets/js/main.js');
         addElement("script", "assets/js/modal.js");
         addElement("link", "assets/css/modal.css");
-        addElement('script', 'assets/js/app.js');
-        // var script = document.createElement('script');
-        // script.setAttribute('src', 'assets/js/main.min.js?v=' + Date.now()); //was missing single quote
-        // document.body.appendChild(script);
-        // var script = document.createElement('script');
-        // script.setAttribute('src', 'assets/js/booking.js?v=' + Date.now()); //was missing single quote
-        // document.body.appendChild(script);
         $("#chkReturn").change(function () {
             if (this.checked) {
                 Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
-            }
+            ''}
         });
 
         $('#terms_policy').on('change', function () {

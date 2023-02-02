@@ -27,7 +27,15 @@ bookBtn.forEach((e) => {
 function closeModal() {
     $.LoadingOverlay('show');
     cancelBookings().then(() => {
-        window.location.reload();
+        let action = GetURLParameter('action');
+        console.log(action);
+        if (action && action === 'getreservation') {
+            window.location.href='user-admin.html';
+        }else{
+            window.location.reload();
+
+        }
+    
     });
 
 

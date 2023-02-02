@@ -317,6 +317,7 @@ async function cancelBookings(getR = false) {
 }
 
 function EditInfo(e) {
+  $('.edit-booked-user-info').LoadingOverlay('show');
   e.preventDefault();
   let data = {
     clientid: localStorage.getItem("clientId"),
@@ -339,6 +340,7 @@ function EditInfo(e) {
       if (res.result === "OK") {
         editBookedInfo.classList.remove("active");
         getReserve(false);
+        $('.edit-booked-user-info').LoadingOverlay('hide'); 
       }
     })
     .catch((error) => {
@@ -1044,7 +1046,7 @@ function getHistory() {
               row.etd.split(" ")[1]
             )}</span></p>
                       </td>
-                      <td>${row.reference_no}</td>
+                      <td><a style="color:white; font-size:1.6rem" href="javascript:;" onclick="loadTrip1('${row.reference_no}','${row.trip_id}',${row.clientid})">${row.reference_no}</a></td>
                       <td>${row.total_amount_due.toLocaleString(
               "en",
               options
@@ -1100,7 +1102,7 @@ function getHistory() {
     .catch((error) => {
       //console.error('There was an error!', error);
     });
-}
+};
 
 $(document).ready(() => {
   $.LoadingOverlay("show");
@@ -1124,7 +1126,15 @@ $(document).ready(() => {
     getLocation();
   }
   if (page.includes("booking")) {
-    getSchedules();
+    let action = GetURLParameter('action');
+    console.log(action);
+    if (action && action === 'getreservation') {
+      loadTrip();
+    } else {
+      getSchedules();
+
+    }
+
     localStorage.removeItem("selected-sched");
   }
   $.LoadingOverlay("hide");
@@ -1168,3 +1178,107 @@ $("#contactForm").submit(async function (e) {
     },
   });
 });
+
+
+function loadTrip() {
+  let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
+  fetchReservationInfo(pax_data).then(data => {
+    if (data.length > 0) {
+      let header = document.getElementById("header_travel");
+      let header1 = document.getElementById("side_header");
+      let placeholder = document.querySelector(" .search-result-main");
+      placeholder.innerHTML = `<p style="margin-left:15px">Click CONTINUE to proceed.</p>`;
+      header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`;
+      header1.innerHTML = `<p><span>${data[0].Origin}</span> - <span>${data[0].Destination}</span></p>`;
+      let passList = document.getElementById("passenger_assign");
+      let passLists = document.getElementById("passenger-list");
+      let resBox = document.querySelector(".reserveBox");
+      resBox.style.display = "block";
+      document.getElementById("reservationNo").innerHTML =
+        data[0].ReservationNo;
+
+      // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
+      let html = "",
+        htmList = "";
+      localStorage.setItem("refNo", data[0].ReferenceNo);
+      localStorage.setItem("reservation", JSON.stringify(data));
+      if (data.length !== parseInt(localStorage.getItem("passenger_count"))) {
+        console.log("bookings cancelled");
+        return cancelBookings(true);
+      }
+
+      let fare = 0;
+      let paxCount = data.length;
+      let sub_total = 0;
+      let resvFee = 0;
+      data.forEach((res, index) => {
+        fare = res.AccommodationFee;
+        sub_total += res.AccommodationFee;
+        resvFee += res.ConvenienceFee;
+        let name = `${res.LastName}, ${res.FirstName}`;
+        if (res.SeatNo === "UNASSIGNED") {
+          seatOK = false;
+        }
+        html += `<option value="${res.ReferenceNo}">${name}</option>`;
+        htmList += `<div class="block">
+                              <div class="item">
+                                  <div>
+                                      <p>Seat no:</p>
+                                      <p>${res.SeatNo}</p>
+                                  </div>
+                              </div>
+                              <div class="item">
+                                  <div>
+                                      <p>Name:</p>
+                                      <p>${name}</p>
+                                  </div>
+                                  <i class="uil uil-pen" data-id ="${index}" onclick="editBookingUser(this)"></i>
+                              </div>
+                          </div>`;
+      });
+      let dest = JSON.parse(JSON.stringify(data[0]));
+
+      document.getElementById("side_departure").textContent = `${formatDate(
+        dest.tripdate
+      )} - ${formatTime(localStorage.getItem("sched-etd"))}`;
+      document.getElementById("s_fare").textContent =
+        "PHP " + fare.toFixed(2);
+      document.getElementById(
+        "sub_total"
+      ).innerHTML = `<p>Departure <span>(${paxCount} pax)</span></p>
+                  <div class="item">
+                  <p>Sub Total <span>(${paxCount} pax)</span></p>
+                  <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
+              </div>`;
+      document.getElementById("gran_total").textContent =
+        "PHP " + (sub_total + resvFee).toFixed(2);
+      document.getElementById("res_fee").textContent =
+        "PHP " + resvFee.toFixed(2);
+
+      passengersInfo.classList.add("active");
+      payCon.removeAttribute("disabled", false);
+      passList.innerHTML = html;
+      passLists.innerHTML = htmList;
+      cancelBtn.classList.add("active");
+      //continueBtn.classList.add("active");
+      // getReserve();
+      document.querySelector('#consent').style.display = 'block';
+      //modal.classList.add("active");
+    }
+  });
+
+}
+
+
+function loadTrip1(refNo, tripId, clientId) {
+  let pax_data = {
+    "clientid": clientId,
+    "token": localStorage.getItem('TOKEN'),
+    "tripID": tripId,
+    "referenceNo": '~' + refNo
+  };
+  localStorage.setItem('tripInfo', JSON.stringify(pax_data));
+  window.location.href = "booking.html?action=getreservation";
+  // //console.log(data);
+
+}
