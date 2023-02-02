@@ -286,7 +286,7 @@ function getPassengerInfo(id) {
   document.querySelector("#contact_number").value = cinfo.ContactNo;
 }
 
-function cancelBookings(getR = false) {
+async function cancelBookings(getR = false) {
   let reservation = localStorage.getItem("reservation");
   let info = JSON.parse(reservation)[0];
   let data = {
@@ -298,7 +298,7 @@ function cancelBookings(getR = false) {
     CancelStatus: "1",
     CancelRemarks: "CANCEL",
   };
-  fetchCancelBooking(data)
+  await fetchCancelBooking(data)
     .then((res) => {
       if (res.result === "OK") {
         console.log("CANCEL RESULT", res.result);
@@ -311,7 +311,7 @@ function cancelBookings(getR = false) {
     })
     .then((ex) => {
       if (getR) {
-        getReserve();
+       getReserve();
       }
     });
 }
@@ -697,8 +697,9 @@ function getSchedules() {
             localStorage.setItem("clientId", dest.clientid);
             body.classList.toggle("modal-open");
             cancelBtn.classList.add("active");
-            continueBtn.classList.add("active");
+            //continueBtn.classList.add("active");
             getReserve();
+            document.querySelector('#consent').style.display = 'block';
           }
 
           // body.classList.toggle("modal-open");

@@ -19,16 +19,17 @@ bookBtn.forEach((e) => {
     e.addEventListener("click", () => {
         body.classList.toggle("modal-open");
         cancelBtn.classList.add("active");
-        continueBtn.classList.add("active");
+        //continueBtn.classList.add("active");
         seatSelect.classList.add("active");
     });
 });
 
 function closeModal() {
-    cancelBookings();
-    // setTimeout(function (){
-    //     window.location.reload();
-    // },1000);
+    $.LoadingOverlay('show');
+    cancelBookings().then(() => {
+        window.location.reload();
+    });
+
 
     body.classList.toggle("modal-open");
     cancelBtn.classList.remove("active");
@@ -40,6 +41,9 @@ function closeModal() {
     bookingContinue.classList.remove("step-active");
     searchRes.classList.add("step-active");
     floatingSearch.style.display = "block";
+    document.getElementById('terms_policy').checked = false;
+    document.getElementById('consent').style.display = 'none';
+
 }
 
 let seats = document.querySelectorAll(".seat.available");
@@ -58,11 +62,12 @@ function cancelBooking() {
 }
 
 
-function jumpTo(anchor_id){
-    self.location.href = "#"+anchor_id;                 //Navigate to the target element.
+function jumpTo(anchor_id) {
+    self.location.href = "#" + anchor_id;                 //Navigate to the target element.
 }
 function continuePayment() {
-    window.scrollTo(0,0);
+    if (continueBtn.classList.contains('active') == false) return;
+    window.scrollTo(0, 0);
     let rlist = JSON.parse(localStorage.getItem('reservation'));
     let ok = true;
     rlist.forEach(row => {
@@ -79,7 +84,7 @@ function continuePayment() {
             })
             ok = false;
         }
-        if(row.SeatNo === 'UNASSIGNED'){
+        if (row.SeatNo === 'UNASSIGNED') {
             Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.');
             ok = false;
         }
@@ -94,6 +99,7 @@ function continuePayment() {
 }
 
 function confirmBooking(e) {
+    console.log('hasclass?', continueBtn.classList.contains('active'));
     $('.booking-modal.active>.wraper-item').LoadingOverlay('show');
     fetchPassengerSeat(document.getElementById('passenger_assign').value, e.dataset.seat).then(res => {
         if (res.result === 'OK') {
@@ -101,7 +107,7 @@ function confirmBooking(e) {
             bookingModal.classList.toggle("active");
             //seatSelect.classList.remove("active");
             cancelBtn.classList.add("active");
-            continueBtn.classList.add("active");
+            //continueBtn.classList.add("active");
             passengersInfo.classList.add("active");
             payCon.removeAttribute("disabled", false);
             bookingDetails.scrollTop = 0;

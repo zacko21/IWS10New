@@ -1,216 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
-    <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/admin.min.css?v=10" rel="stylesheet"/>
-    <link href="assets/css/table.min.css?v=10" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/admin.min.css?v=10" rel="stylesheet" />
+    <link href="assets/css/table.min.css?v=10" rel="stylesheet" />
 
     <!-- unicons -->
-    <link
-            href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-            rel="stylesheet"
-    />
+    <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" />
 
     <title>IWantSeats</title>
     <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
 </head>
+
 <body>
-<header>
-    <div class="container-max">
-        <div class="logo" onclick="window.open('./', '_self')">
-            <img alt="" src="assets/images/logo-black.png"/>
-        </div>
-        <div class="links">
-            <a href="./" onclick="menu()">Home</a>
-            <a href="#" onclick="menu()">About</a>
-            <a href="./#contact" onclick="menu()">Contact us</a>
-            <div class="status">
+    <header>
+        <div class="container-max">
+            <div class="logo" onclick="window.open('./', '_self')">
+                <img alt="" src="assets/images/logo-black.png" />
+            </div>
+            <div class="links">
+                <a href="./" onclick="menu()">Home</a>
+                <a href="#" onclick="menu()">About</a>
+                <a href="./#contact" onclick="menu()">Contact us</a>
+                <div class="status">
+                </div>
+            </div>
+            <div class="menu" onclick="menu()">
+                <i class="uil uil-align-center-alt"></i>
             </div>
         </div>
-        <div class="menu" onclick="menu()">
-            <i class="uil uil-align-center-alt"></i>
+    </header>
+    <section class="sp">
+        <div class="container">
+            <div class="edit-profile-modal">
+                <form>
+                    <center>
+                        <div class="user-profile">
+                            <!--                        <input id="profile" type="file"/>-->
+                            <!--                        <label for="profile">-->
+                            <!--                            <i class="uil uil-camera-plus"></i>-->
+                            <img alt="" src="assets/images/avatar.svg" />
+                            <!--                        </label>-->
+                        </div>
+                        <div style="text-align: left; padding-top: 10px">
+                            <label for="firstname" style="font-size: 10pt;">Firstname</label>
+                            <input id="firstname" required style="margin-top: 0!important;" type="text" />
+                        </div>
+                        <div style="text-align: left; padding-top: 10px">
+                            <label for="lastname" style="font-size: 10pt;">Lastname</label>
+                            <input id="lastname" required style="margin-top: 0!important;" type="text" />
+                        </div>
+                        <div style="text-align: left; padding-top: 10px">
+                            <label for="birthday" style="font-size: 10pt;">Birthday</label>
+                            <input id="birthday" style="margin-top: 0!important;" type="date" />
+                        </div>
+                        <div style="text-align: left; padding-top: 10px">
+                            <label for="contact" style="font-size: 10pt;">Contact No.</label>
+                            <input id="contact" style="margin-top: 0!important;" type="tel" />
+                        </div>
+                        <div style="text-align: left; padding-top: 10px">
+                            <label for="password" style="font-size: 10pt;">Password</label>
+                            <input id="password" required style="margin-top: 0!important;" type="password" />
+                        </div>
+                        <div class="btns">
+                            <button class="btn btn-primary submitbtn">Save changes</button>
+                            <div class="btn cancel-btn" onclick="edit()">Cancel</div>
+                        </div>
+                    </center>
+                </form>
+            </div>
+            <div class="user-profile-main">
+                <div class="user-account">
+                    <div class="profile-pic">
+                        <img alt="" src="assets/images/avatar.svg" />
+                    </div>
+                    <div class="details">
+                        <!--                    <a href="#"> Change password </a>-->
+                    </div>
+                    <div class="edit-profile" onclick="edit()">
+                        <i class="uil uil-pen"></i>
+                    </div>
+                </div>
+                <div class="other-info">
+                    <div class="item">
+                        <p>Loyality points:</p>
+                        <h3>-</h3>
+                    </div>
+                    <button class="btn data-table-btn btn-primary" onclick="data()">
+                        View Booking History
+                    </button>
+                </div>
+            </div>
+            <div class="active-booking">
+                <h1>Active booking</h1>
+                <div class="data-table-active">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Oparator</th>
+                                <th>Route</th>
+                                <th>Departure</th>
+                                <th>Reservation no.</th>
+                                <th>Total amount</th>
+                                <th>Payment status</th>
+                                <th>Reservation status</th>
+                                <th>Booking expiration</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="booking-history">
+                <h1>Booking history</h1>
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Oparator</th>
+                                <th>Route</th>
+                                <th>Departure</th>
+                                <th>Reservation no.</th>
+                                <th>Total amount</th>
+                                <th>Payment status</th>
+                                <th>Reservation status</th>
+                                <th>Booking expiration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <center>
+                <p>&copy; 2022 - 2023 - iWantSeats 10</p>
+                <div class="privacy">
+                    <a class="trigger" href="javascript:;">Terms and Conditions</a>
+                    <a class="trigger1" href="javascript:;">Privacy policy</a>
+                </div>
+            </center>
+        </div>
+    </footer>
+
+    <div id="policy" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button" id="pClose" style="font-size: large;">×</span>
+                <h1><strong>Privacy Policy</strong></h1>
+
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="policy.html"></div>
+            </div>
+
         </div>
     </div>
-</header>
-<section class="sp">
-    <div class="container">
-        <div class="edit-profile-modal">
-            <form>
-                <center>
-                    <div class="user-profile">
-                        <!--                        <input id="profile" type="file"/>-->
-                        <!--                        <label for="profile">-->
-                        <!--                            <i class="uil uil-camera-plus"></i>-->
-                        <img alt="" src="assets/images/avatar.svg"/>
-                        <!--                        </label>-->
-                    </div>
-                    <div style="text-align: left; padding-top: 10px">
-                        <label for="firstname" style="font-size: 10pt;">Firstname</label>
-                        <input id="firstname" required style="margin-top: 0!important;"
-                               type="text"/>
-                    </div>
-                    <div style="text-align: left; padding-top: 10px">
-                        <label for="lastname" style="font-size: 10pt;">Lastname</label>
-                        <input id="lastname" required style="margin-top: 0!important;"
-                               type="text"/>
-                    </div>
-                    <div style="text-align: left; padding-top: 10px">
-                        <label for="birthday" style="font-size: 10pt;">Birthday</label>
-                        <input id="birthday" style="margin-top: 0!important;"
-                               type="date"/>
-                    </div>
-                    <div style="text-align: left; padding-top: 10px">
-                        <label for="contact" style="font-size: 10pt;">Contact No.</label>
-                        <input id="contact" style="margin-top: 0!important;"
-                               type="tel"/>
-                    </div>
-                    <div style="text-align: left; padding-top: 10px">
-                        <label for="password" style="font-size: 10pt;">Password</label>
-                        <input id="password" required style="margin-top: 0!important;"
-                               type="password"/>
-                    </div>
-                    <div class="btns">
-                        <button class="btn btn-primary submitbtn">Save changes</button>
-                        <div class="btn cancel-btn" onclick="edit()">Cancel</div>
-                    </div>
-                </center>
-            </form>
-        </div>
-        <div class="user-profile-main">
-            <div class="user-account">
-                <div class="profile-pic">
-                    <img alt="" src="assets/images/avatar.svg"/>
-                </div>
-                <div class="details">
-                    <!--                    <a href="#"> Change password </a>-->
-                </div>
-                <div class="edit-profile" onclick="edit()">
-                    <i class="uil uil-pen"></i>
-                </div>
-            </div>
-            <div class="other-info">
-                <div class="item">
-                    <p>Loyality points:</p>
-                    <h3>-</h3>
-                </div>
-                <button class="btn data-table-btn btn-primary" onclick="data()">
-                    View Booking History
-                </button>
-            </div>
-        </div>
-        <div class="active-booking">
-            <h1>Active booking</h1>
-            <div class="data-table-active">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Oparator</th>
-                        <th>Route</th>
-                        <th>Departure</th>
-                        <th>Reservation no.</th>
-                        <th>Total amount</th>
-                        <th>Payment status</th>
-                        <th>Reservation status</th>
-                        <th>Booking expiration</th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-        <div class="booking-history">
-            <h1>Booking history</h1>
-            <div class="data-table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Oparator</th>
-                        <th>Route</th>
-                        <th>Departure</th>
-                        <th>Reservation no.</th>
-                        <th>Total amount</th>
-                        <th>Payment status</th>
-                        <th>Reservation status</th>
-                        <th>Booking expiration</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
 
-                </table>
+    <div id="terms" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button" id="tClose" style="font-size: large;">×</span>
+                <h1><strong>Terms and Conditions</strong></h1>
+
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="terms.html"></div>
             </div>
         </div>
     </div>
-</section>
-<footer>
-    <div class="container">
-        <center>
-            <p>&copy; 2022 - 2023 - iWantSeats 10</p>
-            <div class="privacy">
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Privacy policy</a>
-            </div>
-        </center>
-    </div>
-</footer>
+    <script>
+        async function addElement(el, url) {
+            let element = document.createElement(el);
+            if (el === "link") {
+                element.setAttribute("href", url + "?v=" + Date.now());
+                element.setAttribute("rel", "stylesheet");
+                document.head.appendChild(element);
+            } else {
+                element.setAttribute("src", url + "?v=" + Date.now());
+                document.body.appendChild(element);
+            }
+        }
+    </script>
 
-<script rel="script" src="assets/js/app.min.js?v=10"></script>
-<script rel="script" src="assets/js/jquery.min.js?v=10"></script>
-<script rel="script" src="assets/js/table.min.js?v=10"></script>
-<script rel="script" src="assets/js/moment.min.js?v=10"></script>
-<script rel="script" src="assets/js/main.min.js?v=10"></script>
+    <script rel="script" src="assets/js/jquery.min.js?v=10"></script>
+    <script rel="script" src="assets/js/table.min.js?v=10"></script>
+    <script rel="script" src="assets/js/moment.min.js?v=10"></script>
+    <script rel="script" src="assets/js/main.js?v=1675297651996"></script>
 
-<script>
+    <script>
+        addElement("script", "assets/js/modal.js");
+        addElement("link", "assets/css/modal.css");
+        addElement("script", "assets/js/app.js");
 
-    $(document).ready(() => {
-        let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
-        let pholder = $('.details');
-        pholder.html(`<h3 class="name">${userInfo.USERNAME}</h3>
+        $(document).ready(() => {
+            let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+            let pholder = $('.details');
+            pholder.html(`<h3 class="name">${userInfo.USERNAME}</h3>
                    <p><i class="uil uil-envelope"></i>${loginInfo.email}</p>
                    <p><i class="uil uil-phone"></i>${userInfo.CONTACT_NO}</p>`);
-        getHistory();
-    })
+            getHistory();
+        })
 
-    async function fetchUpdateProfile() {
-        let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updateonlineuser`;
-        let data = {
-            token: localStorage.getItem('TOKEN'),
-            password: $('#password').val(),
-            firstname: $('#firstname').val(),
-            middlename: "",
-            lastname: $('#lastname').val(),
-            birthDate: $('#birthday').val(),
-            contactNo: $('#contact').val(),
-            gender: "M"
+        async function fetchUpdateProfile() {
+            let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updateonlineuser`;
+            let data = {
+                token: localStorage.getItem('TOKEN'),
+                password: $('#password').val(),
+                firstname: $('#firstname').val(),
+                middlename: "",
+                lastname: $('#lastname').val(),
+                birthDate: $('#birthday').val(),
+                contactNo: $('#contact').val(),
+                gender: "M"
+            }
+            console.log(JSON.stringify(data))
+            let response = await fetch(input, {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: 'post',
+                body: JSON.stringify(data)
+            });
+            return await response.json();
         }
-        console.log(JSON.stringify(data))
-        let response = await fetch(input, {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            method: 'post',
-            body: JSON.stringify(data)
-        });
-        return await response.json();
-    }
 
 
-    $('.submitbtn').click(() => {
-        fetchUpdateProfile()
-            .then(() => {
-                editProfile.classList.remove("active");
-            })
-            .catch(error => {
-                editProfile.classList.remove("active");
-                //console.log(error);
-            })
-    })
-</script>
+        $('.submitbtn').click(() => {
+            fetchUpdateProfile()
+                .then(() => {
+                    editProfile.classList.remove("active");
+                })
+                .catch(error => {
+                    editProfile.classList.remove("active");
+                    //console.log(error);
+                })
+        })
+    </script>
 
 </body>
+
 </html>

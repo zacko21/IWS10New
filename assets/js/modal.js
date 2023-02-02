@@ -6,7 +6,6 @@ const closeButton = document.getElementById("tClose");
 const closeButton1 = document.getElementById("pClose");
 
 function toggleModal(modal) {
-	console.log(modal);
 	if (modal === "terms") {
 		terms.classList.toggle("show-modal");
 	}
@@ -16,7 +15,6 @@ function toggleModal(modal) {
 }
 
 function windowOnClick(event) {
-	console.log(event.target);
 	if (event.target === terms) toggleModal("terms");
 	if (event.target === trigger) toggleModal("terms");
 	if (event.target === closeButton) toggleModal("terms");

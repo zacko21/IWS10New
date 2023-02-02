@@ -361,7 +361,7 @@
                     <div class="reserveBox" style="text-align: center; display: none">
                         <p class="text-center" style="padding: 10px;background-color: #7cad3e;border-radius: 7px;">
                             Reservation No: <span id="reservationNo"
-                                style="text-decoration: underline; color: orangered "></span>
+                                style="text-decoration: underline; color: var(--black); font-weight: 600; "></span>
                         </p>
                     </div>
                     <div class="block bus-seat-select">
@@ -426,12 +426,18 @@
                             <h2><span id="gran_total">PHP 0.00</span></h2>
                         </div>
                     </div>
-                    <div class="block">
-                        <table  style="width:100%; background-color: white!important;">
+                    <div class="block" id="consent" style="display: none;">
+                        <table style="width:100%; background-color: white!important;">
                             <tbody>
                                 <tr>
-                                    <td style="width: 20px;background-color: white;"><input id="terms_policy" type="checkbox"></td>
-                                    <td style="background-color: white;"><label for="terms_policy">I agree to <a style="color: var(--secoundary);" href="javascript:;">Terms and Conditions</a>  & <a href="javascript:;" style="color: var(--secoundary);">Privacy Policy</a></label> 
+                                    <td style="width: 20px;background-color: white;"><input id="terms_policy"
+                                            type="checkbox"></td>
+                                    <td style="background-color: white;"><label for="terms_policy">I agree to <a
+                                                class="trigger" style="color: var(--secoundary); font-size: 1.6rem;"
+                                                href="javascript:;">Terms and
+                                                Conditions</a> & <a class="trigger1" href="javascript:;"
+                                                style="color: var(--secoundary); font-size: 1.6rem;">Privacy
+                                                Policy</a></label>
                                     </td>
                                 </tr>
                             </tbody>
@@ -546,16 +552,54 @@
             <center>
                 <p>&copy; 2022 - 2023 - iWantSeats 10</p>
                 <div class="privacy">
-                    <a href="#">Terms and Conditions</a>
-                    <a href="#">Privacy policy</a>
+                    <a class="trigger" href="javascript:;">Terms and Conditions</a>
+                    <a class="trigger1" href="javascript:;">Privacy policy</a>
                 </div>
             </center>
         </div>
     </footer>
 
+    <div id="policy" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button" id="pClose" style="font-size: large;">×</span>
+                <h1><strong>Privacy Policy</strong></h1>
+
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="policy.html"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="terms" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button" id="tClose" style="font-size: large;">×</span>
+                <h1><strong>Terms and Conditions</strong></h1>
+
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="terms.html"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function addElement(el, url) {
+            let element = document.createElement(el);
+            if (el === "link") {
+                element.setAttribute("href", url + "?v=" + Date.now());
+                element.setAttribute("rel", "stylesheet");
+                document.head.appendChild(element);
+            } else {
+                element.setAttribute("src", url + "?v=" + Date.now());
+                document.body.appendChild(element);
+            }
+        }
+    </script>
     <script rel="script" src="assets/js/jquery.min.js"></script>
     <script rel="script" src="assets/js/axios.min.js"></script>
-    <script rel="script" src="assets/js/app.min.js?v=3216351564156"></script>
     <script rel="script" src="assets/js/loadingoverlay.min.js"></script>
     <script rel="script" src="assets/js/lodash.min.js"></script>
     <script rel="script" src="assets/swal/sweetalert2.min.js"></script>
@@ -566,6 +610,9 @@
     <script>
         addElement('script', 'assets/js/main.js');
         addElement('script', 'assets/js/booking.js');
+        addElement("script", "assets/js/modal.js");
+        addElement("link", "assets/css/modal.css");
+        addElement('script', 'assets/js/app.js');
         // var script = document.createElement('script');
         // script.setAttribute('src', 'assets/js/main.min.js?v=' + Date.now()); //was missing single quote
         // document.body.appendChild(script);
@@ -576,6 +623,15 @@
             if (this.checked) {
                 Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
             }
+        });
+
+        $('#terms_policy').on('change', function () {
+            if (this.checked) {
+                continueBtn.classList.add("active");
+            }
+            else {
+                continueBtn.classList.remove("active");
+            };
         });
 
     </script>
