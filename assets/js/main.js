@@ -12,11 +12,14 @@ Date.prototype.addDays = function (days) {
   return date;
 };
 let dtDepart = document.getElementById("date_of_departure");
-dtDepart.setAttribute("min", new Date().addDays(1).toISOString().split("T")[0]);
-dtDepart.setAttribute(
-  "max",
-  new Date().addDays(30).toISOString().split("T")[0]
-);
+if(dtDepart){
+  dtDepart.setAttribute("min", new Date().addDays(1).toISOString().split("T")[0]);
+  dtDepart.setAttribute(
+    "max",
+    new Date().addDays(30).toISOString().split("T")[0]
+  );
+  
+}
 
 async function fetchBookingHistory() {
   let token = localStorage.getItem("TOKEN");
@@ -36,7 +39,7 @@ async function fetchBookingHistory() {
     });
     //console.log(JSON.stringify(data));
 
-    return await response.json();
+    return response.json();
   } else {
     window.location.href =
       document.URL.substring(0, document.URL.lastIndexOf("/")) + "/login.html";
@@ -164,7 +167,7 @@ async function fetchManifest() {
       routeid: localStorage.getItem("RouteId"),
       BusType: localStorage.getItem("BusType"),
     };
-    // //console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data));
     try {
       let response = await axios.post(input, data, axiosConfig);
       console.log(response.status);
@@ -340,7 +343,7 @@ function EditInfo(e) {
       if (res.result === "OK") {
         editBookedInfo.classList.remove("active");
         getReserve(false);
-        $('.edit-booked-user-info').LoadingOverlay('hide'); 
+        $('.edit-booked-user-info').LoadingOverlay('hide');
       }
     })
     .catch((error) => {
@@ -1202,6 +1205,13 @@ function loadTrip() {
         htmList = "";
       localStorage.setItem("refNo", data[0].ReferenceNo);
       localStorage.setItem("reservation", JSON.stringify(data));
+
+      localStorage.setItem("departure", data[0].TripDate),
+      localStorage.setItem("RouteId", data[0].RouteId);
+      localStorage.setItem("BusType", data[0].BusType);
+      localStorage.setItem("clientId", data[0].clientID);
+
+
       if (data.length !== parseInt(localStorage.getItem("passenger_count"))) {
         console.log("bookings cancelled");
         return cancelBookings(true);
