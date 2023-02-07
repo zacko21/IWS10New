@@ -1,9 +1,11 @@
 const terms = document.getElementById("terms");
 const policy = document.getElementById("policy");
+const reset = document.getElementById("resetModal");
 const trigger = document.querySelector(".trigger");
 const trigger1 = document.querySelector(".trigger1");
 const closeButton = document.getElementById("tClose");
 const closeButton1 = document.getElementById("pClose");
+const closeButton2 = document.getElementById("rClose");
 
 function toggleModal(modal) {
 	if (modal === "terms") {
@@ -11,6 +13,9 @@ function toggleModal(modal) {
 	}
 	if (modal === "policy") {
 		policy.classList.toggle("show-modal");
+	}
+	if (modal === "reset") {
+		reset.classList.toggle("show-modal");
 	}
 }
 
@@ -21,6 +26,7 @@ function windowOnClick(event) {
 	if (event.target === policy) toggleModal("policy");
 	if (event.target === trigger1) toggleModal("policy");
 	if (event.target === closeButton1) toggleModal("policy");
+	if (event.target === closeButton2) toggleModal("reset");
 }
 
 trigger.addEventListener("click", toggleModal("terms"));

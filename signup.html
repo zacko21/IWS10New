@@ -5,7 +5,8 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
-    <link href="assets/css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link href="assets/css/style.css?v=1675738853578" rel="stylesheet"/>
     <link href="assets/css/form.min.css?v=10" rel="stylesheet"/>
     <link href="assets/swal/sweetalert2.min.css?v=10" rel="stylesheet"/>
 
@@ -113,7 +114,7 @@
                 <input id="password" placeholder="Password" type="password"/>
                 <i class="uil uil-dizzy-meh"></i>
             </div>
-            <button class="btn signup" id="btn_sign_up">Signup</button>
+            <button class="btn signup fs-4" id="btn_sign_up">Signup</button>
 
             <div class="ask">
                 <p>Already have an account? <a href="login.html">Login</a></p>
@@ -141,14 +142,48 @@
         <center>
             <p>&copy; 2022 - 2023 - iWantSeats 10</p>
             <div class="privacy">
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Privacy policy</a>
+                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-terms">Terms and Conditions</a>
+                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-policy">Privacy policy</a>
             </div>
         </center>
     </div>
 </footer>
-<script rel="script" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js?v=10"></script>
-<script rel="script" src="assets/js/app.min.js?v=10"></script>
+
+<div id="modal-policy" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-3">
+                <h3 class="modal-title">Privacy Policy</h3>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="policy.html"></div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center p-3">
+                <button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-terms" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-4">
+                <h3 class="modal-title">Terms and Conditions</h3>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="terms.html"></div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center p-3">
+                <button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script rel="script" src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script rel="script" src="assets/js/app.js?v=1675748039008"></script>
 <script rel="script" src="assets/swal/sweetalert2.min.js?v=10"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {

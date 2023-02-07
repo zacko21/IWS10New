@@ -12,19 +12,19 @@ Date.prototype.addDays = function (days) {
   return date;
 };
 let dtDepart = document.getElementById("date_of_departure");
-if(dtDepart){
+if (dtDepart) {
   dtDepart.setAttribute("min", new Date().addDays(1).toISOString().split("T")[0]);
   dtDepart.setAttribute(
     "max",
     new Date().addDays(30).toISOString().split("T")[0]
   );
-  
+
 }
 
 async function fetchBookingHistory() {
   let token = localStorage.getItem("TOKEN");
   let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
-  if (token != null && token != "") {
+  if (token) {
     //console.log(input);
     let data = {
       token: token,
@@ -417,7 +417,7 @@ function getReserve(gManifest = true) {
         let resvFee = 0;
         data.forEach((res, index) => {
           fare = res.AccommodationFee - res.ConvenienceFee;
-          sub_total += res.AccommodationFee;
+          sub_total += fare;
           resvFee += res.ConvenienceFee;
           let name = `${res.LastName}, ${res.FirstName}`;
           if (res.SeatNo === "UNASSIGNED") {
@@ -442,22 +442,17 @@ function getReserve(gManifest = true) {
         });
         let dest = JSON.parse(JSON.stringify(data[0]));
 
-        document.getElementById("side_departure").textContent = `${formatDate(
-          dest.tripdate
-        )} - ${formatTime(localStorage.getItem("sched-etd"))}`;
-        document.getElementById("s_fare").textContent =
-          "PHP " + fare.toFixed(2);
-        document.getElementById(
-          "sub_total"
-        ).innerHTML = `<p>Departure <span>(${paxCount} pax)</span></p>
+        document.getElementById("side_departure").textContent = `${formatDate(dest.TripDate)} - ${formatTime(localStorage.getItem("sched-etd"))}`;
+        document.getElementById("s_fare").textContent = "₱ " + fare.toFixed(2);
+        document.getElementById("sub_total").innerHTML = `<p>Departure <span>(${paxCount} pax)</span></p>
                     <div class="item">
                     <p>Sub Total <span>(${paxCount} pax)</span></p>
-                    <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
+                    <h3><span>₱ ${sub_total.toFixed(2)}</span></h3>
                 </div>`;
         document.getElementById("gran_total").textContent =
-          "PHP " + (sub_total + resvFee).toFixed(2);
+          "₱ " + (sub_total + resvFee).toFixed(2);
         document.getElementById("res_fee").textContent =
-          "PHP " + resvFee.toFixed(2);
+          "₱ " + resvFee.toFixed(2);
 
         passengersInfo.classList.add("active");
         payCon.removeAttribute("disabled", false);
@@ -512,7 +507,8 @@ const getManifest = () => {
       } else {
         let gp = _.groupBy(JSON.parse(JSON.stringify(data)), "row");
         let placeholder = document.querySelector(".bus-body");
-        let html = `<table class="table table-sm"><tbody>`;
+        let html = `<table class="table table-sm table-borderless"><tbody>`;
+
         _.forEach(gp, (list, row) => {
           html += "<tr>";
           list.forEach((row1) => {
@@ -625,15 +621,14 @@ function getSchedules() {
         let html = "";
         ////console.log(data);
 
-        header.innerHTML = `<p><span>${data[0].originname}</span> TO <span>${data[0].destinationname}</span></p>`;
+        header.innerHTML = `<p class="mb-0"><span>${data[0].originname}</span> TO <span>${data[0].destinationname}</span></p>
+        <span class="fs-3 fw-lighter">Travel Date: <span class="fw-bold">${moment(data[0].TripDate).format("MMMM DD, YYYY - ddd ")}</span></span>`;
         header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].destinationname}</span></p>`;
         data.forEach((results, index) => {
           html += `<div class="search-result">
             <div class="highlight">
-                <p id="fare">PHP <span>${results["fare"]}</span></p>
-                <p id="etd">Departure: <span>${formatTime(
-            results["etd"]
-          )}</span></p>
+                <p id="fare">₱ <span>${results["fare"]}</span></p>
+                <p id="etd">Departure: <span>${formatTime(results["etd"])}</span></p>
             </div>
             <div class="details">
                 <h3 id="bus_type">${results["busoperator"]} | ${results["bustype"]
@@ -656,7 +651,7 @@ function getSchedules() {
                   </div>
                </div>
             </div>
-            <button data-id="${index}" class="btn book">Book seats</button></div>`;
+            <button data-id="${index}" class="btn book btn-primary fs-4">Book seats</button></div>`;
         });
         placeholder.innerHTML = html;
       } else {
@@ -830,7 +825,7 @@ function getDestination(search = "") {
 }
 
 function formatDate(date) {
-  return moment(date).format("ddd, MMM D");
+  return moment(date).format("ddd, MMM DD");
   // let tDate = new Date(date)
   // return tDate.toLocaleString('en', {
   //     weekday: "short",
@@ -956,12 +951,9 @@ function paygcash(amount, refNo) {
         if (data11.RESULT === "SAVED") {
           let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
 width=0,height=0,left=-1000,top=-1000`;
-
           open(data11.URL, "GCASH", params);
         } else {
-          alert(
-            "Oops. It appears we cannot process your GCash payment for now."
-          );
+          swal.fire("Oops. It appears we cannot process your GCash payment for now.",'','error');
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -1126,8 +1118,15 @@ $(document).ready(() => {
   let page = path.split("/").pop();
 
   if (page.includes("index") || page === "") {
+    let action = GetURLParameter('action');
+    let token = GetURLParameter('token');
     getLocation();
+    if (action == 'resetpass') {
+      $('#fToken').val(token);
+      $('#modal-resetpass').modal('show');
+    }
   }
+
   if (page.includes("booking")) {
     let action = GetURLParameter('action');
     console.log(action);
@@ -1186,6 +1185,7 @@ $("#contactForm").submit(async function (e) {
 function loadTrip() {
   let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
   fetchReservationInfo(pax_data).then(data => {
+    console.log('reservation_date',data);
     if (data.length > 0) {
       let header = document.getElementById("header_travel");
       let header1 = document.getElementById("side_header");
@@ -1207,7 +1207,7 @@ function loadTrip() {
       localStorage.setItem("reservation", JSON.stringify(data));
 
       localStorage.setItem("departure", data[0].TripDate),
-      localStorage.setItem("RouteId", data[0].RouteId);
+        localStorage.setItem("RouteId", data[0].RouteId);
       localStorage.setItem("BusType", data[0].BusType);
       localStorage.setItem("clientId", data[0].clientID);
 
@@ -1252,18 +1252,18 @@ function loadTrip() {
         dest.tripdate
       )} - ${formatTime(localStorage.getItem("sched-etd"))}`;
       document.getElementById("s_fare").textContent =
-        "PHP " + fare.toFixed(2);
+        "₱ " + fare.toFixed(2);
       document.getElementById(
         "sub_total"
       ).innerHTML = `<p>Departure <span>(${paxCount} pax)</span></p>
                   <div class="item">
                   <p>Sub Total <span>(${paxCount} pax)</span></p>
-                  <h3><span>PHP ${sub_total.toFixed(2)}</span></h3>
+                  <h3><span>₱ ${sub_total.toFixed(2)}</span></h3>
               </div>`;
       document.getElementById("gran_total").textContent =
-        "PHP " + (sub_total + resvFee).toFixed(2);
+        "₱ " + (sub_total + resvFee).toFixed(2);
       document.getElementById("res_fee").textContent =
-        "PHP " + resvFee.toFixed(2);
+        "₱ " + resvFee.toFixed(2);
 
       passengersInfo.classList.add("active");
       payCon.removeAttribute("disabled", false);

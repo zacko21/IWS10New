@@ -6,7 +6,8 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link href="assets/css/style.css?v=1675738853578" rel="stylesheet" />
     <link href="assets/css/admin.min.css?v=10" rel="stylesheet" />
     <link href="assets/css/table.min.css?v=10" rel="stylesheet" />
 
@@ -28,6 +29,10 @@
                 <a href="./#" onclick="menu()">About</a>
                 <a href="./#contact" onclick="menu()">Contact us</a>
                 <div class="status">
+                    <a href="#" onclick="Logout()">
+                        <button class="btn-primary">Logout</button>
+
+                    </a>
                 </div>
             </div>
             <div class="menu" onclick="menu()">
@@ -35,6 +40,7 @@
             </div>
         </div>
     </header>
+
     <section class="sp">
         <div class="container">
             <div class="edit-profile-modal">
@@ -68,8 +74,8 @@
                             <input id="password" required style="margin-top: 0!important;" type="password" />
                         </div>
                         <div class="btns">
-                            <button class="btn btn-primary submitbtn">Save changes</button>
-                            <div class="btn cancel-btn" onclick="edit()">Cancel</div>
+                            <button class="btn btn-primary submitbtn fs-4 p-3">Save changes</button>
+                            <div class="btn btn-danger fs-4 p-3" onclick="edit()">Cancel</div>
                         </div>
                     </center>
                 </form>
@@ -91,7 +97,7 @@
                         <p>Loyality points:</p>
                         <h3>-</h3>
                     </div>
-                    <button class="btn data-table-btn btn-primary" onclick="data()">
+                    <button class="btn data-table-btn btn-primary fs-4" onclick="data()">
                         View Booking History
                     </button>
                 </div>
@@ -141,43 +147,49 @@
         </div>
     </section>
     <footer>
-        <div class="container">
-            <center>
-                <p>&copy; 2022 - 2023 - iWantSeats 10</p>
-                <div class="privacy">
-                    <a class="trigger" href="javascript:;">Terms and Conditions</a>
-                    <a class="trigger1" href="javascript:;">Privacy policy</a>
-                </div>
-            </center>
-        </div>
-    </footer>
+		<div class="container">
+			<center>
+				<p>&copy; 2022 - 2023 - iWantSeats 10</p>
+				<div class="privacy">
+					<a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-terms">Terms and Conditions</a>
+					<a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-policy">Privacy policy</a>
+				</div>
+			</center>
+		</div>
+	</footer>
 
-    <div id="policy" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close-button" id="pClose" style="font-size: large;">×</span>
-                <h1><strong>Privacy Policy</strong></h1>
-
-            </div>
-            <div class="modal-body">
-                <div w3-include-html="policy.html"></div>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="terms" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close-button" id="tClose" style="font-size: large;">×</span>
-                <h1><strong>Terms and Conditions</strong></h1>
-
-            </div>
-            <div class="modal-body">
-                <div w3-include-html="terms.html"></div>
-            </div>
-        </div>
-    </div>
+	<div id="modal-policy" class="modal fade" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header p-3">
+					<h3 class="modal-title">Privacy Policy</h3>
+					<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div w3-include-html="policy.html"></div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center p-3">
+					<button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="modal-terms" class="modal fade" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header p-4">
+					<h3 class="modal-title">Terms and Conditions</h3>
+					<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div w3-include-html="terms.html"></div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center p-3">
+					<button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
     <script>
         async function addElement(el, url) {
             let element = document.createElement(el);
@@ -192,11 +204,12 @@
         }
     </script>
 
-    <script rel="script" src="assets/js/jquery.min.js?v=10"></script>
+    <script rel="script" src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script rel="script" src="assets/js/axios.min.js"></script>
     <script rel="script" src="assets/js/table.min.js?v=10"></script>
     <script rel="script" src="assets/js/moment.min.js?v=10"></script>
-    <script rel="script" src="assets/js/main.js?v=1675297651996"></script>
+    <script rel="script" src="assets/js/main.js?v=1775297651996"></script>
 
     <script>
         addElement("script", "assets/js/modal.js");
@@ -204,6 +217,11 @@
         addElement("script", "assets/js/app.js");
 
         $(document).ready(() => {
+            let token = localStorage.getItem("TOKEN");
+            if(!token){
+                window.location = "./login.html";
+            }
+
             let userInfo = JSON.parse(localStorage.getItem('userInfo'));
             let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
             let pholder = $('.details');

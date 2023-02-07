@@ -5,10 +5,11 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
-    <link href="assets/css/style.min.css" rel="stylesheet" />
-    <link href="assets/css/form.min.css" rel="stylesheet" />
-    <link href="assets/css/booking.css?v=1675382861117" rel="stylesheet" />
-    <link href="assets/css/buss.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link href="assets/css/style.css?v=1675738853578" rel="stylesheet" />
+    <link href="assets/css/form.min.css?v=1675738853578" rel="stylesheet" />
+    <link href="assets/css/booking.css?v=1675738853578" rel="stylesheet" />
+    <link href="assets/css/buss.css?v=1675738853578" rel="stylesheet" />
     <link href="assets/swal/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- unicons -->
@@ -87,11 +88,11 @@
                             <label for="date_of_departure">Travel Date</label>
                             <div class="input">
                                 <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
-                                    required type="date" />
+                                    required type="date" onfocus="this.showPicker()" />
                                 <i class="uil uil-calendar-alt"></i>
                             </div>
                         </div>
-                        <div class="search-fild">
+                        <!-- <div class="search-fild">
                             <div class="flex">
                                 <label for="date_of_return">Return Date</label>
                                 <input id="chkReturn" type="checkbox" />
@@ -101,7 +102,7 @@
                                     onchange="this.className=(this.value!=''?'has-value':'')" type="date" />
                                 <i class="uil uil-calendar-alt"></i>
                             </div>
-                        </div>
+                        </div> -->
                         <button class="btn-primary search-btn" onclick="SearchForm(event)">
                             <i class="uil uil-search"></i> Search
                         </button>
@@ -116,15 +117,16 @@
                 <div class="steps-main">
                     <div class="step-block search-res step-active">
                         <div class="choosen-location">
-                            <p id="header_travel"><span style="font-size: medium;">We can't find available trips for this date. Please try another search</span></p>
-                            <!--                <div class="time">-->
+                            <p id="header_travel"><span style="font-size: medium;">We can't find available trips for
+                                    this date. Please try another search</span></p>
+                            <!-- <div class="time">-->
                             <!--                  <input -->
                             <!--                    type="datetime-local"-->
                             <!--                    placeholder="Date and time"-->
                             <!--                    onchange="this.className=(this.value!=''?'has-value':'')"-->
                             <!--                    placeholder="date"-->
                             <!--                  />-->
-                            <!--                </div>-->
+                            <!--                </div> -->
                         </div>
                         <div class="search-result-main">
                         </div>
@@ -218,14 +220,16 @@
                                 <div>
                                     <input class="gcashi" name="gcash" type="radio" id="gcash" />
                                     <div class="content">
-                                        <label for="gcash"><h3>Pay with GCash</h3></label>
+                                        <label for="gcash">
+                                            <h3>Pay with GCash</h3>
+                                        </label>
                                         <p>
                                             Safe money transfer using your bank account. Visa,
                                             MasterCard, Discover, American Express, etc.
                                         </p>
                                     </div>
                                     <div class="card-icon">
-                                        <label for="gcash"><img alt="" src="assets/images/gcash.png" /></label> 
+                                        <label for="gcash"><img alt="" src="assets/images/gcash.png" /></label>
                                     </div>
                                 </div>
                             </div>
@@ -366,7 +370,7 @@
                     </div>
                     <div class="block bus-seat-select">
                         <h3 class="title">Choose Seat</h3>
-                        <div class="bus-body">
+                        <div class=" bus-body table-responsive">
                         </div>
                     </div>
                     <div class="block passenger-s" id="passenger-block">
@@ -374,7 +378,7 @@
                         <div id="passenger-list">
                         </div>
                         <div style="overflow: auto; text-align: center">
-                            <button class="btn btn-primary" onclick="assignSeat()"
+                            <button class="btn btn-primary fs-4" onclick="assignSeat()"
                                 style="padding: 5px 10px 5px 10px; width: 60%">
                                 Assign
                                 Seat
@@ -402,7 +406,7 @@
                         <div class="item">
                             <div>
                                 <p>Fare:</p>
-                                <span id="s_fare">PHP 0.00</span>
+                                <span id="s_fare">₱ 0.00</span>
                             </div>
                         </div>
                     </div>
@@ -412,30 +416,31 @@
                             <p>Departure <span>(0 pax)</span></p>
                             <div class="item">
                                 <p>Sub Total <span>(0 pax)</span></p>
-                                <h3><span>PHP 0.00</span></h3>
+                                <h3><span>₱ 0.00</span></h3>
                             </div>
                         </div>
                         <div class="item">
                             <p>Reservation Fee</p>
-                            <h3><span id="res_fee">PHP 0</span></h3>
+                            <h3><span id="res_fee">₱ 0</span></h3>
                         </div>
                     </div>
                     <div class="block">
                         <div class="item">
                             <p>Total</p>
-                            <h2><span id="gran_total">PHP 0.00</span></h2>
+                            <h2><span id="gran_total">₱ 0.00</span></h2>
                         </div>
                     </div>
                     <div class="block" id="consent" style="display: none;">
                         <table style="width:100%; background-color: white!important;">
                             <tbody>
                                 <tr>
-                                    <td style="width: 20px;background-color: white;"><input id="terms_policy"
-                                            type="checkbox"></td>
-                                    <td style="background-color: white;"><label for="terms_policy">I agree to <a
-                                                class="trigger" style="color: var(--secoundary); font-size: 1.6rem;"
+                                    <td style="width: 30px;background-color: white;"><input id="terms_policy"
+                                            type="checkbox" class="form-check-input"></td>
+                                    <td style="background-color: white;">
+                                        <label for="terms_policy" class="fs-4">I agree to <a data-bs-toggle="modal" data-bs-target="#modal-terms"
+                                                style="color: var(--secoundary); font-size: 1.6rem;"
                                                 href="javascript:;">Terms and
-                                                Conditions</a> & <a class="trigger1" href="javascript:;"
+                                                Conditions</a> & <a data-bs-toggle="modal" data-bs-target="#modal-policy" href="javascript:;"
                                                 style="color: var(--secoundary); font-size: 1.6rem;">Privacy
                                                 Policy</a></label>
                                     </td>
@@ -444,11 +449,11 @@
                         </table>
                     </div>
 
-                    <button class="btn pay-con continue" disabled onclick="continuePayment()">
+                    <button class="btn pay-con continue btn-primary fs-4" disabled onclick="continuePayment()">
                         <i class="uil uil-credit-card"></i>
                         Continue Booking
                     </button>
-                    <button class="btn cancel-btn" onclick="closeModal()">
+                    <button class="btn cancel-btn btn-sm fs-4 btn-danger p-3" onclick="closeModal()">
                         Cancel Booking
                     </button>
                 </div>
@@ -457,7 +462,7 @@
                 <!-- booking popup modal -->
                 <div class="booking-modal">
                     <div class="wraper-item">
-                        <table>
+                        <table class="table fs-4 table-bordered">
                             <tr>
                                 <th>Seat No</th>
                                 <th>Seat Name</th>
@@ -474,10 +479,11 @@
                             <option value="#">User name here</option>
                         </select>
                         <div class="btns">
-                            <button class="btn btn-primary" id="btn_reserve_passenger" onclick="confirmBooking(this)">
+                            <button class="btn btn-primary fs-4" id="btn_reserve_passenger"
+                                onclick="confirmBooking(this)">
                                 Confirm
                             </button>
-                            <button class="btn btn-primary" onclick="cancelBooking()">
+                            <button class="btn btn-primary fs-4" onclick="cancelBooking()">
                                 Cancel
                             </button>
                         </div>
@@ -537,8 +543,8 @@
                         <!--                        </div>-->
                         <!--                    </div>-->
                         <div class="btns">
-                            <button class="btn btn-primary" type="submit">Save edits</button>
-                            <button class="btn btn-primary" onclick="closeModalInfo()" type="button">Cancel
+                            <button class="btn btn-primary fs-4 " type="submit">Save edits</button>
+                            <button class="btn btn-primary fs-4" onclick="closeModalInfo()" type="button">Cancel
                                 edits</button>
                         </div>
                     </form>
@@ -552,36 +558,42 @@
             <center>
                 <p>&copy; 2022 - 2023 - iWantSeats 10</p>
                 <div class="privacy">
-                    <a class="trigger" href="javascript:;">Terms and Conditions</a>
-                    <a class="trigger1" href="javascript:;">Privacy policy</a>
+                    <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-terms">Terms and Conditions</a>
+                    <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-policy">Privacy policy</a>
                 </div>
             </center>
         </div>
     </footer>
 
-    <div id="policy" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close-button" id="pClose" style="font-size: large;">×</span>
-                <h1><strong>Privacy Policy</strong></h1>
-
+    <div id="modal-policy" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-3">
+                    <h3 class="modal-title">Privacy Policy</h3>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div w3-include-html="policy.html"></div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center p-3">
+                    <button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <div w3-include-html="policy.html"></div>
-            </div>
-
         </div>
     </div>
-
-    <div id="terms" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close-button" id="tClose" style="font-size: large;">×</span>
-                <h1><strong>Terms and Conditions</strong></h1>
-
-            </div>
-            <div class="modal-body">
-                <div w3-include-html="terms.html"></div>
+    <div id="modal-terms" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-4">
+                    <h3 class="modal-title">Terms and Conditions</h3>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div w3-include-html="terms.html"></div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center p-3">
+                    <button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -599,23 +611,22 @@
         }
     </script>
     <script rel="script" src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script rel="script" src="assets/js/axios.min.js"></script>
     <script rel="script" src="assets/js/loadingoverlay.min.js"></script>
     <script rel="script" src="assets/js/lodash.min.js"></script>
     <script rel="script" src="assets/swal/sweetalert2.min.js"></script>
     <script rel="script" src="assets/js/moment.min.js"></script>
 
-
     <script>
         addElement('script', 'assets/js/app.js');
         addElement('script', 'assets/js/booking.js');
         addElement('script', 'assets/js/main.js');
-        addElement("script", "assets/js/modal.js");
-        addElement("link", "assets/css/modal.css");
         $("#chkReturn").change(function () {
             if (this.checked) {
                 Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
-            ''}
+                ''
+            }
         });
 
         $('#terms_policy').on('change', function () {
