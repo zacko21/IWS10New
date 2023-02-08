@@ -116,3 +116,16 @@ function includeHTML() {
   $(document).ready(() => {
 	includeHTML();
 });
+
+
+$("#modal-terms").on('hide.bs.modal', function () {
+	setTimeout(function(){
+	 body.classList.toggle("modal-open");
+	},500)
+ });
+
+ $("#modal-policy").on('hide.bs.modal', function () {
+	setTimeout(function(){
+	 body.classList.toggle("modal-open");
+	},500)
+ });

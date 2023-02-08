@@ -1,3 +1,5 @@
+var action;
+
 let axiosConfig = {
   headers: {
     "Content-Type": "application/json;charset=UTF-8",
@@ -5,6 +7,21 @@ let axiosConfig = {
 };
 
 let confirmModal = document.querySelector(".booking-confirm");
+
+function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}
+
 
 Date.prototype.addDays = function (days) {
   let date = new Date(this.valueOf());
@@ -913,10 +930,17 @@ $(".gcashi").click(function () {
   //     // }
   //     // fee = f;
   // })
+
   let reslist = JSON.parse(localStorage.getItem("reservation"));
-  refNo = reslist[0].ReferenceNo;
+  refNo = reslist[0].ReservationNo;
   reslist.forEach((row) => {
-    fee += row.AccommodationFee;
+    let sfee = 0;
+    if(action === 'getreservation'){
+      sfee = row.AccommodationFee + row.ConvenienceFee;
+    }else{
+      sfee = row.AccommodationFee;
+    }
+    fee += sfee;
   });
   paygcash(fee, refNo);
 });
@@ -949,9 +973,10 @@ function paygcash(amount, refNo) {
         var data1 = JSON.stringify(data);
         var data11 = JSON.parse(data1);
         if (data11.RESULT === "SAVED") {
-          let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
-width=0,height=0,left=-1000,top=-1000`;
-          open(data11.URL, "GCASH", params);
+          top.window.location.href= data11.URL;
+//           let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+// width=0,height=0,left=-1000,top=-1000`;
+//           open(data11.URL, "GCASH", params);
         } else {
           swal.fire("Oops. It appears we cannot process your GCash payment for now.",'','error');
         }
@@ -1041,7 +1066,7 @@ function getHistory() {
               row.etd.split(" ")[1]
             )}</span></p>
                       </td>
-                      <td><a style="color:white; font-size:1.6rem" href="javascript:;" onclick="loadTrip1('${row.reference_no}','${row.trip_id}',${row.clientid})">${row.reference_no}</a></td>
+                      <td><a style="color:white; font-size:1.6rem" href="javascript:;" onclick="SetTrip('${row.reference_no}','${row.trip_id}',${row.clientid})">${row.reference_no}</a></td>
                       <td>${row.total_amount_due.toLocaleString(
               "en",
               options
@@ -1118,7 +1143,7 @@ $(document).ready(() => {
   let page = path.split("/").pop();
 
   if (page.includes("index") || page === "") {
-    let action = GetURLParameter('action');
+    action = GetURLParameter('action');
     let token = GetURLParameter('token');
     getLocation();
     if (action == 'resetpass') {
@@ -1128,9 +1153,10 @@ $(document).ready(() => {
   }
 
   if (page.includes("booking")) {
-    let action = GetURLParameter('action');
+    action = GetURLParameter('action');
     console.log(action);
     if (action && action === 'getreservation') {
+      body.classList.toggle("modal-open");
       loadTrip();
     } else {
       getSchedules();
@@ -1191,7 +1217,8 @@ function loadTrip() {
       let header1 = document.getElementById("side_header");
       let placeholder = document.querySelector(" .search-result-main");
       placeholder.innerHTML = `<p style="margin-left:15px">Click CONTINUE to proceed.</p>`;
-      header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`;
+        header.innerHTML = `<p class="mb-0"><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>
+        <span class="fs-3 fw-lighter">Travel Date: <span class="fw-bold">${moment(data[0].TripDate).format("MMMM DD, YYYY - ddd ")}</span></span>`;
       header1.innerHTML = `<p><span>${data[0].Origin}</span> - <span>${data[0].Destination}</span></p>`;
       let passList = document.getElementById("passenger_assign");
       let passLists = document.getElementById("passenger-list");
@@ -1207,15 +1234,9 @@ function loadTrip() {
       localStorage.setItem("reservation", JSON.stringify(data));
 
       localStorage.setItem("departure", data[0].TripDate),
-        localStorage.setItem("RouteId", data[0].RouteId);
+      localStorage.setItem("RouteId", data[0].RouteId);
       localStorage.setItem("BusType", data[0].BusType);
       localStorage.setItem("clientId", data[0].clientID);
-
-
-      if (data.length !== parseInt(localStorage.getItem("passenger_count"))) {
-        console.log("bookings cancelled");
-        return cancelBookings(true);
-      }
 
       let fare = 0;
       let paxCount = data.length;
@@ -1265,14 +1286,14 @@ function loadTrip() {
       document.getElementById("res_fee").textContent =
         "₱ " + resvFee.toFixed(2);
 
-      passengersInfo.classList.add("active");
+      document.querySelector('#consent').style.display = 'block';
+        passengersInfo.classList.add("active");
       payCon.removeAttribute("disabled", false);
       passList.innerHTML = html;
       passLists.innerHTML = htmList;
       cancelBtn.classList.add("active");
       //continueBtn.classList.add("active");
       // getReserve();
-      document.querySelector('#consent').style.display = 'block';
       //modal.classList.add("active");
     }
   });
@@ -1280,7 +1301,7 @@ function loadTrip() {
 }
 
 
-function loadTrip1(refNo, tripId, clientId) {
+function SetTrip(refNo, tripId, clientId) {
   let pax_data = {
     "clientid": clientId,
     "token": localStorage.getItem('TOKEN'),
