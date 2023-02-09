@@ -17,7 +17,7 @@ let floatingSearched = document.querySelector(".search-ag i");
 let floatingSearch = document.querySelector(".search-ag");
 bookBtn.forEach((e) => {
     e.addEventListener("click", () => {
-        body.classList.toggle("modal-open");
+        //body.classList.toggle("modal-open");
         cancelBtn.classList.add("active");
         //continueBtn.classList.add("active");
         seatSelect.classList.add("active");
@@ -39,7 +39,7 @@ function closeModal() {
     });
 
 
-    body.classList.toggle("modal-open");
+    //body.classList.toggle("modal-open");
     cancelBtn.classList.remove("active");
     continueBtn.classList.remove("active");
     seatSelect.classList.remove("active");
@@ -51,6 +51,7 @@ function closeModal() {
     floatingSearch.style.display = "block";
     document.getElementById('terms_policy').checked = false;
     document.getElementById('consent').style.display = 'none';
+    bookingDetails.style = "position:relative;transform:unset";
 
 }
 

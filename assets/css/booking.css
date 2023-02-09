@@ -344,14 +344,14 @@ main {
   }
   .booking-details {
     width: 100%;
-    padding: 0px;
-    box-shadow: unset;
+    padding: 2rem;
+    box-shadow: var(--drop-shadow);
   }
   .booking-details {
     position: fixed;
     transform: translate(100%, -50%);
   }
-  body.modal-open .booking-details {
+  body.modal-open1 .booking-details {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -364,10 +364,10 @@ main {
     transition: all 0.3s ease 0s;
     overflow-y: scroll;
   }
-  body.modal-open .booking-details::-webkit-scrollbar {
+  body.modal-open1 .booking-details::-webkit-scrollbar {
     width: 0px;
   }
-  body.modal-open::before {
+  body.modal-open1::before {
     content: "";
     position: fixed;
     left: 0px;

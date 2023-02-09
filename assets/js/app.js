@@ -118,14 +118,18 @@ function includeHTML() {
 });
 
 
-$("#modal-terms").on('hide.bs.modal', function () {
-	setTimeout(function(){
-	 body.classList.toggle("modal-open");
-	},500)
- });
 
- $("#modal-policy").on('hide.bs.modal', function () {
-	setTimeout(function(){
-	 body.classList.toggle("modal-open");
-	},500)
- });
+// $("#modal-terms").on('hide.bs.modal', async function () {
+
+// 	setTimeout(function(){
+// 		let body = document.querySelector("body");
+// 		body.classList.toggle("modal-open");
+// 	},300)
+//  });
+
+//  $("#modal-policy").on('hide.bs.modal', function () {
+// 	setTimeout(function(){
+// 		let body = document.querySelector("body");
+// 		body.classList.toggle("modal-open");
+// 	},300)
+//  });

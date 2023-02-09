@@ -1,4 +1,4 @@
-var action;
+var action = '';
 
 let axiosConfig = {
   headers: {
@@ -8,18 +8,15 @@ let axiosConfig = {
 
 let confirmModal = document.querySelector(".booking-confirm");
 
-function GetURLParameter(sParam)
-{
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) 
-    {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) 
-        {
-            return sParameterName[1];
-        }
+function GetURLParameter(sParam) {
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++) {
+    var sParameterName = sURLVariables[i].split('=');
+    if (sParameterName[0] == sParam) {
+      return sParameterName[1];
     }
+  }
 }
 
 
@@ -412,7 +409,6 @@ function getReserve(gManifest = true) {
       if (data.length > 0) {
         let passList = document.getElementById("passenger_assign");
         let passLists = document.getElementById("passenger-list");
-        let header = document.getElementById("header-booking");
         let resBox = document.querySelector(".reserveBox");
         resBox.style.display = "block";
         document.getElementById("reservationNo").innerHTML =
@@ -423,6 +419,7 @@ function getReserve(gManifest = true) {
           htmList = "";
         localStorage.setItem("refNo", data[0].ReferenceNo);
         localStorage.setItem("reservation", JSON.stringify(data));
+        SetTrip(data[0].ReservationNo, `${data[0].TripDate}.${data[0].RouteId}`, data[0].clientID, false);
         if (data.length !== parseInt(localStorage.getItem("passenger_count"))) {
           console.log("bookings cancelled");
           return cancelBookings(true);
@@ -712,11 +709,15 @@ function getSchedules() {
             localStorage.setItem("RouteId", dest.tkey);
             localStorage.setItem("BusType", dest.bustype);
             localStorage.setItem("clientId", dest.clientid);
-            body.classList.toggle("modal-open");
-            cancelBtn.classList.add("active");
+            let body = document.querySelector("body");
+          //  body.classList.toggle("modal-open");
+          let bookingDetails = document.querySelector(".booking-details");
+          bookingDetails.style = "position:relative;transform:unset";
+          cancelBtn.classList.add("active");
             //continueBtn.classList.add("active");
             getReserve();
             document.querySelector('#consent').style.display = 'block';
+            
           }
 
           // body.classList.toggle("modal-open");
@@ -776,7 +777,7 @@ function getLocation(search = "") {
 
 function Logout() {
   localStorage.clear();
-  window.location.href = "index.html";
+  window.location.href = "./";
 }
 //     localStorage.removeItem('USERNAME');
 //     localStorage.removeItem('TOKEN');
@@ -908,7 +909,7 @@ function SearchForm(e) {
   }
 }
 
-$(".gcashi").click(function () {
+$(".gcashi").click(async function () {
   let fee = 0;
   let refNo = "";
   // let data = {
@@ -930,18 +931,13 @@ $(".gcashi").click(function () {
   //     // }
   //     // fee = f;
   // })
-
-  let reslist = JSON.parse(localStorage.getItem("reservation"));
-  refNo = reslist[0].ReservationNo;
-  reslist.forEach((row) => {
-    let sfee = 0;
-    if(action === 'getreservation'){
-      sfee = row.AccommodationFee + row.ConvenienceFee;
-    }else{
-      sfee = row.AccommodationFee;
-    }
-    fee += sfee;
-  });
+  let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
+  await fetchReservationInfo(pax_data).then(data => {
+    data.forEach(row => {
+      fee += row.AccommodationFee + row.ConvenienceFee;
+      refNo = row.ReservationNo;
+    });
+  })
   paygcash(fee, refNo);
 });
 
@@ -956,7 +952,7 @@ function paygcash(amount, refNo) {
     mobile: "",
     token: localStorage.getItem("TOKEN"),
   };
-
+  console.log(pax_data);
   try {
     $.ajax({
       url: "https://iwsenterprise.com/iwsticketing_v3/enterprise/paymongocreatesource_augmata.aspx",
@@ -973,12 +969,12 @@ function paygcash(amount, refNo) {
         var data1 = JSON.stringify(data);
         var data11 = JSON.parse(data1);
         if (data11.RESULT === "SAVED") {
-          top.window.location.href= data11.URL;
-//           let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
-// width=0,height=0,left=-1000,top=-1000`;
-//           open(data11.URL, "GCASH", params);
+          top.window.location.href = data11.URL;
+          //           let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+          // width=0,height=0,left=-1000,top=-1000`;
+          //           open(data11.URL, "GCASH", params);
         } else {
-          swal.fire("Oops. It appears we cannot process your GCash payment for now.",'','error');
+          swal.fire("Oops. It appears we cannot process your GCash payment for now.", '', 'error');
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -1145,18 +1141,28 @@ $(document).ready(() => {
   if (page.includes("index") || page === "") {
     action = GetURLParameter('action');
     let token = GetURLParameter('token');
+    let stoken = localStorage.getItem("TOKEN");
     getLocation();
     if (action == 'resetpass') {
-      $('#fToken').val(token);
-      $('#modal-resetpass').modal('show');
+      if (stoken) {
+        localStorage.clear();
+        location.reload();
+        // window.location.href = `./?action=resetpwd&token=${token}`;  
+      } else {
+        $('#fToken').val(token);
+        $('#modal-resetpass').modal('show');
+      }
     }
+
   }
 
   if (page.includes("booking")) {
     action = GetURLParameter('action');
     console.log(action);
     if (action && action === 'getreservation') {
-      body.classList.toggle("modal-open");
+      let bookingDetails = document.querySelector(".booking-details");
+      bookingDetails.style = "position:relative;transform:unset";
+      // body.classList.toggle("modal-open");
       loadTrip();
     } else {
       getSchedules();
@@ -1211,13 +1217,14 @@ $("#contactForm").submit(async function (e) {
 function loadTrip() {
   let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
   fetchReservationInfo(pax_data).then(data => {
-    console.log('reservation_date',data);
+    console.log('reservation_date', data);
     if (data.length > 0) {
+      localStorage.setItem("passenger_count", data.length);
       let header = document.getElementById("header_travel");
       let header1 = document.getElementById("side_header");
       let placeholder = document.querySelector(" .search-result-main");
       placeholder.innerHTML = `<p style="margin-left:15px">Click CONTINUE to proceed.</p>`;
-        header.innerHTML = `<p class="mb-0"><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>
+      header.innerHTML = `<p class="mb-0"><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>
         <span class="fs-3 fw-lighter">Travel Date: <span class="fw-bold">${moment(data[0].TripDate).format("MMMM DD, YYYY - ddd ")}</span></span>`;
       header1.innerHTML = `<p><span>${data[0].Origin}</span> - <span>${data[0].Destination}</span></p>`;
       let passList = document.getElementById("passenger_assign");
@@ -1234,7 +1241,7 @@ function loadTrip() {
       localStorage.setItem("reservation", JSON.stringify(data));
 
       localStorage.setItem("departure", data[0].TripDate),
-      localStorage.setItem("RouteId", data[0].RouteId);
+        localStorage.setItem("RouteId", data[0].RouteId);
       localStorage.setItem("BusType", data[0].BusType);
       localStorage.setItem("clientId", data[0].clientID);
 
@@ -1287,7 +1294,7 @@ function loadTrip() {
         "₱ " + resvFee.toFixed(2);
 
       document.querySelector('#consent').style.display = 'block';
-        passengersInfo.classList.add("active");
+      passengersInfo.classList.add("active");
       payCon.removeAttribute("disabled", false);
       passList.innerHTML = html;
       passLists.innerHTML = htmList;
@@ -1301,7 +1308,7 @@ function loadTrip() {
 }
 
 
-function SetTrip(refNo, tripId, clientId) {
+function SetTrip(refNo, tripId, clientId, redirect = true) {
   let pax_data = {
     "clientid": clientId,
     "token": localStorage.getItem('TOKEN'),
@@ -1309,7 +1316,7 @@ function SetTrip(refNo, tripId, clientId) {
     "referenceNo": '~' + refNo
   };
   localStorage.setItem('tripInfo', JSON.stringify(pax_data));
-  window.location.href = "booking.html?action=getreservation";
+  if (redirect) window.location.href = "booking.html?action=getreservation";
   // //console.log(data);
 
 }

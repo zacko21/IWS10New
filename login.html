@@ -138,9 +138,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         let token = localStorage.getItem("TOKEN");
         if (token) {
-          window.location.href =
-            document.URL.substring(0, document.URL.lastIndexOf("/")) +
-            "/index.html";
+          window.location.href = './';
         }
       });
 
@@ -217,9 +215,7 @@
                   document.URL.substring(0, document.URL.lastIndexOf("/")) +
                   "/booking.html";
               } else {
-                window.location.href =
-                  document.URL.substring(0, document.URL.lastIndexOf("/")) +
-                  "/index.html";
+                window.location.href ='./';
               }
             } else {
               Swal.fire("INVALID EMAIL/PASSWORD");
