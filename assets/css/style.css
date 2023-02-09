@@ -36,6 +36,7 @@ a,
 p {
     font-size: var(--des);
     color: var(--black);
+    text-decoration: none;
 }
 
 button {

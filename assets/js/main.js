@@ -333,7 +333,7 @@ async function cancelBookings(getR = false) {
     });
 }
 
-function EditInfo(e) {
+async function EditInfo(e) {
   $('.edit-booked-user-info').LoadingOverlay('show');
   e.preventDefault();
   let data = {
@@ -351,7 +351,7 @@ function EditInfo(e) {
     tripID:
       localStorage.getItem("departure") + "." + localStorage.getItem("RouteId"),
   };
-  fetchUpdatePassenger(data)
+  await fetchUpdatePassenger(data)
     .then((res) => {
       console.log(res);
       if (res.result === "OK") {
@@ -402,9 +402,9 @@ function EditInfo(e) {
 //     })
 // }
 
-function getReserve(gManifest = true) {
+async function getReserve(gManifest = true) {
   let seatOK = true;
-  fetchReserve()
+  await fetchReserve()
     .then((data) => {
       if (data.length > 0) {
         let passList = document.getElementById("passenger_assign");
