@@ -710,14 +710,14 @@ function getSchedules() {
             localStorage.setItem("BusType", dest.bustype);
             localStorage.setItem("clientId", dest.clientid);
             let body = document.querySelector("body");
-          //  body.classList.toggle("modal-open");
-          let bookingDetails = document.querySelector(".booking-details");
-          bookingDetails.style = "position:relative;transform:unset";
-          cancelBtn.classList.add("active");
+            //  body.classList.toggle("modal-open");
+            let bookingDetails = document.querySelector(".booking-details");
+            bookingDetails.style = "position:relative;transform:unset";
+            cancelBtn.classList.add("active");
             //continueBtn.classList.add("active");
             getReserve();
             document.querySelector('#consent').style.display = 'block';
-            
+            jump('.booking-details')
           }
 
           // body.classList.toggle("modal-open");
@@ -1319,4 +1319,10 @@ function SetTrip(refNo, tripId, clientId, redirect = true) {
   if (redirect) window.location.href = "booking.html?action=getreservation";
   // //console.log(data);
 
+}
+
+
+function jump(h) {
+  var top = document.querySelector(h).offsetTop;
+  window.scrollTo(0, top-60);
 }
