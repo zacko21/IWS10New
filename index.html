@@ -27,14 +27,20 @@
 				margin-top: 57px;
 			}
 		}
+
 		@media screen and (max-width: 601px) {
 			.annouce {
 				margin-top: 75px;
-			};
+			}
+
+			;
 		}
 
-
-</style>
+		input[type="date"]::-webkit-calendar-picker-indicator {
+			display: none;
+			-webkit-appearance: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -57,9 +63,14 @@
 
 	<main>
 		<div class="w-100 position-absolute px-2 py-4 text-center annouce px-md-5">
-				<h4 class="text-white s-announce">Welcome to the new iWantSeats version 10! You may book here or <a style="text-decoration: none;" class="text-white" href="https://www.iwantseats.com/">switch to the old
-					version</a>, whichever is convenient. We appreciate your feedback.<br/> Please feel free to email us at
-					<a class="text-white" style="text-decoration: none;" href="mailto:notifications@iwantseats.com">notifications@iwantseats.com</a></h4>					
+			<h4 class="text-white s-announce">Welcome to the new iWantSeats version 10! You may book here or <a
+					style="text-decoration: none;" class="text-white" href="https://www.iwantseats.com/">switch to the
+					old
+					version</a>, whichever is convenient. We appreciate your feedback.<br /> Please feel free to email
+				us at
+				<a class="text-white" style="text-decoration: none;"
+					href="mailto:notifications@iwantseats.com">notifications@iwantseats.com</a>
+			</h4>
 		</div>
 		<div class="banner">
 			<div class="container">
@@ -134,7 +145,7 @@
 			</form>
 		</div>
 	</main>
-<!-- 
+	<!-- 
 	<section class="break">
 		<div class="container">
 			<h3>Over 3 million passengers served to provide travel convenience</h3>
@@ -147,10 +158,10 @@
 				Trusted by established transport operators in the Philippines
 			</h1>
 			<div class="logos">
-				<a href="javascript:;">
+				<a href="joybus.html">
 					<img alt="" src="assets/images/logo_joybus.png" />
 				</a>
-				<a href="javascript:;">
+				<a href="joybus.html">
 					<img alt="" src="assets/images/logogenesistransport.png" />
 				</a>
 				<a href="javascript:;">
@@ -289,11 +300,10 @@
 						</div>
 						<div class="answer">
 							<p>
-								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas
-								praesentium officia nesciunt voluptates distinctio expedita
-								numquam nam reiciendis aperiam repudiandae, incidunt laborum
-								quia in sed, nemo, iste amet fuga. Mollitia?
-							</p>
+								With iWantSeats, you can view real-time availability of seats and book your bus tickets,
+								select the seats you want, and pay conveniently via Gcash or bank deposit.<br /><br />
+								Upon confirmation, you will receive the trip itinerary which you will present on the
+								date of trip in exchange for the boarding ticket. </p>
 						</div>
 					</div>
 					<div class="faq">
@@ -329,13 +339,13 @@
 						</div>
 						<div class="answer">
 							<p>
-								Can I rebook or cancel my booking? iWantSeats allows
-								cancellations and rebookings of existing bookings through its
-								website. There is no refund for the website convenience fee.
-								However, refund for the bus tickets depends on the policy of
-								the bus operator where the booking was made. The specific
-								terms for this policy should be provided and agreed on before
-								payment.
+								To rebook or cancel a confirmed booking, you may send the request to
+								<a href="mailto:payments@iwantseats.com.ph">payments@iwantseats.com.ph</a> . Rebooking
+								or cancellation is not guaranteed as it may also
+								depend on the operator’s policy. <br /><br />
+
+								Charges may be applied when making changes to a confirmed booking. Please read the Terms
+								and Conditions prior to booking.
 							</p>
 						</div>
 					</div>
@@ -580,8 +590,6 @@
 		// 	e.preventDefault();
 		// 	alert('reset');
 		// });
-
-
 	</script>
 	<script rel="script" src="assets/js/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -589,8 +597,8 @@
 	<script rel="script" src="assets/js/lodash.min.js"></script>
 	<script rel="script" src="assets/swal/sweetalert2.min.js"></script>
 	<script rel="script" src="assets/js/loadingoverlay.min.js"></script>
-	<script async rel="script" src="assets/js/app.js?v=1675843841740"></script>
-	<script async rel="script" src="assets/js/main.js?v=1675850592679"></script>
+	<script async rel="script" src="assets/js/app.js?v=1676018900973"></script>
+	<script async rel="script" src="assets/js/main.js?v=1676018900973"></script>
 	<script>
 		$("#chkReturn").change(function () {
 			if (this.checked) {
@@ -598,7 +606,7 @@
 					"Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you."
 				);
 			}
-		});
+		});	
 
 		const ResetPass = async (e) => {
 			e.preventDefault();

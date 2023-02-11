@@ -73,6 +73,7 @@ async function fetchResults(show = false, options = {}, target = "body") {
   //console.log(input);
   let response = await fetch(input);
   $(target).LoadingOverlay("hide");
+  console.log('schedules', response.json);
   return await response.json();
 }
 
@@ -456,7 +457,7 @@ async function getReserve(gManifest = true) {
         });
         let dest = JSON.parse(JSON.stringify(data[0]));
 
-        document.getElementById("side_departure").textContent = `${formatDate(dest.TripDate)} - ${formatTime(localStorage.getItem("sched-etd"))}`;
+        document.getElementById("side_departure").textContent = `${formatDate(dest.TripDate)} - ${formatTime(dest.Departure)}`;
         document.getElementById("s_fare").textContent = "₱ " + fare.toFixed(2);
         document.getElementById("sub_total").innerHTML = `<p>Departure <span>(${paxCount} pax)</span></p>
                     <div class="item">
@@ -729,6 +730,7 @@ function getSchedules() {
     })
     .catch((error) => {
       console.log(error);
+      swal.fire({title:'Oops.. Error occurred',text:'Cannot get Trip Schedules'});
     });
 }
 
@@ -904,7 +906,8 @@ function SearchForm(e) {
         }
       })
       .catch((error) => {
-        //console.log(error);
+        console.log(error);
+        swal.fire({title:'Oops.. Error occurred',text:'Cannot get Trip Schedules'});
       });
   }
 }
@@ -1138,7 +1141,7 @@ $(document).ready(() => {
   let path = window.location.pathname;
   let page = path.split("/").pop();
 
-  if (page.includes("index") || page === "") {
+  if (page.includes("index") || page === "" || page.includes("joybus")) {
     action = GetURLParameter('action');
     let token = GetURLParameter('token');
     let stoken = localStorage.getItem("TOKEN");
@@ -1277,8 +1280,8 @@ function loadTrip() {
       let dest = JSON.parse(JSON.stringify(data[0]));
 
       document.getElementById("side_departure").textContent = `${formatDate(
-        dest.tripdate
-      )} - ${formatTime(localStorage.getItem("sched-etd"))}`;
+        dest.TripDate
+      )} - ${formatTime(dest.Departure)}`;
       document.getElementById("s_fare").textContent =
         "₱ " + fare.toFixed(2);
       document.getElementById(

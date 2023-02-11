@@ -5,37 +5,38 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <!-- link css -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
     <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/oparator.min.css?v=10" rel="stylesheet"/>
-    <link href="assets/css/table.min.css?v=10" rel="stylesheet"/>
+    <link href="assets/css/style.css?v=1676017974031" rel="stylesheet" />
+    <link href="assets/css/oparator.min.css" rel="stylesheet"/>
+    <link href="assets/css/table.min.css" rel="stylesheet"/>
+	<link href="assets/swal/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- unicons -->
     <link
             href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
             rel="stylesheet"
     />
-    <title>IWantSeats</title>
+    <title>IWantSeats - Genesis Transport and Joybus</title>
     <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
 </head>
 <body>
-<header>
-    <div class="container-max">
-        <div class="logo" onclick="window.open('index.html', '_self')">
-            <img alt="" src="assets/images/logo-black.png"/>
-        </div>
-        <div class="links">
-            <a href="index.html" onclick="menu()">Home</a>
-            <a href="#" onclick="menu()">Reservations</a>
-            <a href="index.html#contact" onclick="menu()">Contact us</a>
-            <a href="signup.html" onclick="menu()">
-                <button class="btn-primary">Sign up</button>
-            </a>
-        </div>
-        <div class="menu" onclick="menu()">
-            <i class="uil uil-align-center-alt"></i>
-        </div>
-    </div>
-</header>
+	<header>
+		<div class="container-max">
+			<div class="logo" onclick="window.open('./', '_self')">
+				<img alt="" src="assets/images/logo-black.png" />
+			</div>
+			<div class="links">
+				<a href="#" onclick="menu()">Home</a>
+				<a href="#" onclick="menu()">About</a>
+				<a href="./#contact" onclick="menu()">Contact us</a>
+				<div class="status"></div>
+			</div>
+			<div class="menu" onclick="menu()">
+				<i class="uil uil-align-center-alt"></i>
+			</div>
+		</div>
+	</header>
 <main>
     <div class="hero">
         <div class="typo">
@@ -45,7 +46,7 @@
         </div>
     </div>
     <div class="container">
-        <form class="search-bar-main" method="POST">
+        <form class="search-bar-main" id="booking-form" method="POST" onsubmit="SearchForm(event)">
             <center>
                 <h3 class="sub-title">
                     Book tickets to your next destination and get fast confirmation.
@@ -54,74 +55,55 @@
             <div class="search-bar">
                 <div class="search-fild drop-box">
                     <label for="from">From</label>
-                    <div class="input">
+                    <div class="input from-input">
                         <i class="uil uil-search search-ic"></i>
-                        <input class="from-value" placeholder="Your location"/>
+                        <input autocomplete="off" class="from-value" id="from" name="from"
+                            oninput="getLocation(this.value)" placeholder="Your location" required />
                         <i class="uil uil-map-marker"></i>
                     </div>
                     <div class="dropdown">
-                        <div class="item from-locations">
-                            <a><i class="uil uil-crosshair"></i> Item1</a>
-                            <a><i class="uil uil-crosshair"></i> Item2</a>
-                            <a><i class="uil uil-crosshair"></i> Item3</a>
-                            <a><i class="uil uil-crosshair"></i> Item4</a>
-                            <a><i class="uil uil-crosshair"></i> Item5</a>
-                            <a><i class="uil uil-crosshair"></i> Item6</a>
-                        </div>
+                        <div class="item from-locations"></div>
                     </div>
                 </div>
                 <div class="search-fild drop-box">
-                    <label for="from">To</label>
-                    <div class="input">
+                    <label for="to">To</label>
+                    <div class="input to-input">
                         <i class="uil uil-search search-ic"></i>
-                        <input class="to-value" placeholder="Travel location"/>
+                        <input autocomplete="off" class="to-value" id="to" oninput="getDestination(this.value)"
+                            placeholder="Travel location" required />
                         <i class="uil uil-location-arrow"></i>
                     </div>
                     <div class="dropdown">
-                        <div class="item to-locations">
-                            <a><i class="uil uil-crosshair"></i> Item</a>
-                            <a><i class="uil uil-crosshair"></i> Item</a>
-                            <a><i class="uil uil-crosshair"></i> Item</a>
-                            <a><i class="uil uil-crosshair"></i> Item</a>
-                            <a><i class="uil uil-crosshair"></i> Item</a>
-                            <a><i class="uil uil-crosshair"></i> Item</a>
-                        </div>
+                        <div class="item to-locations"></div>
                     </div>
                 </div>
                 <div class="search-fild">
                     <label for="from">Passengers</label>
                     <div class="input">
-                        <input type="number" value="1"/>
+                        <input id="passenger" required type="number" value="1" />
                         <i class="uil uil-users-alt"></i>
                     </div>
                 </div>
                 <div class="search-fild">
-                    <label for="from">Travel Date</label>
+                    <label for="date_of_departure">Travel Date</label>
                     <div class="input">
-                        <input
-                                onchange="this.className=(this.value!=''?'has-value':'')"
-                                placeholder="mm/dd/yyyy"
-                                type="date"
-                        />
-                        <i class="uil uil-calendar-alt"></i>
+                        <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
+                            required type="date" onfocus="this.showPicker()" />
+                        <label for="date_of_departure"><i class="uil uil-calendar-alt"></i></label>
                     </div>
                 </div>
-                <div class="search-fild">
+                <!-- <div class="search-fild">
                     <div class="flex">
-                        <label for="from">Return Date</label>
-                        <input type="checkbox"/>
+                        <label for="date_of_return">Return Date</label>
+                        <input id="chkReturn" type="checkbox" />
                     </div>
                     <div class="input">
-                        <input
-                                onchange="this.className=(this.value!=''?'has-value':'')"
-                                placeholder="mm/dd/yyyy"
-                                type="date"
-                        />
-
+                        <input disabled id="date_of_return" name="date_of_return"
+                            onchange="this.className=(this.value!=''?'has-value':'')" type="date" />
                         <i class="uil uil-calendar-alt"></i>
                     </div>
-                </div>
-                <button class="btn-primary search-btn">
+                </div> -->
+                <button class="btn-primary search-btn" id="btn_search">
                     <i class="uil uil-search"></i> Search
                 </button>
             </div>
@@ -283,13 +265,54 @@
         <center>
             <p>&copy; 2022 - 2023 - iWantSeats 10</p>
             <div class="privacy">
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Privacy policy</a>
+                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-terms">Terms and Conditions</a>
+                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modal-policy">Privacy policy</a>
             </div>
         </center>
     </div>
 </footer>
 
-<script src="assets/js/app.min.js?v=1675815088186"></script>
+<div id="modal-policy" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-3">
+                <h3 class="modal-title">Privacy Policy</h3>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="policy.html"></div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center p-3">
+                <button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-terms" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-4">
+                <h3 class="modal-title">Terms and Conditions</h3>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div w3-include-html="terms.html"></div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center p-3">
+                <button class="btn btn-light fs-4" type="button" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script rel="script" src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script rel="script" src="assets/js/axios.min.js"></script>
+<script rel="script" src="assets/js/lodash.min.js"></script>
+<script rel="script" src="assets/swal/sweetalert2.min.js"></script>
+<script rel="script" src="assets/js/loadingoverlay.min.js"></script>
+<script async rel="script" src="assets/js/app.js?v=1676018900973"></script>
+<script async rel="script" src="assets/js/main.js?v=1676018900973"></script>
 </body>
 </html>

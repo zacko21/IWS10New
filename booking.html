@@ -6,11 +6,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-    <link href="assets/css/style.css?v=1675905629207" rel="stylesheet" />
-    <link href="assets/css/form.min.css?v=1675905629207" rel="stylesheet" />
-    <link href="assets/css/booking.css?v=1675905629207" rel="stylesheet" />
-    <link href="assets/css/buss.css?v=1675905629207" rel="stylesheet" />
-    <link href="assets/swal/sweetalert2.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css?v=1676017467719" rel="stylesheet" />
+    <link href="assets/css/form.min.css?v=1676017467719" rel="stylesheet" />
+    <link href="assets/css/booking.css?v=1676017467719" rel="stylesheet" />
+    <link href="assets/css/buss.css?v=1676017467719" rel="stylesheet" />
+	<link href="assets/swal/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- unicons -->
     <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" />
@@ -36,6 +36,12 @@
             /* background-color: var(--primary); */
             overflow-x: auto;
         }
+
+		input[type="date"]::-webkit-calendar-picker-indicator {
+			display: none;
+			-webkit-appearance: none;
+		}
+
     </style>
 </head>
 
@@ -66,7 +72,7 @@
     </header>
     <main>
         <button class="btn search-ag" onclick="openSearchbar()">
-            <i class="uil uil-search"></i>
+            <i class="uil uil-search"></i> Search New Trip
         </button>
 
         <div class="container">
@@ -683,9 +689,9 @@
     <script rel="script" src="assets/js/lodash.min.js"></script>
     <script rel="script" src="assets/swal/sweetalert2.min.js"></script>
     <script rel="script" src="assets/js/moment.min.js"></script>
-    <script async rel="script" src="assets/js/app.js?v=1675950034947"></script>
-    <script async rel="script" src="assets/js/booking.js?v=167125950034947"></script>
-    <script async rel="script" src="assets/js/main.js?v=1675950034947"></script>
+    <script async rel="script" src="assets/js/app.js?v=1676018900973"></script>
+    <script async rel="script" src="assets/js/booking.js?v=1676018900973"></script>
+    <script async rel="script" src="assets/js/main.js?v=1676018900973"></script>
 
     <script>
         $("#chkReturn").change(function () {

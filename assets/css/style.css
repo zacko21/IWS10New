@@ -898,3 +898,9 @@ footer p {
 .swal2-container {
     z-index: 9999999;
 }
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
