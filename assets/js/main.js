@@ -730,7 +730,7 @@ function getSchedules() {
     })
     .catch((error) => {
       console.log(error);
-      swal.fire({title:'Oops.. Error occurred',text:'Cannot get Trip Schedules'});
+      swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
     });
 }
 
@@ -907,7 +907,7 @@ function SearchForm(e) {
       })
       .catch((error) => {
         console.log(error);
-        swal.fire({title:'Oops.. Error occurred',text:'Cannot get Trip Schedules'});
+        swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
       });
   }
 }
@@ -1119,7 +1119,7 @@ function getHistory() {
       placeholder1.innerHTML = html1;
     })
     .catch((error) => {
-      //console.error('There was an error!', error);
+      console.error('There was an error!', error);
     });
 };
 
@@ -1327,5 +1327,5 @@ function SetTrip(refNo, tripId, clientId, redirect = true) {
 
 function jump(h) {
   var top = document.querySelector(h).offsetTop;
-  window.scrollTo(0, top-60);
+  window.scrollTo(0, top - 60);
 }
