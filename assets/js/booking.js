@@ -129,7 +129,8 @@ function confirmBooking(e) {
 
 function editBookingUser(e) {
     getPassengerInfo(e.dataset.id);
-    editBookedInfo.classList.toggle("active");
+    $('#modal-info').modal('show');
+    // editBookedInfo.classList.toggle("active");
 }
 
 paymentTabs.forEach((e) => {

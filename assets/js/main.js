@@ -626,7 +626,7 @@ const getManifest = () => {
 };
 
 function getSchedules() {
-  let placeholder = document.querySelector(" .search-result-main");
+  let placeholder = document.querySelector(".search-result-main");
   let header = document.getElementById("header_travel");
   let header1 = document.getElementById("side_header");
   fetchResults()
@@ -637,7 +637,7 @@ function getSchedules() {
         ////console.log(data);
 
         header.innerHTML = `<p class="mb-0"><span>${data[0].originname}</span> TO <span>${data[0].destinationname}</span></p>
-        <span class="fs-3 fw-lighter">Travel Date: <span class="fw-bold">${moment(data[0].TripDate).format("MMMM DD, YYYY - ddd ")}</span></span>`;
+        <span class="fs-3 fw-lighter">Travel Date: <span class="fw-bold">${moment(data[0].tripdate).format("MMMM DD, YYYY - ddd ")}</span></span>`;
         header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].destinationname}</span></p>`;
         data.forEach((results, index) => {
           html += `<div class="search-result">
