@@ -396,7 +396,7 @@ main {
   display: flex;
 }
 .edit-booked-user-info {
-  width: 50rem;
+  /* width: 50rem; */
   background: white;
   border-radius: 1rem;
   padding: 5rem;
@@ -409,10 +409,10 @@ main {
 .edit-booked-user-info input {
   background: white;
   border-radius: 1rem;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  /* margin-bottom: 2rem; */
   width: 100%;
-  box-shadow: var(--soft-shadow);
+  /* box-shadow: var(--soft-shadow); */
 }
 .edit-booked-user-info .input i {
   color: var(--secoundary);

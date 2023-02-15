@@ -6,6 +6,11 @@ let axiosConfig = {
   },
 };
 
+$.LoadingOverlaySetup({
+  imageColor: "#4a6c2f"
+});
+
+
 let confirmModal = document.querySelector(".booking-confirm");
 
 function GetURLParameter(sParam) {
@@ -36,6 +41,7 @@ if (dtDepart) {
 }
 
 async function fetchBookingHistory() {
+  $.LoadingOverlay('show');
   let token = localStorage.getItem("TOKEN");
   let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
   if (token) {
@@ -52,7 +58,7 @@ async function fetchBookingHistory() {
       body: JSON.stringify(data),
     });
     //console.log(JSON.stringify(data));
-
+    $.LoadingOverlay('hide');
     return response.json();
   } else {
     window.location.href =
@@ -289,17 +295,17 @@ const groupBy = (list, keyGetter) => {
 function getPassengerInfo(id) {
   let reservation = localStorage.getItem("reservation");
   let cinfo = JSON.parse(reservation)[id];
-  let pBooker = parseInt(id) === 0 ? 1 : 0;
+  // let pBooker = parseInt(id) === 0 ? 1 : 0;
   localStorage.setItem("refNo", cinfo.ReferenceNo);
-  localStorage.setItem("pBooker", pBooker);
+  // localStorage.setItem("pBooker", pBooker);
   document.querySelector("#email").value = cinfo.Email;
   document.querySelector("#first_name").value = cinfo.FirstName;
   document.querySelector("#last_name").value = cinfo.LastName;
-  // if (cinfo.Gender === 'Male') {
-  //     document.querySelector('#male').checked = true;
-  // } else {
-  //     document.querySelector('#female').checked = true;
-  // }
+  if (cinfo.Gender === 'M') {
+    document.querySelector('#male').checked = true;
+  } else {
+    document.querySelector('#female').checked = true;
+  }
   document.querySelector("#birthday").value = cinfo.BirthDate;
   document.querySelector("#contact_number").value = cinfo.ContactNo;
 }
@@ -340,15 +346,16 @@ async function EditInfo(e) {
   let data = {
     clientid: localStorage.getItem("clientId"),
     loyaltyId: "",
-    birthDate: document.querySelector("#birthday").value,
+    birthDate: moment(document.querySelector("#birthday").value).format('YYYY-MM-DD'),
     contactNo: document.querySelector("#contact_number").value,
     email: document.querySelector("#email").value,
     firstName: document.querySelector("#first_name").value,
-    // "gender": document.querySelector("input[name='gender']:checked").value,
+    gender: document.querySelector("input[name='gender']:checked").value,
     lastName: document.querySelector("#last_name").value,
     middleName: "",
     referenceNo: localStorage.getItem("refNo"),
-    replaceprimarybooker: parseInt(localStorage.getItem("pBooker")),
+    // replaceprimarybooker: parseInt(localStorage.getItem("pBooker")),
+    replaceprimarybooker: 0,
     tripID:
       localStorage.getItem("departure") + "." + localStorage.getItem("RouteId"),
   };
@@ -678,6 +685,15 @@ function getSchedules() {
       let schedules = JSON.parse(localStorage.getItem("schedules"));
       bookBtn.forEach((e) => {
         e.addEventListener("click", (attr) => {
+          let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+          if (userInfo) {
+            if (userInfo.CONTACT_NO === '') {
+              changeContactNo()
+              return;
+            }
+          }
+
+
           let ok = true;
           let current_sched = JSON.parse(
             localStorage.getItem("selected-sched")
@@ -730,7 +746,7 @@ function getSchedules() {
     })
     .catch((error) => {
       console.log(error);
-      swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
+      //swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
     });
 }
 
@@ -915,25 +931,6 @@ function SearchForm(e) {
 $(".gcashi").click(async function () {
   let fee = 0;
   let refNo = "";
-  // let data = {
-  //     "clientid": localStorage.getItem('clientId'),
-  //     "token": localStorage.getItem('TOKEN'),
-  //     "tripID": localStorage.getItem('departure') + '.' + localStorage.getItem('RouteId'),
-  //     "referenceNo": localStorage.getItem('refNo')
-  // };
-  // // //console.log(data);
-  // fetchReservationInfo(data).then(result => {
-  //     localStorage.setItem('reserve_list', JSON.stringify(result));
-  //     // let f = 0;
-  //     // //console.log(result);
-  //     // if(result.length >0 ){
-  //     //     result.forEach(d => {
-  //     //         refNo = d.ReferenceNo;
-  //     //         f += parseInt(d.AccommodationFee);
-  //     //     })
-  //     // }
-  //     // fee = f;
-  // })
   let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
   await fetchReservationInfo(pax_data).then(data => {
     data.forEach(row => {
@@ -941,15 +938,14 @@ $(".gcashi").click(async function () {
       refNo = row.ReservationNo;
     });
   })
+  fee = fee * 1.029;
   paygcash(fee, refNo);
 });
 
 function paygcash(amount, refNo) {
-  // alert(amount + '=' + refNo)
   var pax_data = {
     module: "IWANTSEATS",
-    amount: parseInt(amount),
-    //amount: "100",
+    amount: parseFloat(amount).toFixed(2),
     email: "",
     refno: refNo,
     mobile: "",
@@ -1022,13 +1018,13 @@ function UploadFile(evt) {
     data: formData,
     success: function (data) {
       // The file was uploaded successfully...
-      alert("File was uploaded.");
+      swal.fire("File was uploaded.", '', 'succecss');
       window.location.href =
         document.URL.substring(0, document.URL.lastIndexOf("/")) +
         "/user-admin.html";
     },
     error: function (data) {
-      alert("error");
+      swal.fire("Oops.. Error occurred", '', 'error');
       // there was an error.
       // $('#alert_message span').text('Whoops! There was an error in the request.');
     },
@@ -1222,6 +1218,11 @@ function loadTrip() {
   fetchReservationInfo(pax_data).then(data => {
     console.log('reservation_date', data);
     if (data.length > 0) {
+      if (data[0].ReservationStatus != 'ACTIVE') {
+        swal.fire('Oops..', 'This reservation is invalid/expired', 'info').then(function () {
+          window.location = "user-admin.html";
+        });
+      }
       localStorage.setItem("passenger_count", data.length);
       let header = document.getElementById("header_travel");
       let header1 = document.getElementById("side_header");
@@ -1305,6 +1306,11 @@ function loadTrip() {
       //continueBtn.classList.add("active");
       // getReserve();
       //modal.classList.add("active");
+    } else {
+      swal.fire('Oops..', 'This reservation is invalid/expired', 'info').then(function () {
+        window.location = "user-admin.html";
+      });
+
     }
   });
 
@@ -1328,4 +1334,121 @@ function SetTrip(refNo, tripId, clientId, redirect = true) {
 function jump(h) {
   var top = document.querySelector(h).offsetTop;
   window.scrollTo(0, top - 60);
+}
+
+
+async function changeContactNo() {
+  Swal.fire({
+    html: `<div class="text-center">
+            <p>Mobile number is requested in case there are updates regarding your trip and other concerns.</p>
+            <label class="form-label fs-5">Enter your Contact No.</label>
+            <input id="contactNo" class="form-control fs-4" type="text" placeholder="Enter Contact No." />
+        </div>`,
+    confirmButtonText: 'Submit',
+    showCancelButton: true,
+    focusConfirm: false,
+    preConfirm: () => {
+      let num = Swal.getPopup().querySelector('#contactNo').value
+      if (!num) {
+        Swal.showValidationMessage(`Please enter Contact No.`)
+      }
+      return { contactNo: num }
+    }
+  }).then((result) => {
+    if (result.value.contactNo) {
+      Swal.fire({
+        title: "Please Wait..",
+        allowOutsideClick: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowEscapeKey: false,
+        willOpen: async function (e) {
+          Swal.showLoading();
+          let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+          let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+          let data = {
+            token: userInfo.TOKEN,
+            password: loginInfo.pwd,
+            firstname: userInfo.USERNAME.split(',')[1],
+            middlename: "",
+            lastname: userInfo.USERNAME.split(',')[1],
+            birthDate: formatDate1(userInfo.BIRTHDATE),
+            contactNo: result.value.contactNo,
+            gender: "M"
+          };
+          console.log(data);
+          let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updateonlineuser`;
+          let res = await axios.post(input, data, axiosConfig);
+          console.log('response', res.data);
+          if (res.data.RESULT === "SAVED") {
+            Swal.fire(
+              "Success.. Contact No. successfull saved",
+              "",
+              "success"
+            );
+            userInfo['CONTACT_NO'] = result.value.contactNo;
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+          } else {
+            Swal.fire("Oops.. Error Occured. Pleaset try again.", "", "error");
+          }
+          console.log(result.value);
+        },
+      });
+    }
+
+  })
+
+}
+
+async function changeContactNo1() {
+  Swal.fire({
+    text: "Mobile number is requested in case there are updates regarding your trip and other concerns.",
+    input: "text",
+    inputLabel: "Enter your Contact No.",
+    inputPlaceholder: "Enter Contact No.",
+    allowOutsideClick: false,
+    showCancelButton: true,
+    confirmButtonText: "Submit",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Please Wait..",
+        allowOutsideClick: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowEscapeKey: false,
+        willOpen: async function (e) {
+          Swal.showLoading();
+          let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+          let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+          let data = {
+            token: userInfo.TOKEN,
+            password: loginInfo.pwd,
+            firstname: userInfo.USERNAME.split(',')[1],
+            middlename: "",
+            lastname: userInfo.USERNAME.split(',')[1],
+            birthDate: formatDate1(userInfo.BIRTHDATE),
+            contactNo: result.value,
+            gender: "M"
+          };
+          console.log(data);
+          let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updateonlineuser`;
+          let res = await axios.post(input, data, axiosConfig);
+          console.log('response', res.data);
+          if (res.data.RESULT === "SAVED") {
+            Swal.fire(
+              "Success.. Contact No. successfull saved",
+              "",
+              "success"
+            );
+          } else {
+            Swal.fire("Oops.. Error Occured", "", "error");
+          }
+          console.log(result.value);
+          userInfo['CONTACT_NO'] = result.value;
+          localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        },
+      });
+    }
+  });
 }
