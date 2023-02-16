@@ -69,7 +69,7 @@ async function fetchBookingHistory() {
 async function fetchResults(show = false, options = {}, target = "body") {
   let clientId, date, origin, destination, paxCount;
   ////console.log(target);
-  if (show) $(target).LoadingOverlay("show", options);
+  // if (show) $(target).LoadingOverlay("show", options);
   origin = localStorage.getItem("originName");
   destination = localStorage.getItem("destinationName");
   date = localStorage.getItem("departure");
@@ -78,7 +78,7 @@ async function fetchResults(show = false, options = {}, target = "body") {
   let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2test/2/${clientId}/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
   //console.log(input);
   let response = await fetch(input);
-  $(target).LoadingOverlay("hide");
+  // $(target).LoadingOverlay("hide");
   console.log('schedules', response.json);
   return await response.json();
 }
@@ -632,12 +632,15 @@ const getManifest = () => {
     });
 };
 
-function getSchedules() {
+async function getSchedules() {
   let placeholder = document.querySelector(".search-result-main");
   let header = document.getElementById("header_travel");
   let header1 = document.getElementById("side_header");
-  fetchResults()
+  let results = 0;
+  $('.search-result-main').LoadingOverlay('show', { text: "Loading Trip Schedules..." });
+  await fetchResults()
     .then((data) => {
+      results = data.length;
       if (data.length > 0) {
         localStorage.setItem("schedules", JSON.stringify(data));
         let html = "";
@@ -647,6 +650,13 @@ function getSchedules() {
         <span class="fs-3 fw-lighter">Travel Date: <span class="fw-bold">${moment(data[0].tripdate).format("MMMM DD, YYYY - ddd ")}</span></span>`;
         header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].destinationname}</span></p>`;
         data.forEach((results, index) => {
+          let now = moment(`${data[0].tripdate} ${results["etd"]}`);
+          let end = moment(`${data[0].tripdate} ${results["eta"]}`);
+          let duration = moment.duration(end.diff(now));
+          let tDuration = duration.asHours();
+          if(tDuration <0){
+            tDuration = 24+tDuration;
+          }
           html += `<div class="search-result">
             <div class="highlight">
                 <p id="fare">₱ <span>${results["fare"]}</span></p>
@@ -663,7 +673,7 @@ function getSchedules() {
                   </div>
                   <div class="item">
                     <i class="uil uil-clock"></i>
-                    <p>Time: <span>-</span> hours</p>
+                    <p>Time: <span>${tDuration}</span> hours</p>
                   </div>
                   <div class="item">
                     <i class="uil uil-user-location"></i>
@@ -748,6 +758,10 @@ function getSchedules() {
       console.log(error);
       //swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
     });
+  $('.search-result-main').LoadingOverlay('hide');
+
+  if (results == 0) header.innerHTML = `<span style="font-size: medium;">We can't find available trips for
+  this date. Please try another search</span>`;
 }
 
 function getLocation(search = "") {
@@ -914,7 +928,7 @@ function SearchForm(e) {
     fetchResults(true)
       .then((res) => {
         if (res.length === 0) {
-          Swal.fire("NO SCHEDULES FOUND");
+          Swal.fire("We can't find available trips for this date. Please try another search");
         } else {
           window.location.href =
             document.URL.substring(0, document.URL.lastIndexOf("/")) +
@@ -1214,6 +1228,7 @@ $("#contactForm").submit(async function (e) {
 
 
 function loadTrip() {
+  $.LoadingOverlay('show');
   let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
   fetchReservationInfo(pax_data).then(data => {
     console.log('reservation_date', data);
@@ -1306,6 +1321,8 @@ function loadTrip() {
       //continueBtn.classList.add("active");
       // getReserve();
       //modal.classList.add("active");
+      $.LoadingOverlay('hide');
+
     } else {
       swal.fire('Oops..', 'This reservation is invalid/expired', 'info').then(function () {
         window.location = "user-admin.html";
@@ -1313,6 +1330,7 @@ function loadTrip() {
 
     }
   });
+  $.LoadingOverlay('hide');
 
 }
 
