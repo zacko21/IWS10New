@@ -41,6 +41,12 @@
             display: none;
             -webkit-appearance: none;
         }
+
+        .border-pill-top{
+            border-radius: 50px 50px;
+        }
+
+        
     </style>
 </head>
 
@@ -118,7 +124,7 @@
                             <div class="input">
                                 <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
                                     required type="date" onfocus="this.showPicker()" />
-                                <i class="uil uil-calendar-alt"></i>
+                                    <label for="date_of_departure"><i class="uil uil-calendar-alt"></i></label>
                             </div>
                         </div>
                         <!-- <div class="search-fild">
@@ -439,7 +445,7 @@
                             </div>
                         </div>
 
-                        <div class=" bus-body table-responsive">
+                        <div class=" bus-body table-responsive border border-2 rounded-pill-top rounded-bottom p-4">
                         </div>
                     </div>
                     <div class="block passenger-s" id="passenger-block">

@@ -1179,7 +1179,6 @@ $(document).ready(() => {
       loadTrip();
     } else {
       getSchedules();
-
     }
 
     localStorage.removeItem("selected-sched");
@@ -1470,3 +1469,43 @@ async function changeContactNo1() {
     }
   });
 }
+
+
+// async function getSelectedTrip(){
+
+//   let data = {
+//     clientId: localStorage.getItem("clientId"),
+//     token: token,
+//     tripDate: localStorage.getItem("departure"),
+//     noOfPax: localStorage.getItem("passenger_count"),
+//     routeId: localStorage.getItem("RouteId"),
+//     reservationStatus: "0",
+//     firstName: "a",
+//     middleName: "a",
+//     lastName: "a",
+//     seatNo: "UNASSIGNED",
+//     paxDiscountId: "",
+//     discountType: "",
+//     bookingAgent: "IWS",
+//     userId: "1",
+//     bookedBy: "",
+//     paidBy: "",
+//     modeOfPayment: "",
+//     paymentRemarks: "",
+//     pickUp: localStorage.getItem("RouteId").split(".")[1],
+//     dropOff: localStorage.getItem("RouteId").split(".")[2],
+//   };
+
+//   let dest = schedules[e.dataset.id];
+//   localStorage.setItem("sched-etd", dest.etd);
+//   localStorage.setItem("selected-sched", JSON.stringify(dest));
+//   //console.log(dest);
+//   localStorage.setItem("RouteId", dest.tkey);
+//   localStorage.setItem("BusType", dest.bustype);
+//   localStorage.setItem("clientId", dest.clientid);
+//   let body = document.querySelector("body");
+//   //  body.classList.toggle("modal-open");
+//   let bookingDetails = document.querySelector(".booking-details");
+//   bookingDetails.style = "position:relative;transform:unset";
+//   cancelBtn.classList.add("active");
+// }
