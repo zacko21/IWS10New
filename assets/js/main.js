@@ -37,7 +37,10 @@ if (dtDepart) {
     "max",
     new Date().addDays(30).toISOString().split("T")[0]
   );
-
+//     setTimeout(() => {
+//       dtDepart.value = moment().add(1,'days').format('YYYY-MM-DD');
+//       console.log('here');      
+//     }, 3000);
 }
 
 async function fetchBookingHistory() {
@@ -79,7 +82,7 @@ async function fetchResults(show = false, options = {}, target = "body") {
   //console.log(input);
   let response = await fetch(input);
   // $(target).LoadingOverlay("hide");
-  console.log('schedules', response.json);
+  // console.log('schedules', response.json);
   return await response.json();
 }
 
@@ -637,7 +640,7 @@ async function getSchedules() {
   let header = document.getElementById("header_travel");
   let header1 = document.getElementById("side_header");
   let results = 0;
-  $('.search-result-main').LoadingOverlay('show', { text: "Loading Trip Schedules..." });
+  $('.search-result-main').LoadingOverlay('show');
   await fetchResults()
     .then((data) => {
       results = data.length;
@@ -1156,6 +1159,7 @@ $(document).ready(() => {
     let token = GetURLParameter('token');
     let stoken = localStorage.getItem("TOKEN");
     getLocation();
+    document.getElementById('date_of_departure').value = moment().add(1,'days').format('YYYY-MM-DD');
     if (action == 'resetpass') {
       if (stoken) {
         localStorage.clear();
