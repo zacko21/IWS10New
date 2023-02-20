@@ -1078,7 +1078,7 @@ function getHistory() {
               row.etd.split(" ")[1]
             )}</span></p>
                       </td>
-                      <td><a style="color:white; font-size:1.6rem" href="javascript:;" onclick="SetTrip('${row.reference_no}','${row.trip_id}',${row.clientid})">${row.reference_no}</a></td>
+                      <td><a style="text-decoration:underline; font-size:1.6rem" href="javascript:;" onclick="SetTrip('${row.reference_no}','${row.trip_id}',${row.clientid})">${row.reference_no}</a></td>
                       <td>${row.total_amount_due.toLocaleString(
               "en",
               options
