@@ -37,10 +37,10 @@ if (dtDepart) {
     "max",
     new Date().addDays(30).toISOString().split("T")[0]
   );
-//     setTimeout(() => {
-//       dtDepart.value = moment().add(1,'days').format('YYYY-MM-DD');
-//       console.log('here');      
-//     }, 3000);
+  //     setTimeout(() => {
+  //       dtDepart.value = moment().add(1,'days').format('YYYY-MM-DD');
+  //       console.log('here');      
+  //     }, 3000);
 }
 
 async function fetchBookingHistory() {
@@ -418,6 +418,11 @@ async function getReserve(gManifest = true) {
   await fetchReserve()
     .then((data) => {
       if (data.length > 0) {
+
+        if (data[0].isCancelled === 'YES') {
+          return cancelBookings(true);
+        }
+
         let passList = document.getElementById("passenger_assign");
         let passLists = document.getElementById("passenger-list");
         let resBox = document.querySelector(".reserveBox");
@@ -657,8 +662,8 @@ async function getSchedules() {
           let end = moment(`${data[0].tripdate} ${results["eta"]}`);
           let duration = moment.duration(end.diff(now));
           let tDuration = duration.asHours();
-          if(tDuration <0){
-            tDuration = 24+tDuration;
+          if (tDuration < 0) {
+            tDuration = 24 + tDuration;
           }
           html += `<div class="search-result">
             <div class="highlight">
@@ -935,17 +940,30 @@ function SearchForm(e) {
 }
 
 $(".gcashi").click(async function () {
+  let okay = false;
   let fee = 0;
   let refNo = "";
   let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
   await fetchReservationInfo(pax_data).then(data => {
+    let status = data[0].ReservationStatus;
+    if (status === 'ACTIVE') {
+      okay = true;
+    } else {
+      okay = false;
+      return;
+    }
     data.forEach(row => {
       fee += row.AccommodationFee + row.ConvenienceFee;
       refNo = row.ReservationNo;
     });
   })
-  fee = fee * 1.029;
-  paygcash(fee, refNo);
+  if (okay) {
+    fee = fee * 1.029;
+    paygcash(fee, refNo);
+  }
+  else {
+    return false;
+  }
 });
 
 function paygcash(amount, refNo) {
@@ -1148,7 +1166,7 @@ $(document).ready(() => {
     let token = GetURLParameter('token');
     let stoken = localStorage.getItem("TOKEN");
     getLocation();
-    document.getElementById('date_of_departure').value = moment().add(1,'days').format('YYYY-MM-DD');
+    document.getElementById('date_of_departure').value = moment().add(1, 'days').format('YYYY-MM-DD');
     if (action == 'resetpass') {
       if (stoken) {
         localStorage.clear();
