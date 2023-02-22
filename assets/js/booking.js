@@ -28,7 +28,7 @@ function closeModal() {
     $.LoadingOverlay('show');
     cancelBookings().then(() => {
         let action = GetURLParameter('action');
-        console.log(action);
+        //console.log(action);
         if (action && action === 'getreservation') {
             window.location.href='user-admin.html';
         }else{
@@ -108,7 +108,7 @@ function continuePayment() {
 }
 
 function confirmBooking(e) {
-    console.log('hasclass?', continueBtn.classList.contains('active'));
+    //console.log('hasclass?', continueBtn.classList.contains('active'));
     $('.booking-modal.active>.wraper-item').LoadingOverlay('show');
     fetchPassengerSeat(document.getElementById('passenger_assign').value, e.dataset.seat).then(res => {
         if (res.result === 'OK') {

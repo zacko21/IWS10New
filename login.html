@@ -7,7 +7,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <!-- link css -->
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-  <link href="assets/css/style.css?v=1676951130000" rel="stylesheet" />
+  <link href="assets/css/style.css?v=1677045054901" rel="stylesheet" />
   <link href="assets/css/form.min.css" rel="stylesheet" />
   <title>IWantSeats</title>
   <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png" />
@@ -109,7 +109,7 @@
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script rel="script" src="assets/js/axios.min.js"></script>1676463490861
   <script rel="script" src="assets/swal/sweetalert2.all.js"></script>
-  <script rel="script" src="assets/js/app.js?v=1676951130000"></script>
+  <script rel="script" src="assets/js/app.js?v=1677045054901"></script>
 
   <script>
     let axiosConfig = {
@@ -175,7 +175,7 @@
       let url =
         "https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/login/aaa/bbb";
 
-      console.log(JSON.stringify(data));
+      //console.log(JSON.stringify(data));
       fetch(url, {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -185,7 +185,7 @@
       })
         .then((resp) => resp.json())
         .then((row) => {
-          console.log(row);
+          //console.log(row);
           if (row["RESULT"] === "INACTIVE") {
             Swal.fire(
               "Your Account is INACTIVE. Please check your registered email to activate."

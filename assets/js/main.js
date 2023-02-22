@@ -136,8 +136,8 @@ async function fetchCancelBooking(data) {
     //console.log(input);
     try {
       let response = await axios.post(input, data, axiosConfig);
-      console.log(response.status);
-      console.log("cancel", response.data);
+      //console.log(response.status);
+      //console.log("cancel", response.data);
       return response.data;
     } catch (err) {
       console.error(err);
@@ -181,7 +181,7 @@ async function fetchPassengerSeat(refNo, seatNo) {
 async function fetchManifest() {
   $(".bus-seat-select").LoadingOverlay("show");
   let token = localStorage.getItem("TOKEN");
-  console.log(token);
+  //console.log(token);
   if (token != null && token != "") {
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifesttest/${token}`;
     //console.log(input);
@@ -191,14 +191,14 @@ async function fetchManifest() {
       routeid: localStorage.getItem("RouteId"),
       BusType: localStorage.getItem("BusType"),
     };
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     try {
       let response = await axios.post(input, data, axiosConfig);
-      console.log(response.status);
+      //console.log(response.status);
       $(".bus-seat-select").LoadingOverlay("hide");
-      console.log("manifest", response.data);
+      //console.log("manifest", response.data);
       if (response.data == "") {
-        console.log("empty data");
+        //console.log("empty data");
         return fetchManifest();
       }
       return response.data;
@@ -214,7 +214,7 @@ async function fetchManifest() {
 async function fetchReserve() {
   $(".booking-details").LoadingOverlay("show");
   let token = localStorage.getItem("TOKEN");
-  console.log(token);
+  //console.log(token);
   if (token != null && token != "") {
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
     //console.log(input);
@@ -240,15 +240,15 @@ async function fetchReserve() {
       pickUp: localStorage.getItem("RouteId").split(".")[1],
       dropOff: localStorage.getItem("RouteId").split(".")[2],
     };
-    console.log("RESERVE POST", JSON.stringify(data));
+    //console.log("RESERVE POST", JSON.stringify(data));
     try {
       let response = await axios.post(input, data, axiosConfig);
-      console.log(response.status);
+      //console.log(response.status);
 
       $(".booking-details").LoadingOverlay("hide");
-      console.log("reserve", response.data);
+      //console.log("reserve", response.data);
       if (response.data == "") {
-        console.log("empty data");
+        //console.log("empty data");
         return fetchReserve();
       }
       return response.data;
@@ -328,12 +328,12 @@ async function cancelBookings(getR = false) {
   await fetchCancelBooking(data)
     .then((res) => {
       if (res.result === "OK") {
-        console.log("CANCEL RESULT", res.result);
+        //console.log("CANCEL RESULT", res.result);
         //localStorage.removeItem('reservation');
         // modal.classList.remove('active');
         // Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
       } else {
-        console.log("CANCEL RESULT", res.result);
+        //console.log("CANCEL RESULT", res.result);
       }
     })
     .then((ex) => {
@@ -364,7 +364,7 @@ async function EditInfo(e) {
   };
   await fetchUpdatePassenger(data)
     .then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.result === "OK") {
         editBookedInfo.classList.remove("active");
         getReserve(false);
@@ -372,7 +372,7 @@ async function EditInfo(e) {
       }
     })
     .catch((error) => {
-      //console.log(error);
+      console.log(error);
     });
 }
 
@@ -432,7 +432,7 @@ async function getReserve(gManifest = true) {
         localStorage.setItem("reservation", JSON.stringify(data));
         SetTrip(data[0].ReservationNo, `${data[0].TripDate}.${data[0].RouteId}`, data[0].clientID, false);
         if (data.length !== parseInt(localStorage.getItem("passenger_count"))) {
-          console.log("bookings cancelled");
+          //console.log("bookings cancelled");
           return cancelBookings(true);
         }
 
@@ -495,7 +495,7 @@ async function getReserve(gManifest = true) {
       if (gManifest) getManifest();
     })
     .catch((error) => {
-      console.log("error", error);
+      //console.log("error", error);
     });
 }
 
@@ -631,7 +631,7 @@ const getManifest = () => {
       }
     })
     .catch((error) => {
-      //console.log(error);
+      console.log(error);
     });
 };
 
@@ -690,7 +690,7 @@ async function getSchedules() {
         });
         placeholder.innerHTML = html;
       } else {
-        placeholder.innerHTML = `<p>We can't find available trips for this date. Please try another search</p>`;
+        header.innerHTML = `<p>We can't find available trips for this date. Please try another search</p>`;
 
       }
 
@@ -806,7 +806,7 @@ function getLocation(search = "") {
       });
     })
     .catch((error) => {
-      //console.log(error);
+      console.log(error);
     });
 }
 
@@ -814,17 +814,6 @@ function Logout() {
   localStorage.clear();
   window.location.href = "./";
 }
-//     localStorage.removeItem('USERNAME');
-//     localStorage.removeItem('TOKEN');
-//     localStorage.removeItem('originName');
-//     localStorage.removeItem('destinationName');
-//     localStorage.removeItem('passenger_count');
-//     localStorage.removeItem('departure');
-//     localStorage.removeItem('schedules');
-//     localStorage.removeItem('clientId');
-//     localStorage.removeItem('RouteId');
-//     localStorage.removeItem('BusType');
-// }
 
 function getDestination(search = "") {
   // alert(origin);
@@ -873,7 +862,7 @@ function getDestination(search = "") {
       });
     })
     .catch((error) => {
-      //console.log(error);
+      console.log(error);
     });
 }
 
@@ -968,7 +957,7 @@ function paygcash(amount, refNo) {
     mobile: "",
     token: localStorage.getItem("TOKEN"),
   };
-  console.log(pax_data);
+  //console.log(pax_data);
   try {
     $.ajax({
       url: "https://iwsenterprise.com/iwsticketing_v3/enterprise/paymongocreatesource_augmata.aspx",
@@ -1175,7 +1164,7 @@ $(document).ready(() => {
 
   if (page.includes("booking")) {
     action = GetURLParameter('action');
-    console.log(action);
+    //console.log(action);
     if (action && action === 'getreservation') {
       let bookingDetails = document.querySelector(".booking-details");
       bookingDetails.style = "position:relative;transform:unset";
@@ -1210,10 +1199,10 @@ $("#contactForm").submit(async function (e) {
         recipients: `${email}:notifications@iwantseats.com`,
         message: body,
       };
-      console.log("send-data", data);
+      //console.log("send-data", data);
       let input = `https://iwsenterprise.com/squareone/api_pasabuy_sendemail.aspx`;
       let res = await axios.post(input, data, axiosConfig);
-      console.log(res.data);
+      //console.log(res.data);
       if (res.data === "SAVED") {
         Swal.fire(
           "Thank you for contacting us.",
@@ -1223,7 +1212,7 @@ $("#contactForm").submit(async function (e) {
         $("#contactForm").trigger("reset");
       } else {
         Swal.fire("Failed..", "", "error");
-        console.log("response", res);
+        //console.log("response", res);
       }
     },
   });
@@ -1234,7 +1223,7 @@ function loadTrip() {
   $.LoadingOverlay('show');
   let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
   fetchReservationInfo(pax_data).then(data => {
-    console.log('reservation_date', data);
+    //console.log('reservation_date', data);
     if (data.length > 0) {
       if (data[0].ReservationStatus != 'ACTIVE') {
         swal.fire('Oops..', 'This reservation is invalid/expired', 'info').then(function () {
@@ -1397,10 +1386,10 @@ async function changeContactNo() {
             contactNo: result.value.contactNo,
             gender: "M"
           };
-          console.log(data);
+          //console.log(data);
           let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updateonlineuser`;
           let res = await axios.post(input, data, axiosConfig);
-          console.log('response', res.data);
+          //console.log('response', res.data);
           if (res.data.RESULT === "SAVED") {
             Swal.fire(
               "Success.. Contact No. successfull saved",
@@ -1412,7 +1401,7 @@ async function changeContactNo() {
           } else {
             Swal.fire("Oops.. Error Occured. Pleaset try again.", "", "error");
           }
-          console.log(result.value);
+          //console.log(result.value);
         },
       });
     }
@@ -1452,10 +1441,10 @@ async function changeContactNo1() {
             contactNo: result.value,
             gender: "M"
           };
-          console.log(data);
+          //console.log(data);
           let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updateonlineuser`;
           let res = await axios.post(input, data, axiosConfig);
-          console.log('response', res.data);
+          //console.log('response', res.data);
           if (res.data.RESULT === "SAVED") {
             Swal.fire(
               "Success.. Contact No. successfull saved",
@@ -1465,7 +1454,7 @@ async function changeContactNo1() {
           } else {
             Swal.fire("Oops.. Error Occured", "", "error");
           }
-          console.log(result.value);
+          //console.log(result.value);
           userInfo['CONTACT_NO'] = result.value;
           localStorage.setItem('userInfo', JSON.stringify(userInfo));
         },

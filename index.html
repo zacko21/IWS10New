@@ -7,7 +7,7 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<!-- link css -->
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-	<link href="assets/css/style.css?v=1676951130000" rel="stylesheet" />
+	<link href="assets/css/style.css?v=1677045054901" rel="stylesheet" />
 	<link href="assets/css/form.min.css" rel="stylesheet" />
 	<title>IWantSeats</title>
 	<link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png" />
@@ -64,7 +64,7 @@
 	<main>
 		<div class="w-100 position-absolute px-2 py-4 text-center annouce px-md-5">
 			<h4 class="text-white s-announce">Welcome to the new iWantSeats version 10! You may book here or <a
-					style="text-decoration: none;" class="text-white" href="https://www.iwantseats.com/">switch to the
+					style="text-decoration: underline;" class="text-white " href="https://www.iwantseats.com/">switch to the
 					old
 					version</a>, whichever is convenient. We appreciate your feedback.<br /> Please feel free to email
 				us at
@@ -598,8 +598,8 @@
 	<script rel="script" src="assets/js/lodash.min.js"></script>
 	<script rel="script" src="assets/swal/sweetalert2.min.js"></script>
 	<script rel="script" src="assets/js/loadingoverlay.min.js"></script>
-	<script async rel="script" src="assets/js/app.js?v=1676951130000"></script>
-	<script async rel="script" src="assets/js/main.js?v=1676951130000"></script>
+	<script async rel="script" src="assets/js/app.js?v=1677045054901"></script>
+	<script async rel="script" src="assets/js/main.js?v=1677045054901"></script>
 	<script>
 		$("#chkReturn").change(function () {
 			if (this.checked) {
@@ -617,7 +617,7 @@
 				token: fToken.split(':')[1],
 				newpassword: $('#newpass').val()
 			};
-			console.log('data', data);
+			//console.log('data', data);
 
 			let input = `https://iwsenterprise.com/squareone/iws10_confirmresetpass`;
 			let res = await axios.post(input, data, axiosConfig);
@@ -632,7 +632,7 @@
 				});
 			} else {
 				Swal.fire("Failed..", "", "Oops.. Something occurred.");
-				console.log("response", res);
+				//console.log("response", res);
 			}
 
 		}
