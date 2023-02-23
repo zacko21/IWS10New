@@ -992,7 +992,8 @@ function paygcash(amount, refNo) {
         var data1 = JSON.stringify(data);
         var data11 = JSON.parse(data1);
         if (data11.RESULT === "SAVED") {
-          top.window.location.href = data11.URL;
+          window.open(data11.URL, '_blank');
+          //top.window.location.href = data11.URL;
           //           let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
           // width=0,height=0,left=-1000,top=-1000`;
           //           open(data11.URL, "GCASH", params);
