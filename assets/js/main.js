@@ -215,7 +215,10 @@ async function fetchReserve() {
   $(".booking-details").LoadingOverlay("show");
   let token = localStorage.getItem("TOKEN");
   //console.log(token);
+  
   if (token != null && token != "") {
+  let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+  let email = loginInfo.email;
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
     //console.log(input);
     let data = {
@@ -239,6 +242,7 @@ async function fetchReserve() {
       paymentRemarks: "",
       pickUp: localStorage.getItem("RouteId").split(".")[1],
       dropOff: localStorage.getItem("RouteId").split(".")[2],
+      email: email
     };
     //console.log("RESERVE POST", JSON.stringify(data));
     try {
@@ -992,8 +996,8 @@ function paygcash(amount, refNo) {
         var data1 = JSON.stringify(data);
         var data11 = JSON.parse(data1);
         if (data11.RESULT === "SAVED") {
-          window.open(data11.URL, '_blank');
-          //top.window.location.href = data11.URL;
+          // window.open(data11.URL, '_blank');
+          top.window.location.href = data11.URL;
           //           let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
           // width=0,height=0,left=-1000,top=-1000`;
           //           open(data11.URL, "GCASH", params);

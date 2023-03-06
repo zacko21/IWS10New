@@ -79,7 +79,8 @@ function continuePayment() {
     window.scrollTo(0, 0);
     let rlist = JSON.parse(localStorage.getItem('reservation'));
     let ok = true;
-    rlist.forEach(row => {
+    let noCNo = true;
+    rlist.forEach((row,index) => {
         if (row.LastName === 'Lastname' || row.FirstName === 'Firstname') {
             Swal.fire({
                 html: '<p style="font-size: medium">Please change the Passenger Name before proceeding. Thank you</p>',
@@ -97,7 +98,15 @@ function continuePayment() {
             Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.');
             ok = false;
         }
+        if(row.ContactNo != ''){
+            noCNo= false;
+        }
     })
+    if(noCNo){
+        ok = false;
+        Swal.fire('Please update the passenger Contact No.');
+    }
+    
     if (ok) {
         bookingContinue.classList.add("step-active");
         seatSelect.classList.remove('active')
