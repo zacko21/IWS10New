@@ -649,7 +649,7 @@ async function getSchedules() {
   let header = document.getElementById("header_travel");
   let header1 = document.getElementById("side_header");
   let results = 0;
-  $('.search-result-main').LoadingOverlay('show');
+  // $('.search-result-main').LoadingOverlay('show');
   await fetchResults()
     .then((data) => {
       results = data.length;
@@ -770,7 +770,8 @@ async function getSchedules() {
       console.log(error);
       //swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
     });
-  $('.search-result-main').LoadingOverlay('hide');
+    // $('.loaderImg').classList.add('d-none');
+  //$('.search-result-main').LoadingOverlay('hide');
 
   if (results == 0) header.innerHTML = `<span style="font-size: medium;">We can't find available trips for
   this date. Please try another search</span>`;
@@ -1149,7 +1150,7 @@ function getHistory() {
 };
 
 $(document).ready(() => {
-  $.LoadingOverlay("show");
+  //$.LoadingOverlay("show");
   let div = document.querySelector(".status");
   if (localStorage.getItem("TOKEN")) {
     div.innerHTML = `
@@ -1196,10 +1197,13 @@ $(document).ready(() => {
     } else {
       getSchedules();
     }
+  $('.loaderImg').addClass('d-none');
 
     localStorage.removeItem("selected-sched");
+
   }
-  $.LoadingOverlay("hide");
+  // $('.loaderImg').addClass('d-none');
+  // $.LoadingOverlay("hide");
 });
 
 $("#contactForm").submit(async function (e) {
