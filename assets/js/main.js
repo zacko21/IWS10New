@@ -136,8 +136,8 @@ async function fetchCancelBooking(data) {
     //console.log(input);
     try {
       let response = await axios.post(input, data, axiosConfig);
-      //console.log(response.status);
-      //console.log("cancel", response.data);
+      console.log('CANCEL BOOKING STATUS: ', response.status);
+      console.log("CANCEL DATA: ", response.data);
       return response.data;
     } catch (err) {
       console.error(err);
@@ -215,10 +215,11 @@ async function fetchReserve() {
   $(".booking-details").LoadingOverlay("show");
   let token = localStorage.getItem("TOKEN");
   //console.log(token);
-  
+
   if (token != null && token != "") {
-  let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
-  let email = loginInfo.email;
+    let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+    let email = loginInfo.email;
+
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
     //console.log(input);
     let data = {
@@ -244,17 +245,17 @@ async function fetchReserve() {
       dropOff: localStorage.getItem("RouteId").split(".")[2],
       email: email
     };
-    //console.log("RESERVE POST", JSON.stringify(data));
+    console.log("RESERVE POST DATA", JSON.stringify(data));
     try {
       let response = await axios.post(input, data, axiosConfig);
       //console.log(response.status);
 
       $(".booking-details").LoadingOverlay("hide");
-      //console.log("reserve", response.data);
       if (response.data == "") {
-        //console.log("empty data");
+        console.log("RESERVE DATA: --empty data---");
         return fetchReserve();
       }
+      console.log("RESERVE DATA: ", response.data);
       return response.data;
     } catch (err) {
       console.error(err);
@@ -422,7 +423,8 @@ async function getReserve(gManifest = true) {
   await fetchReserve()
     .then((data) => {
       if (data.length > 0) {
-
+        localStorage.setItem("refNo", data[0].ReferenceNo);
+        localStorage.setItem("reservation", JSON.stringify(data));
         if (data[0].isCancelled === 'YES') {
           return cancelBookings(true);
         }
@@ -437,8 +439,7 @@ async function getReserve(gManifest = true) {
         // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
         let html = "",
           htmList = "";
-        localStorage.setItem("refNo", data[0].ReferenceNo);
-        localStorage.setItem("reservation", JSON.stringify(data));
+
         SetTrip(data[0].ReservationNo, `${data[0].TripDate}.${data[0].RouteId}`, data[0].clientID, false);
         if (data.length !== parseInt(localStorage.getItem("passenger_count"))) {
           //console.log("bookings cancelled");
@@ -744,6 +745,7 @@ async function getSchedules() {
             let dest = schedules[e.dataset.id];
             localStorage.setItem("sched-etd", dest.etd);
             localStorage.setItem("selected-sched", JSON.stringify(dest));
+
             //console.log(dest);
             localStorage.setItem("RouteId", dest.tkey);
             localStorage.setItem("BusType", dest.bustype);
@@ -770,7 +772,7 @@ async function getSchedules() {
       console.log(error);
       //swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
     });
-    // $('.loaderImg').classList.add('d-none');
+  // $('.loaderImg').classList.add('d-none');
   //$('.search-result-main').LoadingOverlay('hide');
 
   if (results == 0) header.innerHTML = `<span style="font-size: medium;">We can't find available trips for
@@ -1197,7 +1199,7 @@ $(document).ready(() => {
     } else {
       getSchedules();
     }
-  $('.loaderImg').addClass('d-none');
+    $('.loaderImg').addClass('d-none');
 
     localStorage.removeItem("selected-sched");
 
@@ -1279,7 +1281,7 @@ function loadTrip() {
       localStorage.setItem("reservation", JSON.stringify(data));
 
       localStorage.setItem("departure", data[0].TripDate),
-        localStorage.setItem("RouteId", data[0].RouteId);
+      localStorage.setItem("RouteId", data[0].RouteId);
       localStorage.setItem("BusType", data[0].BusType);
       localStorage.setItem("clientId", data[0].clientID);
 
