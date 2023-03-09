@@ -531,16 +531,12 @@ function checkReservation() {
   let rlist = JSON.parse(localStorage.getItem('reservation'));
   rlist.forEach((row, index) => {
     if (row.LastName === 'Lastname' || row.FirstName === 'Firstname') {
-      Swal.fire({
-        html: '<p style="font-size: medium">Please change the Passenger Name before proceeding. Thank you</p>',
-        confirmButtonText: 'OK',
-        allowOutsideClick: false,
 
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-        }
-      })
+      swal.fire("Thank you for booking!", "Please check your confirmed itinerary in your email once payment is confirmed. For booking concerns, please email us at payments@iwantseats.com.ph", "success"
+      ).then(function () {
+        setTimeout(function () { document.querySelector('.assignseat').scrollIntoView(); }, 1000);
+      });
+
       ok = false;
     }
     if (row.SeatNo === 'UNASSIGNED') {
