@@ -540,7 +540,7 @@
 
                     <button class="btn pay-con continue btn-primary fs-4" disabled onclick="continuePayment()">
                         <i class="uil uil-credit-card"></i>
-                        Done Booking
+                        Show Payment Options
                     </button>
                     <button class="btn cancel-btn btn-sm fs-4 btn-danger p-3" onclick="closeModal()">
                         Cancel Booking
@@ -724,14 +724,6 @@
             }
         });
 
-        $('#terms_policy').on('change', function () {
-            if (this.checked) {
-                continueBtn.classList.add("active");
-            }
-            else {
-                continueBtn.classList.remove("active");
-            };
-        });
     </script>
 </body>
 

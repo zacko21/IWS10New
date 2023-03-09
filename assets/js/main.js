@@ -495,6 +495,7 @@ async function getReserve(gManifest = true) {
         passLists.innerHTML = htmList;
         if (seatOK) {
           seatSelect.classList.remove("active");
+          document.querySelector('.pay-con').scrollIntoView();
         } else {
           seatSelect.classList.add("active");
         }
@@ -508,6 +509,55 @@ async function getReserve(gManifest = true) {
       //console.log("error", error);
     });
 }
+
+
+$('#terms_policy').on('change', function () {
+  if (checkReservation()) {
+    if (this.checked) {
+      continueBtn.classList.add("active");
+    }
+    else {
+      continueBtn.classList.remove("active");
+    };
+  } else {
+    $(this).prop('checked', !$(this).prop('checked'));
+    return false;
+  }
+});
+
+function checkReservation() {
+  let ok = true;
+  let noCNo = true;
+  let rlist = JSON.parse(localStorage.getItem('reservation'));
+  rlist.forEach((row, index) => {
+    if (row.LastName === 'Lastname' || row.FirstName === 'Firstname') {
+      Swal.fire({
+        html: '<p style="font-size: medium">Please change the Passenger Name before proceeding. Thank you</p>',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false,
+
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+        }
+      })
+      ok = false;
+    }
+    if (row.SeatNo === 'UNASSIGNED') {
+      Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.');
+      ok = false;
+    }
+    if (row.ContactNo != '') {
+      noCNo = false;
+    }
+  })
+  if (noCNo) {
+    ok = false;
+    Swal.fire('Please update the passenger Contact No.');
+  }
+  return ok;
+}
+
 
 function assignSeat() {
   getManifest();
@@ -1049,11 +1099,14 @@ function UploadFile(evt) {
     contentType: false,
     data: formData,
     success: function (data) {
-      // The file was uploaded successfully...
-      swal.fire("File was uploaded.", '', 'succecss');
-      window.location.href =
-        document.URL.substring(0, document.URL.lastIndexOf("/")) +
-        "/user-admin.html";
+      swal.fire({
+        title: "Thank you for booking!",
+        text: "Please check your confirmed itinerary in your email once payment is confirmed. For booking concerns, please email us at payments@iwantseats.com.ph",
+        type: "success"
+      }).then(function () {
+        window.location.href = document.URL.substring(0, document.URL.lastIndexOf("/")) +
+          "/user-admin.html";
+      });
     },
     error: function (data) {
       swal.fire("Oops.. Error occurred", '', 'error');
@@ -1281,7 +1334,7 @@ function loadTrip() {
       localStorage.setItem("reservation", JSON.stringify(data));
 
       localStorage.setItem("departure", data[0].TripDate),
-      localStorage.setItem("RouteId", data[0].RouteId);
+        localStorage.setItem("RouteId", data[0].RouteId);
       localStorage.setItem("BusType", data[0].BusType);
       localStorage.setItem("clientId", data[0].clientID);
 
