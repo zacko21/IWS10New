@@ -76,9 +76,9 @@ async function fetchResults(show = false, options = {}, target = "body") {
   origin = localStorage.getItem("originName");
   destination = localStorage.getItem("destinationName");
   date = localStorage.getItem("departure");
-  clientId = localStorage.getItem("clientId");
+  // clientId = localStorage.getItem("clientId");
   paxCount = localStorage.getItem("passenger_count");
-  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2test/2/${clientId}/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
+  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2test/2/1/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
   //console.log(input);
   let response = await fetch(input);
   // $(target).LoadingOverlay("hide");
@@ -268,13 +268,18 @@ async function fetchReserve() {
 
 async function fetchLocation() {
   // $('.from-value').LoadingOverlay('show');
-  let input =
-    "https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getorigindestinations2/1/-1/1000";
-  //console.log(input);
+  let input = "https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getorigindestinations2/1/-1/1000";
   let response = await fetch(input);
-  // $('.from-value').LoadingOverlay('hide');
   return await response.json();
 }
+
+async function fetchLocationF() {
+  let input =
+    "https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getfeaturedroutesiws";
+  let response = await fetch(input);
+  return await response.json();
+}
+
 
 async function fetchToLocation() {
   let name = localStorage.getItem("originName");
@@ -825,6 +830,40 @@ async function getSchedules() {
   this date. Please try another search</span>`;
 }
 
+function getLocationF() {
+  fetchLocationF()
+    .then((data) => {
+      if (data.length > 0) {
+        let html = '';
+        let placeholder = document.querySelector(".item.from-locationsF");
+        data.forEach(route => {
+          html += '<div><h5></h5>';
+          // console.log('route', route);
+          html += `<a data-clientid="${route.clientid}" data-origin="${route.originname}" data-dest="${route.destinationname}"><i class="uil uil-crosshair"></i>${route.originname} to ${route.destinationname}</a>`;
+        })
+        html += "</div>";
+        placeholder.innerHTML = html;
+
+        let fromLocationF, fromValueF;
+        fromLocationF = document.querySelectorAll(".item.from-locationsF a");
+        fromValueF = document.querySelector("#routeF");
+        fromLocationF.forEach((e) => {
+          e.addEventListener("click", () => {
+            fromValueF.setAttribute("value", e.textContent);
+            fromValueF.setAttribute("data-clientid", e.dataset.clientid);
+            fromValueF.setAttribute("data-origin", e.dataset.origin);
+            fromValueF.setAttribute("data-destination", e.dataset.dest);
+            fromValueF.value = e.textContent;
+            localStorage.setItem("originName", e.dataset.origin);
+            localStorage.setItem("destinationName", e.dataset.dest);
+          });
+        });
+
+      }
+    })
+}
+
+
 function getLocation(search = "") {
   fetchLocation()
     .then((data) => {
@@ -875,7 +914,8 @@ function Logout() {
 
 function getDestination(search = "") {
   // alert(origin);
-  let toLocation, toValue;
+  let toLocation;
+  let toValue;
   toLocation = document.querySelectorAll(".item.to-locations a");
   fetchToLocation()
     .then((data) => {
@@ -897,18 +937,17 @@ function getDestination(search = "") {
           // toValue.value = item[0].destinationname;
           // toValue.setAttribute("data-id", item[0].destinationid);
           item.forEach((loc) => {
-            if (destination === loc.destinationname) {
-              //console.log(destination);
-              toValue.value = loc.destinationname;
-              toValue.setAttribute("data-id", loc.destinationid);
-            }
+            // if (destination === loc.destinationname) {
+            //   //console.log(destination);
+            //   toValue.value = loc.destinationname;
+            //   toValue.setAttribute("data-id", loc.destinationid);
+            // }
             html += `<a data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.destinationname} </a>`;
           });
           html += "</div>";
         });
         placeholder.innerHTML = html;
       }
-      let toLocation, toValue;
       toValue = document.querySelector(".to-value");
       toLocation = document.querySelectorAll(".item.to-locations a");
       toLocation.forEach((e) => {
@@ -973,7 +1012,38 @@ function SearchForm(e) {
     localStorage.setItem("destinationName", destination);
     localStorage.setItem("passenger_count", paxcount);
     localStorage.setItem("departure", departure);
-    localStorage.setItem("clientId", clientId);
+    // localStorage.setItem("clientId", clientId);
+    // fetchResults(true, {background: 'rgba(255, 255, 255, 0.3)', image: '', text: 'searching'}).then(res => {
+    fetchResults(true)
+      .then((res) => {
+        if (res.length === 0) {
+          Swal.fire("We can't find available trips for this date. Please try another search");
+        } else {
+          window.location.href =
+            document.URL.substring(0, document.URL.lastIndexOf("/")) +
+            "/booking.html";
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        swal.fire({ title: 'Oops.. Error occurred', text: 'Cannot get Trip Schedules' });
+      });
+  }
+}
+
+function SearchFormF(e) {
+  e.preventDefault();
+  let route = document.getElementById("routeF");
+  let paxcount = document.getElementById("passengerF").value;
+  let departure = document.getElementById("date_of_departureF").value;
+  // let clientId = from.dataset.clientid;
+  // let result;
+  if (route.dataset.origin && route.dataset.destination ) {
+    localStorage.setItem("originName", route.dataset.origin);
+    localStorage.setItem("destinationName", route.dataset.destination);
+    localStorage.setItem("passenger_count", paxcount);
+    localStorage.setItem("departure", departure);
+    // localStorage.setItem("clientId", clientId);
     // fetchResults(true, {background: 'rgba(255, 255, 255, 0.3)', image: '', text: 'searching'}).then(res => {
     fetchResults(true)
       .then((res) => {
@@ -1135,18 +1205,12 @@ function getHistory() {
                       <td>${row.origin} - ${row.destination}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${row.etd.split(" ")[0]
-            }</span>
+                          <i class="uil uil-calender"></i> <span>${row.etd.split(" ")[0]}</span>
                         </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime(
-              row.etd.split(" ")[1]
-            )}</span></p>
+                        <p><i class="uil uil-clock"></i><span>${formatTime(row.etd.split(" ")[1])}</span></p>
                       </td>
                       <td><a style="font-size:1.6rem" class="btn btn-success" href="javascript:;" onclick="SetTrip('${row.reference_no}','${row.trip_id}',${row.clientid})"><i class="uil uil-info-circle"></i> ${row.reference_no}</a></td>
-                      <td>${row.total_amount_due.toLocaleString(
-              "en",
-              options
-            )}</td>
+                      <td>${row.total_amount_due.toLocaleString("en", options)}</td>
                       <td>${row.paidstatus}</td>
                       <td>${row.reservationstatus}</td>
                       <td>
@@ -1155,8 +1219,7 @@ function getHistory() {
             }</span>
                         </p>
                         <p><i class="uil uil-clock"></i><span>${formatTime(
-              row.expiration.split(" ")[1]
-            )}</span></p>
+              row.expiration.split(" ")[1])}</span></p>
                       </td>
                     </tr>`;
         } else {
@@ -1173,20 +1236,14 @@ function getHistory() {
             )}</span></p>
                       </td>
                       <td>${row.reference_no}</td>
-                      <td>${row.total_amount_due.toLocaleString(
-              "en",
-              options
-            )}</td>
+                      <td>${row.total_amount_due.toLocaleString("en", options)}</td>
                       <td>${row.paidstatus}</td>
                       <td>${row.reservationstatus}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${row.expiration.split(" ")[0]
-            }</span>
+                          <i class="uil uil-calender"></i> <span>${row.expiration.split(" ")[0]}</span>
                         </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime(
-              row.expiration.split(" ")[1]
-            )}</span></p>
+                        <p><i class="uil uil-clock"></i><span>${formatTime(row.expiration.split(" ")[1])}</span></p>
                       </td>
                     </tr>`;
         }
@@ -1223,6 +1280,7 @@ $(document).ready(() => {
     let token = GetURLParameter('token');
     let stoken = localStorage.getItem("TOKEN");
     getLocation();
+    getLocationF();
     document.getElementById('date_of_departure').value = moment().add(1, 'days').format('YYYY-MM-DD');
     if (action == 'resetpass') {
       if (stoken) {
@@ -1308,6 +1366,14 @@ function loadTrip() {
           window.location = "user-admin.html";
         });
       }
+      localStorage.setItem("refNo", data[0].ReferenceNo);
+      localStorage.setItem("reservation", JSON.stringify(data));
+
+      localStorage.setItem("departure", data[0].TripDate),
+        localStorage.setItem("RouteId", data[0].RouteId);
+      localStorage.setItem("BusType", data[0].BusType);
+      localStorage.setItem("clientId", data[0].clientID);
+
       localStorage.setItem("passenger_count", data.length);
       let header = document.getElementById("header_travel");
       let header1 = document.getElementById("side_header");
@@ -1326,13 +1392,6 @@ function loadTrip() {
       // header.innerHTML = `<p><span>${data[0].Origin}</span> TO <span>${data[0].Destination}</span></p>`
       let html = "",
         htmList = "";
-      localStorage.setItem("refNo", data[0].ReferenceNo);
-      localStorage.setItem("reservation", JSON.stringify(data));
-
-      localStorage.setItem("departure", data[0].TripDate),
-        localStorage.setItem("RouteId", data[0].RouteId);
-      localStorage.setItem("BusType", data[0].BusType);
-      localStorage.setItem("clientId", data[0].clientID);
 
       let fare = 0;
       let paxCount = data.length;

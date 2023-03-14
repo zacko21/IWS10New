@@ -142,6 +142,71 @@
 			</form>
 		</div>
 
+		<div class="container mt-5">
+			<form class="search-bar-main" method="POST" onsubmit="SearchFormF(event)">
+				<center>
+					<h3 class="sub-title">
+						Featured Routes
+					</h3>
+				</center>
+				<div class="search-bar">
+					<div class="search-fild drop-box">
+						<label for="from">Route</label>
+						<div class="input from-input">
+							<i class="uil uil-search search-ic"></i>
+							<input autocomplete="off" id="routeF" name="routeF"
+								oninput="getLocation(this.value)" placeholder="Route Featured" required />
+							<i class="uil uil-map-marker"></i>
+						</div>
+						<div class="dropdown">
+							<div class="item from-locationsF"></div>
+						</div>
+					</div>
+
+					<!-- <label for="from">From</label>
+					<div class="input from-input">
+						<i class="uil uil-search search-ic"></i>
+						<input autocomplete="off" class="from-value" id="from" name="from"
+							oninput="getLocation(this.value)" placeholder="Your location" required />
+						<i class="uil uil-map-marker"></i>
+					</div>
+					<div class="dropdown">
+						<div class="item from-locations"></div>
+					</div> -->
+
+					<div class="search-fild">
+						<label for="date_of_departure">Travel Date</label>
+						<div class="input">
+							<input id="date_of_departureF" onchange="this.className=(this.value!=''?'has-value':'')"
+								required type="date" onfocus="this.showPicker()" />
+							<label for="date_of_departureF"><i class="uil uil-calendar-alt"></i></label>
+						</div>
+					</div>
+					<div class="search-fild">
+						<label for="passengerF">Passengers</label>
+						<div class="input">
+							<input id="passengerF" required type="number" value="1" />
+							<i class="uil uil-users-alt"></i>
+						</div>
+					</div>
+					<!-- <div class="search-fild">
+						<div class="flex">
+							<label for="date_of_return">Return Date</label>
+							<input id="chkReturn" type="checkbox" />
+						</div>
+						<div class="input">
+							<input disabled id="date_of_return" name="date_of_return"
+								onchange="this.className=(this.value!=''?'has-value':'')" type="date" />
+							<i class="uil uil-calendar-alt"></i>
+						</div>
+					</div> -->
+					<button class="btn-primary search-btn">
+						<i class="uil uil-search"></i> Search
+					</button>
+				</div>
+			</form>
+		</div>
+
 	</main>
 	<!-- 
 	<section class="break">
