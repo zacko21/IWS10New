@@ -46,7 +46,7 @@ if (dtDepart) {
 async function fetchBookingHistory() {
   $.LoadingOverlay('show');
   let token = localStorage.getItem("TOKEN");
-  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
+  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistory/${token}`;
   if (token) {
     //console.log(input);
     let data = {
@@ -78,7 +78,7 @@ async function fetchResults(show = false, options = {}, target = "body") {
   date = localStorage.getItem("departure");
   // clientId = localStorage.getItem("clientId");
   paxCount = localStorage.getItem("passenger_count");
-  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2test/2/1/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
+  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2/2/1/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
   //console.log(input);
   let response = await fetch(input);
   // $(target).LoadingOverlay("hide");
@@ -89,7 +89,7 @@ async function fetchResults(show = false, options = {}, target = "body") {
 async function fetchReservationInfo(data) {
   let token = localStorage.getItem("TOKEN");
   if (token != null && token != "") {
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getreservationinfotest/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getreservationinfo/${token}`;
     //console.log(input);
     let response = await fetch(input, {
       headers: {
@@ -152,7 +152,7 @@ async function fetchPassengerSeat(refNo, seatNo) {
   // $('.bus-seat-select').LoadingOverlay('show');
   let token = localStorage.getItem("TOKEN");
   if (token != null && token != "") {
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updatepassengerseattest/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updatepassengerseat/${token}`;
     let data = {
       ClientID: localStorage.getItem("clientId"),
       TripDate: localStorage.getItem("departure"),
@@ -183,7 +183,7 @@ async function fetchManifest() {
   let token = localStorage.getItem("TOKEN");
   //console.log(token);
   if (token != null && token != "") {
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifesttest/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifest/${token}`;
     //console.log(input);
     let data = {
       clientid: localStorage.getItem("clientId"),
@@ -220,7 +220,7 @@ async function fetchReserve() {
     let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
     let email = loginInfo.email;
 
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reserve/${token}`;
     //console.log(input);
     let data = {
       clientId: localStorage.getItem("clientId"),
