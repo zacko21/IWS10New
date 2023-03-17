@@ -46,7 +46,7 @@ if (dtDepart) {
 async function fetchBookingHistory() {
   $.LoadingOverlay('show');
   let token = localStorage.getItem("TOKEN");
-  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistory/${token}`;
+  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/bookinghistorytest/${token}`;
   if (token) {
     //console.log(input);
     let data = {
@@ -73,12 +73,12 @@ async function fetchResults(show = false, options = {}, target = "body") {
   let clientId, date, origin, destination, paxCount;
   ////console.log(target);
   // if (show) $(target).LoadingOverlay("show", options);
-  origin = localStorage.getItem("originName");
-  destination = localStorage.getItem("destinationName");
-  date = localStorage.getItem("departure");
-  // clientId = localStorage.getItem("clientId");
-  paxCount = localStorage.getItem("passenger_count");
-  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2/2/1/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
+  origin = sessionStorage.getItem("originName");
+  destination = sessionStorage.getItem("destinationName");
+  date = sessionStorage.getItem("departure");
+  // clientId = sessionStorage.getItem("clientId");
+  paxCount = sessionStorage.getItem("passenger_count");
+  let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getschedules2test/2/1/${date}/${origin.trim()}/${destination.trim()}/${paxCount}`;
   //console.log(input);
   let response = await fetch(input);
   // $(target).LoadingOverlay("hide");
@@ -89,7 +89,7 @@ async function fetchResults(show = false, options = {}, target = "body") {
 async function fetchReservationInfo(data) {
   let token = localStorage.getItem("TOKEN");
   if (token != null && token != "") {
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getreservationinfo/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getreservationinfotest/${token}`;
     //console.log(input);
     let response = await fetch(input, {
       headers: {
@@ -110,7 +110,7 @@ async function fetchReservationInfo(data) {
 async function fetchUpdatePassenger(data) {
   let token = localStorage.getItem("TOKEN");
   if (token != null && token != "") {
-    let refNo = localStorage.getItem("refNo");
+    let refNo = sessionStorage.getItem("refNo");
     let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/passenger/${token}/${refNo}`;
     //console.log(input);
     let response = await fetch(input, {
@@ -152,12 +152,12 @@ async function fetchPassengerSeat(refNo, seatNo) {
   // $('.bus-seat-select').LoadingOverlay('show');
   let token = localStorage.getItem("TOKEN");
   if (token != null && token != "") {
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updatepassengerseat/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/updatepassengerseattest/${token}`;
     let data = {
-      ClientID: localStorage.getItem("clientId"),
-      TripDate: localStorage.getItem("departure"),
-      RouteID: localStorage.getItem("RouteId"),
-      BusType: localStorage.getItem("BusType"),
+      ClientID: sessionStorage.getItem("clientId"),
+      TripDate: sessionStorage.getItem("departure"),
+      RouteID: sessionStorage.getItem("RouteId"),
+      BusType: sessionStorage.getItem("BusType"),
       ReferenceNo: refNo,
       SeatNo: seatNo,
     };
@@ -183,13 +183,13 @@ async function fetchManifest() {
   let token = localStorage.getItem("TOKEN");
   //console.log(token);
   if (token != null && token != "") {
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifest/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/manifesttest/${token}`;
     //console.log(input);
     let data = {
-      clientid: localStorage.getItem("clientId"),
-      tripdate: localStorage.getItem("departure"),
-      routeid: localStorage.getItem("RouteId"),
-      BusType: localStorage.getItem("BusType"),
+      clientid: sessionStorage.getItem("clientId"),
+      tripdate: sessionStorage.getItem("departure"),
+      routeid: sessionStorage.getItem("RouteId"),
+      BusType: sessionStorage.getItem("BusType"),
     };
     //console.log(JSON.stringify(data));
     try {
@@ -220,14 +220,14 @@ async function fetchReserve() {
     let loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
     let email = loginInfo.email;
 
-    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reserve/${token}`;
+    let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/reservetest/${token}`;
     //console.log(input);
     let data = {
-      clientId: localStorage.getItem("clientId"),
+      clientId: sessionStorage.getItem("clientId"),
       token: token,
-      tripDate: localStorage.getItem("departure"),
-      noOfPax: localStorage.getItem("passenger_count"),
-      routeId: localStorage.getItem("RouteId"),
+      tripDate: sessionStorage.getItem("departure"),
+      noOfPax: sessionStorage.getItem("passenger_count"),
+      routeId: sessionStorage.getItem("RouteId"),
       reservationStatus: "0",
       firstName: "a",
       middleName: "a",
@@ -241,8 +241,8 @@ async function fetchReserve() {
       paidBy: "",
       modeOfPayment: "",
       paymentRemarks: "",
-      pickUp: localStorage.getItem("RouteId").split(".")[1],
-      dropOff: localStorage.getItem("RouteId").split(".")[2],
+      pickUp: sessionStorage.getItem("RouteId").split(".")[1],
+      dropOff: sessionStorage.getItem("RouteId").split(".")[2],
       email: email
     };
     console.log("RESERVE POST DATA", JSON.stringify(data));
@@ -282,7 +282,7 @@ async function fetchLocationF() {
 
 
 async function fetchToLocation() {
-  let name = localStorage.getItem("originName");
+  let name = sessionStorage.getItem("originName");
   // $('.to-value').LoadingOverlay('show');
   let input = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine/getorigindestinations2/2/${name}/1000`;
   //console.log(input);
@@ -306,11 +306,11 @@ const groupBy = (list, keyGetter) => {
 };
 
 function getPassengerInfo(id) {
-  let reservation = localStorage.getItem("reservation");
+  let reservation = sessionStorage.getItem("reservation");
   let cinfo = JSON.parse(reservation)[id];
   // let pBooker = parseInt(id) === 0 ? 1 : 0;
-  localStorage.setItem("refNo", cinfo.ReferenceNo);
-  // localStorage.setItem("pBooker", pBooker);
+  sessionStorage.setItem("refNo", cinfo.ReferenceNo);
+  // sessionStorage.setItem("pBooker", pBooker);
   document.querySelector("#email").value = cinfo.Email;
   document.querySelector("#first_name").value = cinfo.FirstName;
   document.querySelector("#last_name").value = cinfo.LastName;
@@ -324,7 +324,7 @@ function getPassengerInfo(id) {
 }
 
 async function cancelBookings(getR = false) {
-  let reservation = localStorage.getItem("reservation");
+  let reservation = sessionStorage.getItem("reservation");
   let info = JSON.parse(reservation)[0];
   let data = {
     ClientID: info.clientID,
@@ -339,7 +339,7 @@ async function cancelBookings(getR = false) {
     .then((res) => {
       if (res.result === "OK") {
         //console.log("CANCEL RESULT", res.result);
-        //localStorage.removeItem('reservation');
+        //sessionStorage.removeItem('reservation');
         // modal.classList.remove('active');
         // Swal.fire('Success', 'Your bookings is successfully cancelled.', 'success');
       } else {
@@ -357,7 +357,7 @@ async function EditInfo(e) {
   $('.edit-booked-user-info').LoadingOverlay('show');
   e.preventDefault();
   let data = {
-    clientid: localStorage.getItem("clientId"),
+    clientid: sessionStorage.getItem("clientId"),
     loyaltyId: "",
     birthDate: moment(document.querySelector("#birthday").value).format('YYYY-MM-DD'),
     contactNo: document.querySelector("#contact_number").value,
@@ -366,11 +366,11 @@ async function EditInfo(e) {
     gender: document.querySelector("input[name='gender']:checked").value,
     lastName: document.querySelector("#last_name").value,
     middleName: "",
-    referenceNo: localStorage.getItem("refNo"),
-    // replaceprimarybooker: parseInt(localStorage.getItem("pBooker")),
+    referenceNo: sessionStorage.getItem("refNo"),
+    // replaceprimarybooker: parseInt(sessionStorage.getItem("pBooker")),
     replaceprimarybooker: 0,
     tripID:
-      localStorage.getItem("departure") + "." + localStorage.getItem("RouteId"),
+      sessionStorage.getItem("departure") + "." + sessionStorage.getItem("RouteId"),
   };
   await fetchUpdatePassenger(data)
     .then((res) => {
@@ -400,7 +400,7 @@ async function EditInfo(e) {
 //                 html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
 //                 item.forEach(loc => {
 //                     // //console.log(loc);
-//                     html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.originName} </a>`;
+//                     html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="fas fa-crosshairs"></i>${loc.originName} </a>`;
 //                 })
 //                 html += '</div>'
 //             })
@@ -423,13 +423,43 @@ async function EditInfo(e) {
 //     })
 // }
 
+
+function gotoView(el, checkSeat = false, checkContact = false) {
+  document.querySelector(el).scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+  if (checkContact) {
+    let hContact = document.querySelectorAll('.has-contact');
+    console.log('has-contact', hContact.length);
+    if (hContact.length == 0) {
+      let block = document.querySelectorAll(el + '>.block');
+      for (i = 0; i <= block.length; i++) {
+        block[i].style.border = '2px solid #ff285c';
+      }
+
+    }
+  }
+
+  if (checkSeat) {
+    let nSeat = document.querySelectorAll('.no-seat');
+    console.log('no-seat', nSeat.length);
+    if (nSeat.length > 0) {
+      let block = document.querySelectorAll('.no-seat');
+      for (i = 0; i <= block.length; i++) {
+        block[i].style.border = '2px solid #ff285c';
+      }
+
+    }
+  }
+
+
+}
+
 async function getReserve(gManifest = true) {
   let seatOK = true;
   await fetchReserve()
     .then((data) => {
       if (data.length > 0) {
-        localStorage.setItem("refNo", data[0].ReferenceNo);
-        localStorage.setItem("reservation", JSON.stringify(data));
+        sessionStorage.setItem("refNo", data[0].ReferenceNo);
+        sessionStorage.setItem("reservation", JSON.stringify(data));
         if (data[0].isCancelled === 'YES') {
           return cancelBookings(true);
         }
@@ -446,7 +476,7 @@ async function getReserve(gManifest = true) {
           htmList = "";
 
         SetTrip(data[0].ReservationNo, `${data[0].TripDate}.${data[0].RouteId}`, data[0].clientID, false);
-        if (data.length !== parseInt(localStorage.getItem("passenger_count"))) {
+        if (data.length !== parseInt(sessionStorage.getItem("passenger_count"))) {
           //console.log("bookings cancelled");
           return cancelBookings(true);
         }
@@ -464,7 +494,7 @@ async function getReserve(gManifest = true) {
             seatOK = false;
           }
           html += `<option value="${res.ReferenceNo}">${name}</option>`;
-          htmList += `<div class="block">
+          htmList += `<div class="block ${res.SeatNo == 'UNASSIGNED' ? 'no-seat' : ''} ${res.ContactNo != '' ? 'has-contact' : ''}">
                                 <div class="item">
                                     <div>
                                         <p>Seat no:</p>
@@ -476,9 +506,9 @@ async function getReserve(gManifest = true) {
                                         <p>Name:</p>
                                         <p>${name}</p>
                                     </div>
-                                    <i class="uil uil-pen" data-id ="${index}" onclick="editBookingUser(this)"></i>
+                                    <i class="fas fa-pencil-alt" data-id ="${index}" onclick="editBookingUser(this)"></i>
                                 </div>
-                            </div>`;
+                      </div>`;
         });
         let dest = JSON.parse(JSON.stringify(data[0]));
 
@@ -500,7 +530,7 @@ async function getReserve(gManifest = true) {
         passLists.innerHTML = htmList;
         if (seatOK) {
           seatSelect.classList.remove("active");
-          document.querySelector('.pay-con').scrollIntoView();
+          document.querySelector('.pay-con').scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
         } else {
           seatSelect.classList.add("active");
         }
@@ -533,19 +563,24 @@ $('#terms_policy').on('change', function () {
 function checkReservation() {
   let ok = true;
   let noCNo = true;
-  let rlist = JSON.parse(localStorage.getItem('reservation'));
+  let rlist = JSON.parse(sessionStorage.getItem('reservation'));
   rlist.forEach((row, index) => {
     if (row.LastName === 'Lastname' || row.FirstName === 'Firstname') {
 
-      swal.fire("Thank you for booking!", "Please check your confirmed itinerary in your email once payment is confirmed. For booking concerns, please email us at payments@iwantseats.com.ph", "success"
-      ).then(function () {
-        setTimeout(function () { document.querySelector('.assignseat').scrollIntoView(); }, 1000);
+      swal.fire("Please update passenger(s) Name").then(function () {
+        setTimeout(function(){
+          gotoView('#passenger-list');  
+        })
       });
 
       ok = false;
     }
     if (row.SeatNo === 'UNASSIGNED') {
-      Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.');
+      Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.').then(()=>{
+        setTimeout(function(){  
+          gotoView('#passenger-list',true);
+        })
+      });
       ok = false;
     }
     if (row.ContactNo != '') {
@@ -554,7 +589,11 @@ function checkReservation() {
   })
   if (noCNo) {
     ok = false;
-    Swal.fire('Please update the passenger Contact No.');
+    Swal.fire('Please update the passenger Contact No.').then(() => {
+      setTimeout(function(){
+        gotoView('#passenger-list',false,true);
+      })
+    });
   }
   return ok;
 }
@@ -706,7 +745,7 @@ async function getSchedules() {
     .then((data) => {
       results = data.length;
       if (data.length > 0) {
-        localStorage.setItem("schedules", JSON.stringify(data));
+        sessionStorage.setItem("schedules", JSON.stringify(data));
         let html = "";
         ////console.log(data);
 
@@ -731,16 +770,16 @@ async function getSchedules() {
             }</h3>
                 <div class="travel-info">
                   <div class="item">
-                    <i class="uil uil-user"></i>
+                    <i class="fas fa-user"></i>
                     <p id="seat_available">Seats available: <span>${results["seatcount"] - results["seatstaken"]
             }</span></p>
                   </div>
                   <div class="item">
-                    <i class="uil uil-clock"></i>
+                    <i class="fas fa-clock"></i>
                     <p>Time: <span>${tDuration}</span> hours</p>
                   </div>
                   <div class="item">
-                    <i class="uil uil-user-location"></i>
+                  <i class="fas fa-user-clock"></i>
                     <p id="eta">Arrival: <span>${formatTime(
               results["eta"]
             )}</span></p>
@@ -756,7 +795,7 @@ async function getSchedules() {
       }
 
       let bookBtn = document.querySelectorAll(".btn.book");
-      let schedules = JSON.parse(localStorage.getItem("schedules"));
+      let schedules = JSON.parse(sessionStorage.getItem("schedules"));
       bookBtn.forEach((e) => {
         e.addEventListener("click", (attr) => {
           let userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -770,7 +809,7 @@ async function getSchedules() {
 
           let ok = true;
           let current_sched = JSON.parse(
-            localStorage.getItem("selected-sched")
+            sessionStorage.getItem("selected-sched")
           );
           let sel_sched = schedules[e.dataset.id];
           if (
@@ -794,13 +833,13 @@ async function getSchedules() {
             // e.setAttribute("disabled", true);
 
             let dest = schedules[e.dataset.id];
-            localStorage.setItem("sched-etd", dest.etd);
-            localStorage.setItem("selected-sched", JSON.stringify(dest));
+            sessionStorage.setItem("sched-etd", dest.etd);
+            sessionStorage.setItem("selected-sched", JSON.stringify(dest));
 
             //console.log(dest);
-            localStorage.setItem("RouteId", dest.tkey);
-            localStorage.setItem("BusType", dest.bustype);
-            localStorage.setItem("clientId", dest.clientid);
+            sessionStorage.setItem("RouteId", dest.tkey);
+            sessionStorage.setItem("BusType", dest.bustype);
+            sessionStorage.setItem("clientId", dest.clientid);
             let body = document.querySelector("body");
             //  body.classList.toggle("modal-open");
             let bookingDetails = document.querySelector(".booking-details");
@@ -839,7 +878,7 @@ function getLocationF() {
         data.forEach(route => {
           html += '<div><h5></h5>';
           // console.log('route', route);
-          html += `<a data-clientid="${route.clientid}" data-origin="${route.originname}" data-dest="${route.destinationname}"><i class="uil uil-crosshair"></i>${route.originname} to ${route.destinationname}</a>`;
+          html += `<a data-clientid="${route.clientid}" data-origin="${route.originname}" data-dest="${route.destinationname}"><i class="fas fa-crosshairs"></i>${route.originname} to ${route.destinationname}</a>`;
         })
         html += "</div>";
         placeholder.innerHTML = html;
@@ -854,8 +893,8 @@ function getLocationF() {
             fromValueF.setAttribute("data-origin", e.dataset.origin);
             fromValueF.setAttribute("data-destination", e.dataset.dest);
             fromValueF.value = e.textContent;
-            localStorage.setItem("originName", e.dataset.origin);
-            localStorage.setItem("destinationName", e.dataset.dest);
+            sessionStorage.setItem("originName", e.dataset.origin);
+            sessionStorage.setItem("destinationName", e.dataset.dest);
           });
         });
 
@@ -880,7 +919,7 @@ function getLocation(search = "") {
         _.forEach(gd, function (item, area) {
           html += `<div><h5 style="margin-left: 10px;font-size: small">${area}</h5>`;
           item.forEach((loc) => {
-            html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.originName} </a>`;
+            html += `<a data-clientid="${loc.clientID}" data-id="${loc.destinationid}"><i class="fas fa-crosshairs"></i>${loc.originName} </a>`;
           });
           html += "</div>";
         });
@@ -896,7 +935,7 @@ function getLocation(search = "") {
           fromValue.setAttribute("data-id", e.dataset.id);
           fromValue.setAttribute("data-clientid", e.dataset.clientid);
           fromValue.value = e.textContent;
-          localStorage.setItem("originName", e.textContent);
+          sessionStorage.setItem("originName", e.textContent);
           document.querySelector(".to-value").value = "";
           getDestination();
         });
@@ -908,6 +947,7 @@ function getLocation(search = "") {
 }
 
 function Logout() {
+  sessionStorage.clear();
   localStorage.clear();
   window.location.href = "./";
 }
@@ -920,7 +960,7 @@ function getDestination(search = "") {
   fetchToLocation()
     .then((data) => {
       if (data.length > 0) {
-        let destination = localStorage.getItem("destinationName");
+        let destination = sessionStorage.getItem("destinationName");
         let html = "";
         let placeholder = document.querySelector(".item.to-locations");
         var results = _.filter(data, function (row) {
@@ -942,7 +982,7 @@ function getDestination(search = "") {
             //   toValue.value = loc.destinationname;
             //   toValue.setAttribute("data-id", loc.destinationid);
             // }
-            html += `<a data-id="${loc.destinationid}"><i class="uil uil-crosshair"></i>${loc.destinationname} </a>`;
+            html += `<a data-id="${loc.destinationid}"><i class="fas fa-crosshairs"></i>${loc.destinationname} </a>`;
           });
           html += "</div>";
         });
@@ -1008,11 +1048,11 @@ function SearchForm(e) {
   let clientId = from.dataset.clientid;
   let result;
   if (from && to) {
-    localStorage.setItem("originName", origin);
-    localStorage.setItem("destinationName", destination);
-    localStorage.setItem("passenger_count", paxcount);
-    localStorage.setItem("departure", departure);
-    // localStorage.setItem("clientId", clientId);
+    sessionStorage.setItem("originName", origin);
+    sessionStorage.setItem("destinationName", destination);
+    sessionStorage.setItem("passenger_count", paxcount);
+    sessionStorage.setItem("departure", departure);
+    // sessionStorage.setItem("clientId", clientId);
     // fetchResults(true, {background: 'rgba(255, 255, 255, 0.3)', image: '', text: 'searching'}).then(res => {
     fetchResults(true)
       .then((res) => {
@@ -1038,12 +1078,12 @@ function SearchFormF(e) {
   let departure = document.getElementById("date_of_departureF").value;
   // let clientId = from.dataset.clientid;
   // let result;
-  if (route.dataset.origin && route.dataset.destination ) {
-    localStorage.setItem("originName", route.dataset.origin);
-    localStorage.setItem("destinationName", route.dataset.destination);
-    localStorage.setItem("passenger_count", paxcount);
-    localStorage.setItem("departure", departure);
-    // localStorage.setItem("clientId", clientId);
+  if (route.dataset.origin && route.dataset.destination) {
+    sessionStorage.setItem("originName", route.dataset.origin);
+    sessionStorage.setItem("destinationName", route.dataset.destination);
+    sessionStorage.setItem("passenger_count", paxcount);
+    sessionStorage.setItem("departure", departure);
+    // sessionStorage.setItem("clientId", clientId);
     // fetchResults(true, {background: 'rgba(255, 255, 255, 0.3)', image: '', text: 'searching'}).then(res => {
     fetchResults(true)
       .then((res) => {
@@ -1066,7 +1106,7 @@ $(".gcashi").click(async function () {
   let okay = false;
   let fee = 0;
   let refNo = "";
-  let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
+  let pax_data = JSON.parse(sessionStorage.getItem('tripInfo'));
   await fetchReservationInfo(pax_data).then(data => {
     let status = data[0].ReservationStatus;
     if (status === 'ACTIVE') {
@@ -1151,7 +1191,7 @@ function UploadFile(evt) {
   // On the click even,
   var formData = new FormData($("#payForm")[0]);
   let apiURL = `https://iwsenterprise.com/iwsticketing_v3/iwsapiengine`;
-  let reslist = JSON.parse(localStorage.getItem("reservation"));
+  let reslist = JSON.parse(sessionStorage.getItem("reservation"));
   $.ajax({
     type: "POST",
     url:
@@ -1205,20 +1245,20 @@ function getHistory() {
                       <td>${row.origin} - ${row.destination}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${row.etd.split(" ")[0]}</span>
+                          <i class="fas fa-calendar-alt"></i> <span>${row.etd.split(" ")[0]}</span>
                         </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime(row.etd.split(" ")[1])}</span></p>
+                        <p><i class="fas fa-clock"></i><span>${formatTime(row.etd.split(" ")[1])}</span></p>
                       </td>
-                      <td><a style="font-size:1.6rem" class="btn btn-success" href="javascript:;" onclick="SetTrip('${row.reference_no}','${row.trip_id}',${row.clientid})"><i class="uil uil-info-circle"></i> ${row.reference_no}</a></td>
+                      <td><a style="font-size:1.6rem" class="btn btn-success" href="javascript:;" onclick="SetTrip('${row.reference_no}','${row.trip_id}',${row.clientid})"><i class="fas fa-info-circle"></i> ${row.reference_no}</a></td>
                       <td>${row.total_amount_due.toLocaleString("en", options)}</td>
                       <td>${row.paidstatus}</td>
                       <td>${row.reservationstatus}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${row.expiration.split(" ")[0]
+                          <i class="fas fa-calendar-alt"></i> <span>${row.expiration.split(" ")[0]
             }</span>
                         </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime(
+                        <p><i class="fas fa-clock"></i><span>${formatTime(
               row.expiration.split(" ")[1])}</span></p>
                       </td>
                     </tr>`;
@@ -1228,10 +1268,10 @@ function getHistory() {
                       <td>${row.origin} - ${row.destination}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${row.etd.split(" ")[0]
+                          <i class="fas fa-calendar-alt"></i> <span>${row.etd.split(" ")[0]
             }</span>
                         </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime(
+                        <p><i class="fas fa-clock"></i><span>${formatTime(
               row.etd.split(" ")[1]
             )}</span></p>
                       </td>
@@ -1241,9 +1281,9 @@ function getHistory() {
                       <td>${row.reservationstatus}</td>
                       <td>
                         <p>
-                          <i class="uil uil-calender"></i> <span>${row.expiration.split(" ")[0]}</span>
+                          <i class="fas fa-calendar-alt"></i> <span>${row.expiration.split(" ")[0]}</span>
                         </p>
-                        <p><i class="uil uil-clock"></i><span>${formatTime(row.expiration.split(" ")[1])}</span></p>
+                        <p><i class="fas fa-clock"></i><span>${formatTime(row.expiration.split(" ")[1])}</span></p>
                       </td>
                     </tr>`;
         }
@@ -1284,6 +1324,7 @@ $(document).ready(() => {
     document.getElementById('date_of_departure').value = moment().add(1, 'days').format('YYYY-MM-DD');
     if (action == 'resetpass') {
       if (stoken) {
+        sessionStorage.clear();
         localStorage.clear();
         location.reload();
         // window.location.href = `./?action=resetpwd&token=${token}`;  
@@ -1308,7 +1349,7 @@ $(document).ready(() => {
     }
     $('.loaderImg').addClass('d-none');
 
-    localStorage.removeItem("selected-sched");
+    sessionStorage.removeItem("selected-sched");
 
   }
   // $('.loaderImg').addClass('d-none');
@@ -1357,7 +1398,7 @@ $("#contactForm").submit(async function (e) {
 
 function loadTrip() {
   $.LoadingOverlay('show');
-  let pax_data = JSON.parse(localStorage.getItem('tripInfo'));
+  let pax_data = JSON.parse(sessionStorage.getItem('tripInfo'));
   fetchReservationInfo(pax_data).then(data => {
     //console.log('reservation_date', data);
     if (data.length > 0) {
@@ -1366,15 +1407,15 @@ function loadTrip() {
           window.location = "user-admin.html";
         });
       }
-      localStorage.setItem("refNo", data[0].ReferenceNo);
-      localStorage.setItem("reservation", JSON.stringify(data));
+      sessionStorage.setItem("refNo", data[0].ReferenceNo);
+      sessionStorage.setItem("reservation", JSON.stringify(data));
 
-      localStorage.setItem("departure", data[0].TripDate),
-        localStorage.setItem("RouteId", data[0].RouteId);
-      localStorage.setItem("BusType", data[0].BusType);
-      localStorage.setItem("clientId", data[0].clientID);
+      sessionStorage.setItem("departure", data[0].TripDate),
+        sessionStorage.setItem("RouteId", data[0].RouteId);
+      sessionStorage.setItem("BusType", data[0].BusType);
+      sessionStorage.setItem("clientId", data[0].clientID);
 
-      localStorage.setItem("passenger_count", data.length);
+      sessionStorage.setItem("passenger_count", data.length);
       let header = document.getElementById("header_travel");
       let header1 = document.getElementById("side_header");
       let placeholder = document.querySelector(" .search-result-main");
@@ -1418,7 +1459,7 @@ function loadTrip() {
                                       <p>Name:</p>
                                       <p>${name}</p>
                                   </div>
-                                  <i class="uil uil-pen" data-id ="${index}" onclick="editBookingUser(this)"></i>
+                                  <i class="fas fa-pencil-alt" data-id ="${index}" onclick="editBookingUser(this)"></i>
                               </div>
                           </div>`;
       });
@@ -1467,11 +1508,11 @@ function loadTrip() {
 function SetTrip(refNo, tripId, clientId, redirect = true) {
   let pax_data = {
     "clientid": clientId,
-    "token": localStorage.getItem('TOKEN'),
+    "token": sessionStorage.getItem('TOKEN'),
     "tripID": tripId,
     "referenceNo": '~' + refNo
   };
-  localStorage.setItem('tripInfo', JSON.stringify(pax_data));
+  sessionStorage.setItem('tripInfo', JSON.stringify(pax_data));
   if (redirect) window.location.href = "booking.html?action=getreservation";
   // //console.log(data);
 
@@ -1604,11 +1645,11 @@ async function changeContactNo1() {
 // async function getSelectedTrip(){
 
 //   let data = {
-//     clientId: localStorage.getItem("clientId"),
+//     clientId: sessionStorage.getItem("clientId"),
 //     token: token,
-//     tripDate: localStorage.getItem("departure"),
-//     noOfPax: localStorage.getItem("passenger_count"),
-//     routeId: localStorage.getItem("RouteId"),
+//     tripDate: sessionStorage.getItem("departure"),
+//     noOfPax: sessionStorage.getItem("passenger_count"),
+//     routeId: sessionStorage.getItem("RouteId"),
 //     reservationStatus: "0",
 //     firstName: "a",
 //     middleName: "a",
@@ -1622,17 +1663,17 @@ async function changeContactNo1() {
 //     paidBy: "",
 //     modeOfPayment: "",
 //     paymentRemarks: "",
-//     pickUp: localStorage.getItem("RouteId").split(".")[1],
-//     dropOff: localStorage.getItem("RouteId").split(".")[2],
+//     pickUp: sessionStorage.getItem("RouteId").split(".")[1],
+//     dropOff: sessionStorage.getItem("RouteId").split(".")[2],
 //   };
 
 //   let dest = schedules[e.dataset.id];
-//   localStorage.setItem("sched-etd", dest.etd);
-//   localStorage.setItem("selected-sched", JSON.stringify(dest));
+//   sessionStorage.setItem("sched-etd", dest.etd);
+//   sessionStorage.setItem("selected-sched", JSON.stringify(dest));
 //   //console.log(dest);
-//   localStorage.setItem("RouteId", dest.tkey);
-//   localStorage.setItem("BusType", dest.bustype);
-//   localStorage.setItem("clientId", dest.clientid);
+//   sessionStorage.setItem("RouteId", dest.tkey);
+//   sessionStorage.setItem("BusType", dest.bustype);
+//   sessionStorage.setItem("clientId", dest.clientid);
 //   let body = document.querySelector("body");
 //   //  body.classList.toggle("modal-open");
 //   let bookingDetails = document.querySelector(".booking-details");

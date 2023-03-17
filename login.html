@@ -7,12 +7,13 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <!-- link css -->
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-  <link href="assets/css/style.css?v=1678760002456" rel="stylesheet" />
+  <link href="assets/css/style.css?v=1679036334782" rel="stylesheet" />
   <link href="assets/css/form.min.css" rel="stylesheet" />
   <title>IWantSeats</title>
   <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png" />
   <!-- unicons -->
-  <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" />
+  <link href="assets/fonts/fontawesome-all.min.css" rel="stylesheet" />
+  <!-- <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" /> -->
 </head>
 
 <body>
@@ -27,7 +28,7 @@
         <a href="./#contact" onclick="menu()">Contact us</a>
       </div>
       <div class="menu" onclick="menu()">
-        <i class="uil uil-align-center-alt"></i>
+        <i class="fas fa-bars"></i>
       </div>
     </div>
   </header>
@@ -41,13 +42,13 @@
         </center>
 
         <div class="fild">
-          <i class="uil uil-envelope-alt"></i>
+          <i class="fas fa-envelope"></i>
           <input id="email" name="email" placeholder="Email" required type="email" />
         </div>
         <div class="fild">
-          <i class="uil uil-key-skeleton-alt"></i>
+          <i class="fas fa-key"></i>
           <input id="password" placeholder="Password" required type="password" />
-          <i class="uil uil-dizzy-meh"></i>
+          <i class="fas fa-dizzy"></i>
         </div>
         <button class="btn signup fs-4" id="btn_login">Login</button>
 
@@ -110,7 +111,7 @@
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script rel="script" src="assets/js/axios.min.js"></script>1676463490861
   <script rel="script" src="assets/swal/sweetalert2.all.js"></script>
-  <script rel="script" src="assets/js/app.js?v=1678760002456"></script>
+  <script rel="script" src="assets/js/app.js?v=1679036334782"></script>
 
   <script>
     let axiosConfig = {
@@ -204,7 +205,7 @@
             localStorage.setItem("loginInfo", JSON.stringify(data));
             localStorage.setItem("userInfo", JSON.stringify(row));
             localStorage.setItem("TOKEN", row["TOKEN"]);
-            if (localStorage.getItem("originName")) {
+            if (sessionStorage.getItem("originName")) {
               window.location.href =
                 document.URL.substring(0, document.URL.lastIndexOf("/")) +
                 "/booking.html";

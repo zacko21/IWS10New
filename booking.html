@@ -6,14 +6,15 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-    <link href="assets/css/style.css?v=1678760002456" rel="stylesheet" />
-    <link href="assets/css/form.min.css?v=1678760002456" rel="stylesheet" />
-    <link href="assets/css/booking.css?v=1678760002456" rel="stylesheet" />
-    <link href="assets/css/buss.css?v=1678760002456" rel="stylesheet" />
+    <link href="assets/css/style.css?v=1679036334782" rel="stylesheet" />
+    <link href="assets/css/form.min.css?v=1679036334782" rel="stylesheet" />
+    <link href="assets/css/booking.css?v=1679036334782" rel="stylesheet" />
+    <link href="assets/css/buss.css?v=1679036334782" rel="stylesheet" />
     <link href="assets/swal/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- unicons -->
-    <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" />
+    <link href="assets/fonts/fontawesome-all.min.css" rel="stylesheet" />
+    <!-- <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" /> -->
     <title>IWantSeats</title>
     <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
     <style>
@@ -42,23 +43,19 @@
             -webkit-appearance: none;
         }
 
-        .rounded-pill-top{
+        .rounded-pill-top {
             border-radius: 50px 50px;
         }
 
-        .loaderImg{
+        .loaderImg {
             background: #fff url(./assets/images/bus.gif) no-repeat scroll 50% 50%;
             height: 100%;
             left: 0;
             top: 0;
             position: fixed;
             width: 100%;
-            z-index: 999999!important;
+            z-index: 999999 !important;
         }
-
-
-
-        
     </style>
 </head>
 
@@ -84,13 +81,13 @@
                 </div>
             </div>
             <div class="menu" onclick="menu()">
-                <i class="uil uil-align-center-alt"></i>
+                <i class="fas fa-align-center"></i>
             </div>
         </div>
     </header>
     <main>
         <button class="btn search-ag" onclick="openSearchbar()">
-            <i class="uil uil-search"></i> Search New Trip
+            <i class="fas fa-search"></i> Search New Trip
         </button>
 
         <div class="container">
@@ -100,10 +97,10 @@
                         <div class="search-fild drop-box">
                             <label for="from">From</label>
                             <div class="input from-input">
-                                <i class="uil uil-search search-ic"></i>
+                                <i class="fas fa-search" style="display: none;"></i>
                                 <input autocomplete="off" class="from-value" id="from" name="from"
                                     oninput="getLocation(this.value)" placeholder="Your location" required />
-                                <i class="uil uil-map-marker"></i>
+                                <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="dropdown">
                                 <div class="item from-locations">
@@ -113,10 +110,10 @@
                         <div class="search-fild drop-box">
                             <label for="to">To</label>
                             <div class="input to-input">
-                                <i class="uil uil-search search-ic"></i>
+                                <i class="fas fa-search" style="display: none;"></i>
                                 <input autocomplete="off" class="to-value" id="to" oninput="getDestination(this.value)"
                                     placeholder="Travel location" required />
-                                <i class="uil uil-location-arrow"></i>
+                                <i class="fas fa-location-arrow"></i>
                             </div>
                             <div class="dropdown">
                                 <div class="item to-locations">
@@ -129,7 +126,7 @@
                             <label for="from">Passengers</label>
                             <div class="input">
                                 <input id="passenger" required type="number" value="1" />
-                                <i class="uil uil-users-alt"></i>
+                                <i class="fas fa-user"></i>
                             </div>
                         </div>
                         <div class="search-fild">
@@ -137,7 +134,7 @@
                             <div class="input">
                                 <input id="date_of_departure" onchange="this.className=(this.value!=''?'has-value':'')"
                                     required type="date" onfocus="this.showPicker()" />
-                                    <label for="date_of_departure"><i class="uil uil-calendar-alt"></i></label>
+                                <label for="date_of_departure"><i class="fas fa-calendar"></i></label>
                             </div>
                         </div>
                         <!-- <div class="search-fild">
@@ -148,11 +145,11 @@
                             <div class="input">
                                 <input disabled id="date_of_return" name="date_of_return"
                                     onchange="this.className=(this.value!=''?'has-value':'')" type="date" />
-                                <i class="uil uil-calendar-alt"></i>
+                                <i class="fas fa-calendar"></i>
                             </div>
                         </div> -->
                         <button class="btn-primary search-btn" onclick="SearchForm(event)">
-                            <i class="uil uil-search"></i> Search
+                            <i class="fas fa-search"></i> Search
                         </button>
                     </div>
                 </div>
@@ -315,16 +312,16 @@
                                 <div class="info">
                                     <div class="item">
                                         <p>Account name:</p>
-                                        <span>Augmata Inc <i class="uil uil-copy"></i></span>
+                                        <span>Augmata Inc <i class="fas fa-copy"></i></span>
                                     </div>
                                     <div class="item">
                                         <p>Account number:</p>
-                                        <span>0069-3007-3406<i class="uil uil-copy"></i></span>
+                                        <span>0069-3007-3406<i class="fas fa-copy"></i></span>
                                     </div>
                                     <div class="item">
                                         <p>Account Type:</p>
                                         <span>Savings
-                                            <i class="uil uil-copy"></i></span>
+                                            <i class="fas fa-copy"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -335,16 +332,16 @@
                                 <div class="info">
                                     <div class="item">
                                         <p>Account name:</p>
-                                        <span>Stephanie Kapunan<i class="uil uil-copy"></i></span>
+                                        <span>Stephanie Kapunan<i class="fas fa-copy"></i></span>
                                     </div>
                                     <div class="item">
                                         <p>Account number:</p>
-                                        <span>3919-1197-39<i class="uil uil-copy"></i></span>
+                                        <span>3919-1197-39<i class="fas fa-copy"></i></span>
                                     </div>
                                     <div class="item">
                                         <p>Account Type:</p>
                                         <span>Savings
-                                            <i class="uil uil-copy"></i></span>
+                                            <i class="fas fa-copy"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -458,7 +455,8 @@
                             </div>
                         </div>
 
-                        <div class=" bus-body table-responsive border border-2 rounded-pill-top rounded-bottom p-4 shadow">
+                        <div
+                            class=" bus-body table-responsive border border-2 rounded-pill-top rounded-bottom p-4 shadow">
                         </div>
                     </div>
                     <div class="block passenger-s" id="passenger-block">
@@ -476,14 +474,14 @@
                     </div>
                     <div class="block locate-block">
                         <div class="item">
-                            <i class="uil uil-map-marker"></i>
+                            <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <p>Destination:</p>
                                 <p id="side_header"></p>
                             </div>
                         </div>
                         <div class="item">
-                            <i class="uil uil-bus-school"></i>
+                            <i class="fas fa-bus"></i>
                             <div id="s_departure">
                                 <p>Departure:</p>
                                 <span id="side_departure"></span>
@@ -538,15 +536,16 @@
                         </table>
                     </div>
 
-                    <button class="btn pay-con continue btn-primary fs-4" disabled onclick="continuePayment()">
-                        <i class="uil uil-credit-card"></i>
+                    <button class="btn pay-con continue btn-primary fs-4 p-4" disabled onclick="continuePayment()">
+                        <i class="fas fa-credit-card"></i>
                         Show Payment Options
                     </button>
                     <button class="btn cancel-btn btn-sm fs-4 btn-danger p-3" onclick="closeModal()">
                         Cancel Booking
                     </button>
-                    <a href="./user-admin.html" style="background-color: var(--green);" class="btn continue active btn-primary fs-4 mt-2 btn-history">
-                        <i class="uil uil-notes"></i>
+                    <a href="./user-admin.html" style="background-color: var(--green);"
+                        class="btn continue active btn-primary fs-4 mt-2 p-3 btn-history">
+                        <i class="fas fa-sticky-note"></i>
                         View Booking History
                     </a>
                 </div>
@@ -592,29 +591,29 @@
                         <h3>Edit info</h3>
                         <div class="row">
                             <div class="fild">
-                                <i class="uil uil-user"></i>
+                                <i class="fas fa-user"></i>
                                 <input id="first_name" name="first_name" placeholder="First name" required
                                     type="text" />
                             </div>
                             <div class="fild">
-                                <i class="uil uil-user"></i>
+                                <i class="fas fa-user"></i>
                                 <input id="last_name" name="last_name" placeholder="Last name" required type="text" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="fild">
-                                <i class="uil uil-phone"></i>
+                                <i class="fas fa-phone"></i>
                                 <input id="contact_number" name="contact_number" placeholder="Phone number"
                                     type="contact_number" required minlength="11" />
                             </div>
                             <div class="fild">
-                                <i class="uil uil-envelope-alt"></i>
+                                <i class="fas fa-envelope"></i>
                                 <input id="email" placeholder="Email" type="email" />
                             </div>
                         </div>
                         <label class="bt" for="birthday">Birthday</label>
                         <div class="fild" id="birth">
-                            <i class="uil uil-calendar-alt"></i>
+                            <i class="fas fa-calendar"></i>
                             <input id="birthday" name="birthday"
                                 onchange="this.className=(this.value!=''?'has-value':'')" type="date" />
                         </div>
@@ -624,14 +623,14 @@
                                 <div class="gender-type">
                                     <input checked id="male" name="gender" type="radio" value="M" />
                                     <label for="male">
-                                        <i class="uil uil-mars"></i>
+                                        <i class="fas fa-mars"></i>
                                         <p>male</p>
                                     </label>
                                 </div>
                                 <div class="gender-type d-flex align-middle">
                                     <input id="female" id="female" name="gender" type="radio" value="F" />
                                     <label for="female">
-                                        <i class="uil uil-venus"></i>
+                                        <i class="fas fa-venus"></i>
                                         <p>Female</p>
                                     </label>
                                 </div>
@@ -712,9 +711,9 @@
     <script rel="script" src="assets/js/lodash.min.js"></script>
     <script rel="script" src="assets/swal/sweetalert2.min.js"></script>
     <script rel="script" src="assets/js/moment.min.js"></script>
-    <script async rel="script" src="assets/js/app.js?v=1678760002456"></script>
-    <script async rel="script" src="assets/js/booking.js?v=1678760002456"></script>
-    <script async rel="script" src="assets/js/main.js?v=1678760002456s075219283"></script>
+    <script async rel="script" src="assets/js/app.js?v=1679036334782"></script>
+    <script async rel="script" src="assets/js/booking.js?v=1679036334782"></script>
+    <script async rel="script" src="assets/js/main.js?v=1679036334782s075219283"></script>
 
     <script>
         $("#chkReturn").change(function () {

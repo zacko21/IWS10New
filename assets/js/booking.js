@@ -79,7 +79,7 @@ function jumpTo(anchor_id) {
 function continuePayment() {
     if (continueBtn.classList.contains('active') == false) return;
     window.scrollTo(0, 0);
-    let rlist = JSON.parse(localStorage.getItem('reservation'));
+    let rlist = JSON.parse(sessionStorage.getItem('reservation'));
     let ok = true;
     let noCNo = true;
     rlist.forEach((row, index) => {
@@ -197,12 +197,12 @@ function openSearchbar() {
     window.scrollTo(0, 0);
     document.querySelector('.to-input').nextElementSibling.classList.remove('active')
     document.querySelector('.from-input').nextElementSibling.classList.remove('active')
-    $('#from').val(localStorage.getItem('originName'));
-    $('#to').val(localStorage.getItem('destinationName'));
-    $('#from').attr('data-clientid', localStorage.getItem('clientId'));
+    $('#from').val(sessionStorage.getItem('originName'));
+    $('#to').val(sessionStorage.getItem('destinationName'));
+    $('#from').attr('data-clientid', sessionStorage.getItem('clientId'));
     getLocation();
     getDestination();
-    $('#date_of_departure').val(localStorage.getItem('departure'));
+    $('#date_of_departure').val(sessionStorage.getItem('departure'));
     searchBarMain.classList.toggle("active");
     floatingSearched.classList.toggle("uil-multiply");
 }

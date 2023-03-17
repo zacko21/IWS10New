@@ -7,12 +7,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <!-- link css -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-    <link href="assets/css/style.css?v=1678760002456" rel="stylesheet" />
-    <link href="assets/css/form.min.css?v=1678760002456" rel="stylesheet" />
+    <link href="assets/css/style.css?v=1679036334782" rel="stylesheet" />
+    <link href="assets/css/form.min.css?v=1679036334782" rel="stylesheet" />
     <link href="assets/swal/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- unicons -->
-    <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" />
+    <link href="assets/fonts/fontawesome-all.min.css" rel="stylesheet" />
+    <!-- <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet" /> -->
     <title>IWantSeats</title>
     <link href="assets/images/logo.png" rel="icon" sizes="185x191" type="image/png">
 </head>
@@ -32,13 +33,13 @@
                 <!--            </a>-->
             </div>
             <div class="menu" onclick="menu()">
-                <i class="uil uil-align-center-alt"></i>
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </header>
     <section class="form-main">
         <div class="container">
-            <form id="signupform" action="#" onsubmit="submitForm(event)">
+            <form id="signupform" action="#" onsubmit="return submitForm(this)">
                 <center>
                     <div class="form-title">
                         <h3>Sign Up</h3>
@@ -47,34 +48,34 @@
 
                 <div class="user-pic">
                     <label for="profile">
-                        <i class="uil uil-camera"></i>
+                        <i class="fas fa-camera"></i>
                     </label>
                     <input id="profile" name="" type="file" />
                 </div>
                 <div class="row">
                     <div class="fild">
-                        <i class="uil uil-user"></i>
+                        <i class="fas fa-user"></i>
                         <input id="first_name" name="first_name" placeholder="First name" required type="text" />
                     </div>
                     <div class="fild">
-                        <i class="uil uil-user"></i>
+                        <i class="fas fa-user"></i>
                         <input id="last_name" name="last_name" placeholder="Last name" required type="text" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="fild">
-                        <i class="uil uil-phone"></i>
+                        <i class="fas fa-phone"></i>
                         <input id="contact_number" name="contact_number" placeholder="Phone number"
                             type="contact_number" />
                     </div>
                     <div class="fild">
-                        <i class="uil uil-envelope-alt"></i>
+                        <i class="fas fa-envelope"></i>
                         <input id="email" placeholder="Email" required type="email" />
                     </div>
                 </div>
                 <label class="bt" for="birthday">Birthday</label>
                 <div class="fild" id="birth">
-                    <i class="uil uil-calendar-alt"></i>
+                    <i class="fas fa-calendar"></i>
                     <input id="birthday" name="birthday" type="date" required />
                 </div>
                 <div class="gender-main">
@@ -83,21 +84,21 @@
                         <div class="gender-type">
                             <input checked id="male" name="gender" type="radio" value="male" />
                             <label for="male">
-                                <i class="uil uil-mars"></i>
+                                <i class="fas fa-mars"></i>
                                 <p>male</p>
                             </label>
                         </div>
                         <div class="gender-type">
-                            <input id="female" name="gender" type="radio" />
+                            <input id="female" name="gender" type="radio" value="female" />
                             <label for="female">
-                                <i class="uil uil-venus"></i>
+                                <i class="fas fa-venus"></i>
                                 <p>Female</p>
                             </label>
                         </div>
                         <!-- <div class="gender-type">
                         <input id="mix" name="gender" type="radio" value="mix"/>
                         <label for="mix">
-                            <i class="uil uil-user"></i>
+                            <i class="fas fa-user"></i>
                             <p>3rd gender</p>
                         </label>
                     </div> -->
@@ -105,11 +106,11 @@
                 </div>
 
                 <div class="fild">
-                    <i class="uil uil-key-skeleton-alt"></i>
+                    <i class="fas fa-key"></i>
                     <input id="password" placeholder="Password" required type="password" />
-                    <i class="uil uil-dizzy-meh"></i>
+                    <i class="fas fa-dizzy"></i>
                 </div>
-                <button class="btn signup fs-4" id="btn_sign_up">Signup</button>
+                <button class="btn signup fs-4" type="submit" id="btn_sign_up">Signup</button>
 
                 <div class="ask">
                     <p>Already have an account? <a href="login.html">Login</a></p>
@@ -180,7 +181,7 @@
     <script rel="script" src="assets/js/loadingoverlay.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script rel="script" src="assets/swal/sweetalert2.min.js"></script>
-    <script rel="script" src="assets/js/app.js?v=1678760002456"></script>
+    <script rel="script" src="assets/js/app.js?v=1679036334782"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             let token = localStorage.getItem('TOKEN');
@@ -193,9 +194,8 @@
         });
 
 
-        submitForm = (e) => {
+        submitForm = (form) => {
             $('#signupform').LoadingOverlay('show');
-            e.preventDefault();
 
             var account = {
                 email: document.querySelector('#email').value,
@@ -223,7 +223,7 @@
                         icon: 'success',
                         title: 'Success',
                         text: 'Please check your registered email to activate your account. ',
-                        footer: '<p class="fs-5">Click <a href="#"> HERE </a> to login</p>'
+                        footer: '<p class="fs-5">Click <a href="./login.html"> HERE </a> to login</p>'
                     })
                     //localStorage.setItem('TOKEN', data['TOKEN']);
                     //window.location.href = document.URL.substring(0,document.URL.lastIndexOf('/')) + '/login.html';
@@ -235,6 +235,8 @@
                     })
                 }
             });
+
+            return false;
 
         };
 
