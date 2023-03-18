@@ -570,7 +570,7 @@ function checkReservation() {
       swal.fire("Please update passenger(s) Name").then(function () {
         setTimeout(function(){
           gotoView('#passenger-list');  
-        })
+        },300);
       });
 
       ok = false;
@@ -579,7 +579,7 @@ function checkReservation() {
       Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.').then(()=>{
         setTimeout(function(){  
           gotoView('#passenger-list',true);
-        })
+        },300);
       });
       ok = false;
     }
@@ -592,7 +592,7 @@ function checkReservation() {
     Swal.fire('Please update the passenger Contact No.').then(() => {
       setTimeout(function(){
         gotoView('#passenger-list',false,true);
-      })
+      },300);
     });
   }
   return ok;
@@ -1447,7 +1447,7 @@ function loadTrip() {
           seatOK = false;
         }
         html += `<option value="${res.ReferenceNo}">${name}</option>`;
-        htmList += `<div class="block">
+        htmList += `<div class="block ${res.SeatNo == 'UNASSIGNED' ? 'no-seat' : ''} ${res.ContactNo != '' ? 'has-contact' : ''}">
                               <div class="item">
                                   <div>
                                       <p>Seat no:</p>
