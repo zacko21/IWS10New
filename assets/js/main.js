@@ -1,10 +1,12 @@
 var action = '';
-
+var apiUrl = ""
 let axiosConfig = {
   headers: {
     "Content-Type": "application/json;charset=UTF-8",
   },
 };
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 $.LoadingOverlaySetup({
   imageColor: "#4a6c2f"
@@ -178,6 +180,9 @@ async function fetchPassengerSeat(refNo, seatNo) {
   }
 }
 
+
+var bCounter = 0;
+
 async function fetchManifest() {
   $(".bus-seat-select").LoadingOverlay("show");
   let token = localStorage.getItem("TOKEN");
@@ -198,9 +203,32 @@ async function fetchManifest() {
       $(".bus-seat-select").LoadingOverlay("hide");
       //console.log("manifest", response.data);
       if (response.data == "") {
-        //console.log("empty data");
+        if (bCounter > 5) {
+          let timerInterval;
+          await Swal.fire({
+            title: 'Oops.. Something went wrong.',
+            html: 'Reloading the page in <b></b> milliseconds.',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            location.reload();
+          })
+        }
+        bCounter++;
+        await delay(500);
         return fetchManifest();
       }
+      bCounter = 0;
       return response.data;
     } catch (err) {
       console.error(err);
@@ -252,10 +280,33 @@ async function fetchReserve() {
 
       $(".booking-details").LoadingOverlay("hide");
       if (response.data == "") {
-        console.log("RESERVE DATA: --empty data---");
+        if (bCounter > 5) {
+          let timerInterval;
+          await Swal.fire({
+            title: 'Oops.. Something went wrong.',
+            html: 'Reloading the page in <b></b> milliseconds.',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            location.reload();
+          })
+        }
+        bCounter++;
+        await delay(500);
         return fetchReserve();
       }
       console.log("RESERVE DATA: ", response.data);
+      bCounter = 0;
       return response.data;
     } catch (err) {
       console.error(err);
@@ -568,18 +619,18 @@ function checkReservation() {
     if (row.LastName === 'Lastname' || row.FirstName === 'Firstname') {
 
       swal.fire("Please update passenger(s) Name").then(function () {
-        setTimeout(function(){
-          gotoView('#passenger-list');  
-        },300);
+        setTimeout(function () {
+          gotoView('#passenger-list');
+        }, 300);
       });
 
       ok = false;
     }
     if (row.SeatNo === 'UNASSIGNED') {
-      Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.').then(()=>{
-        setTimeout(function(){  
-          gotoView('#passenger-list',true);
-        },300);
+      Swal.fire('Before proceeding, please assign a Passenger Seat. Thank you.').then(() => {
+        setTimeout(function () {
+          gotoView('#passenger-list', true);
+        }, 300);
       });
       ok = false;
     }
@@ -590,9 +641,9 @@ function checkReservation() {
   if (noCNo) {
     ok = false;
     Swal.fire('Please update the passenger Contact No.').then(() => {
-      setTimeout(function(){
-        gotoView('#passenger-list',false,true);
-      },300);
+      setTimeout(function () {
+        gotoView('#passenger-list', false, true);
+      }, 300);
     });
   }
   return ok;
