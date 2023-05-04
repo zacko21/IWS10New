@@ -716,6 +716,27 @@
     <script async rel="script" src="assets/js/main.js?v=1683159031437s075219283"></script>
 
     <script>
+        $(document).ready(function () {
+            let path = window.location.pathname;
+            let page = path.split("/").pop();
+            if (page.includes("bookingsearch")) {
+                let dest = GetURLParameter('destination');
+                let origin = GetURLParameter('origin');
+                //console.log(action);
+                if (dest && origin) {
+                    sessionStorage.setItem("originName", origin);
+                    sessionStorage.setItem("destinationName", dest);
+                    sessionStorage.setItem("passenger_count", 1);
+                    sessionStorage.setItem("departure", moment().add(1, 'd').format('YYYY-MM-DD'));
+                    getSchedules();
+                }
+                $('.loaderImg').addClass('d-none');
+
+                sessionStorage.removeItem("selected-sched");
+            }
+        })
+
+        
         $("#chkReturn").change(function () {
             if (this.checked) {
                 Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')
