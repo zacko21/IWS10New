@@ -731,12 +731,11 @@
                     getSchedules();
                 }
                 $('.loaderImg').addClass('d-none');
-
                 sessionStorage.removeItem("selected-sched");
             }
         })
 
-        
+
         $("#chkReturn").change(function () {
             if (this.checked) {
                 Swal.fire('Roundtrip search is not available at this time. You may book roundtrip tickets separately. Thank you.')

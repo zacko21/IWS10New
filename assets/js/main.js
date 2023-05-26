@@ -800,9 +800,9 @@ async function getSchedules() {
         let html = "";
         ////console.log(data);
 
-        header.innerHTML = `<p class="mb-0"><span>${data[0].originname}</span> TO <span>${data[0].destinationname}</span></p>
+        header.innerHTML = `<p class="mb-0"><span>${data[0].originname}</span> TO <span>${data[0].dropoffname}</span></p>
         <span class="fs-3 fw-lighter">Travel Date: <span class="fw-bold">${moment(data[0].tripdate).format("MMMM DD, YYYY - ddd ")}</span></span>`;
-        header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].destinationname}</span></p>`;
+        header1.innerHTML = `<p><span>${data[0].originname}</span> - <span>${data[0].dropoffname}</span></p>`;
         data.forEach((results, index) => {
           let now = moment(`${data[0].tripdate} ${results["etd"]}`);
           let end = moment(`${data[0].tripdate} ${results["eta"]}`);
